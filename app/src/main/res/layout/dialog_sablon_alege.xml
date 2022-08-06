@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="top"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Alege zi:"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/galben_mocasin" >
+
+        <Spinner
+            android:id="@+id/spnZiDlgSablonAlege"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/spnSablonZi"
+            android:padding="10dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Alege cursa:"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/galben_mocasin"
+        android:orientation="vertical" >
+
+        <Spinner
+            android:id="@+id/spnCursaDlgSablonAlege"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/spnSablonCursa"
+            android:padding="10dp" />
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/chkFaraCantDlgsablonAlege"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Fara cantitati"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="138dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="invisible" />
+
+</LinearLayout>

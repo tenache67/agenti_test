@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ATENTIE pentru ca ransdul din listview sa faca schimbarea de culoare la click 
+si ca raspunda la click este necesar 
+ca tot randul si toate componentele din rand sa aiba android:focusable="false"
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="false" >
+
+    <TextView
+        android:id="@+id/listDen_txt_denumire_agent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:focusable="false"
+        android:text="Denumire"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/listDen_txt_denumire_agent"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

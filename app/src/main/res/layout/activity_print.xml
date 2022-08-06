@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ro.prosoftsrl.listare.PrintActivity">
+
+    <LinearLayout
+        android:layout_width="262dp"
+        android:layout_height="511dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnListeazaPrintActivity"
+            android:layout_width="match_parent"
+            android:layout_height="116dp"
+            android:text="Listeaza" />
+
+        <Button
+            android:id="@+id/btnReconnectPrintActivity"
+            android:layout_width="match_parent"
+            android:layout_height="116dp"
+            android:text="Reconecteaza" />
+
+        <Button
+            android:id="@+id/btnListare2PrintActivity"
+            android:layout_width="match_parent"
+            android:layout_height="116dp"
+            android:text="Listare alternativa" />
+
+        <Button
+            android:id="@+id/btnClosePrintActivity"
+            android:layout_width="match_parent"
+            android:layout_height="116dp"
+            android:text="Renunta" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

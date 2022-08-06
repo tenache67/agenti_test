@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="setari_ecran1" >Date identificare agent</string>
+	<string name="setari_ecran1_sumar">Nume,prenume,cod,auto ...</string>
+	<string name="setari_ecran2" >Serii documente</string>
+	<string name="setari_ecran2_sumar">Limita inferioara, superioara , nr. curent ...</string>
+	<string name="setari_ecran3" >Informatii conectare</string>
+	<string name="setari_ecran3_sumar">Sir de conectare, tip server ...</string>
+	<string name="setari_ecran4" >Date pentru facturare</string>
+	<string name="setari_ecran4_sumar">Firma, cod fiscal ... </string>
+	<string name="setari_ecran5" >Diversi parametri</string>
+	<string name="setari_ecran5_sumar"> </string>
+	
+	<!-- key pr preferinte -->
+	<!-- ecran 1 -->
+	<string name="key_ecran1_id_agent">key_ecran1_id_agent</string>
+    <string name="key_ecran1_set_delegat_activ">key_ecran1_set_delegat_activ</string>
+
+	<string name="key_ecran1_numeagent">key_ecran1_numeagent</string>
+	<string name="key_ecran1_biagent">key_ecran1_biagent</string>
+	<string name="key_ecran1_cnpagent">key_ecran1_cnpagent</string>
+	<string name="key_ecran1_polagent">key_ecran1_polagent</string>
+    <string name="key_ecran1_auto">key_ecran1_auto</string>
+
+    <string name="key_ecran1_numeagent2">key_ecran1_numeagent</string>
+    <string name="key_ecran1_biagent2">key_ecran1_biagent</string>
+    <string name="key_ecran1_cnpagent2">key_ecran1_cnpagent</string>
+    <string name="key_ecran1_polagent2">key_ecran1_polagent</string>
+    <string name="key_ecran1_auto2">key_ecran1_auto</string>
+
+	<string name="key_ecran1_codagent">key_ecran1_codagent</string>
+	<!-- ecran 2 -->
+	<string name="key_ecran2_facturi_curent">key_ecran2_facturi_curent</string>
+	<string name="key_ecran2_facturi_final">key_ecran2_facturi_final</string>
+	<string name="key_ecran2_aviz_curent">key_ecran2_aviz_curent</string>
+	<string name="key_ecran2_aviz_final">key_ecran2_aviz_final</string>
+    <string name="key_ecran2_chitanta_curent">key_ecran2_chitanta_curent</string>
+    <string name="key_ecran2_chitanta_final">key_ecran2_chitanta_final</string>
+	<string name="key_ecran2_comanda_curent">key_ecran2_comanda_curent</string>
+	<string name="key_ecran2_comanda_final">key_ecran2_comanda_final</string>
+	<string name="key_ecran2_avmf_curent">key_ecran2_avmf_curent</string>
+	<string name="key_ecran2_avmf_final">key_ecran2_avmf_final</string>
+	<!-- ecran 3 -->
+	<string name="key_ecran3_fara_server">key_ecran3_fara_server</string>
+	<string name="key_ecran3_ipserver">key_ecran3_ipserver</string>
+	<string name="key_ecran3_nume_db">key_ecran3_nume_db</string>
+	<string name="key_ecran3_instanta_sql">key_ecran3_instanta_sql</string>
+	<string name="key_ecran3_user">key_ecran3_user</string>
+	<string name="key_ecran3_parola">key_ecran3_parola</string>
+	<string name="key_ecran3_bluetadapter">key_ecran3_bluetadapter</string>
+	<string name="key_ecran3_bluetcasamarcat">key_ecran3_bluetcasamarcat</string>
+			<!-- ecran 4 -->
+	<string name="key_ecran4_pret_vanzare">key_ecran4_pret_vanzare</string>
+	<string name="key_ecran4_nume_firma">key_ecran4_nume_firma</string>
+	<string name="key_ecran4_cf">key_ecran4_cf</string>
+	<string name="key_ecran4_nrrc">key_ecran4_nrrc</string>
+	<string name="key_ecran4_adresa">key_ecran4_adresa</string>
+    <string name="key_ecran4_judet">key_ecran4_judet</string>
+	<string name="key_ecran4_banca1">key_ecran4_banca1</string>
+	<string name="key_ecran4_cont1">key_ecran4_cont1</string>
+	<string name="key_ecran4_banca2">key_ecran4_banca2</string>
+	<string name="key_ecran4_cont2">key_ecran4_cont2</string>
+	<string name="key_ecran4_banca3"></string>
+	<string name="key_ecran4_cont3">key_ecran4_cont3</string>
+	<string name="key_ecran4_serie_facturi">key_ecran4_serie_facturi</string>
+	<string name="key_ecran4_cap_social">key_ecran4_cap_social</string>
+	<string name="key_ecran4_telfax">key_ecran4_telfax</string>
+	<!-- ecran 5 -->
+	<string name="key_ecran5_comenzi_online">key_ecran5_comenzi_online</string>
+	<string name="key_ecran5_zile_date">key_ecran5_zile_date</string>
+	<string name="key_ecran5_casa_marcat_test">key_ecran5_casa_marcat_test</string>
+	<string name="key_ecran5_model_printer">key_ecran5_model_printer</string>
+	<string name="key_ecran5_ambalaje_obligat">key_ecran5_ambalaje_obligat</string>
+	<string name="key_ecran5_catpret_baza">key_ecran5_catpret_baza</string>
+    <string name="key_ecran5_varianta">key_ecran5_varianta</string>
+    <string name="key_ecran5_actual_clienti">key_ecran5_actual_clienti</string>
+    <string name="key_ecran5_forme_ambalare">key_ecran5_forme_ambalare</string>
+    <string name="key_ecran5_transmite_avincdesc">key_ecran5_transmite_avincdesc</string>
+    <string name="key_ecran5_fara_descarcare">key_ecran5_fara_descarcare</string>
+	<string name="key_ecran5_fara_comanda">key_ecran5_fara_comanda</string>
+	<string name="key_ecran5_chitanta_serie_separata">key_ecran5_</string>
+
+	<!-- titluri -->
+	<!-- ecran 1 -->
+	<string name="titlu_ecran1_id_agent">Identificator agent</string>
+    <string name="titlu_ecran1_set_delegat_activ">Set delegat activ</string>
+
+	<string name="titlu_ecran1_numeagent">Nume prenume agent</string>
+	<string name="titlu_ecran1_biagent">Serie, numar buletin / CI</string>
+	<string name="titlu_ecran1_polagent">Eliberat de ... la data ...</string>
+	<string name="titlu_ecran1_cnpagent">CNP</string>
+    <string name="titlu_ecran1_auto">Numar auto</string>
+
+    <string name="titlu_ecran1_numeagent2">Nume prenume agent</string>
+    <string name="titlu_ecran1_biagent2">Serie, numar buletin / CI</string>
+    <string name="titlu_ecran1_polagent2">Eliberat de ... la data ...</string>
+    <string name="titlu_ecran1_cnpagent2">CNP</string>
+    <string name="titlu_ecran1_auto2">Numar auto</string>
+
+    <string name="titlu_ecran1_codagent">Cod agent, pentru sincronizare</string>
+	<!-- ecran 2 -->
+	<string name="titlu_ecran2_categorie_facturi">Serii facturi</string>
+	<string name="titlu_ecran2_categorie_avize">Serii avize</string>
+    <string name="titlu_ecran2_categorie_chitanta">Serii chitante</string>
+	<string name="titlu_ecran2_categorie_comenzi">Serii comenzi</string>
+	<string name="titlu_ecran2_categorie_avize_marfa">Serii avize inc./desc.</string>
+	<string name="titlu_ecran2_facturi_curent">Numar curent factura</string>
+	<string name="titlu_ecran2_facturi_final">Ultimul numar factura</string>
+	<string name="titlu_ecran2_aviz_curent">Numar curent aviz</string>
+	<string name="titlu_ecran2_aviz_final">Ultimul numar aviz</string>
+    <string name="titlu_ecran2_chitanta_curent">Numar curent chitanta</string>
+    <string name="titlu_ecran2_chitanta_final">Ultimul numar chitanta</string>
+	<string name="titlu_ecran2_comanda_curent">Numar curent comanda</string>
+	<string name="titlu_ecran2_comanda_final">Ultimul numar comanda</string>
+	<string name="titlu_ecran2_avmf_curent">Numar curent aviz marfa</string>
+	<string name="titlu_ecran2_avmf_final">Ultimul numar aviz marfa</string>
+<!-- ecran 3 -->
+	<string name="titlu_ecran3_fara_server">Sincronizare la server activa</string>
+	<string name="titlu_ecran3_ipserver">Adresa IP server SQL</string>
+	<string name="titlu_ecran3_nume_db">Nume baza de date</string>
+	<string name="titlu_ecran3_instanta_sql">Nume instanta SQL</string>
+	<string name="titlu_ecran3_user">User</string>
+	<string name="titlu_ecran3_parola">Parola</string>
+	<string name="titlu_ecran3_bluetadapter">Adaptor bluet. pt. listare</string>
+	<string name="titlu_ecran3_bluetcasamarcat">Adaptor bluet. pt. casa de marcat</string>
+<!-- ecran 4 -->
+	<string name="titlu_ecran4_pret_vanzare">Pretul de vanzare este cu TVA </string>
+	<string name="titlu_ecran4_nume_firma">Denumire firma</string>
+	<string name="titlu_ecran4_cf">Cod fiscal</string>
+	<string name="titlu_ecran4_nrrc">Numar Reg. Com.</string>
+	<string name="titlu_ecran4_adresa">Adresa</string>
+    <string name="titlu_ecran4_judet">Judet</string>
+	<string name="titlu_ecran4_banca1">Banca 1</string>
+	<string name="titlu_ecran4_cont1">Cont 1</string>
+	<string name="titlu_ecran4_cont2">Cont 2</string>
+	<string name="titlu_ecran4_banca2">Banca 2</string>
+	<string name="titlu_ecran4_cont3">Cont 3</string>
+	<string name="titlu_ecran4_banca3">Banca 3</string>
+	<string name="titlu_ecran4_serie_facturi">Seria facturilor</string>
+	<string name="titlu_ecran4_cap_social">Capital social</string>
+	<string name="titlu_ecran4_telfax">Telefon / Fax</string>
+	<!-- ecran 5 -->
+	<string name="titlu_ecran5_comenzi_online">Numai precomenzi</string>
+	<string name="titlu_ecran5_zile_date">Numar zile pentru pastrarea istoricului (-1 nelimitat)</string>
+	<string name="titlu_ecran5_casa_marcat_test">Mod test la CASA MARCAT</string>
+	<string name="titlu_ecran5_model_printer">Model imprimanta la listare</string>
+	<string name="titlu_ecran5_ambalaje_obligat">Obligativitate ambalaje</string>
+	<string name="titlu_ecran5_catpret_baza">Categ. pret baza</string>
+    <string name="titlu_ecran5_varianta">Varianta program</string>
+    <string name="titlu_ecran5_actual_clienti">Permite actualizare clienti</string>
+    <string name="titlu_ecran5_forme_ambalare">Afiseaza forme de ambalare</string>
+    <string name="titlu_ecran5_transmite_avincdesc">Transmite toate avizele</string>
+    <string name="titlu_ecran5_fara_descarcare">Fara descarcare masina</string>
+	<string name="titlu_ecran5_fara_comanda">Fara avertizare stoc</string>
+	<string name="titlu_ecran5_chitanta_serie_separata">Serie separata la chitanta</string>
+
+<!-- valori default -->
+    <!-- ecran 1 -->
+    <string name="default_ecran1_set_delegat_activ">SET 1</string>
+    <!--  -->
+    <!-- ecran 5 -->
+	<string name="default_ecran5_model_printer">EPSON</string>
+<!--  -->	
+	
+	<string-array name="array_ecran5_opt_model_printer" >
+	    <item>EPSON</item>
+	    <item>SEIKO</item>
+        <item>DPP-450</item>
+		<item>DPP-350</item>
+	</string-array>
+				
+	<string-array name="array_ecran5_valori_model_printer" >
+	    <item>EPSON</item>
+	    <item>SEIKO</item>
+        <item>DPP-450</item>
+		<item>DPP-350</item>
+	</string-array>
+
+    <string-array name="array_ecran1_set_delegat_activ" >
+        <item>SET 1</item>
+        <item>SET 2</item>
+    </string-array>
+    <string-array name="array_ecran1_valori_set_delegat_activ" >
+        <item>SET 1</item>
+        <item>SEt 2</item>
+    </string-array>
+
+    <!-- sumare -->
+<!-- 	<string name="setari_ecran1_toglle_setatre">Toggle setare 1</string> -->
+<!-- 	<string name="setari_ecran1_sumar_toglle_setatre">Toggle sumar</string> -->
+<!-- 	<string name="setari_setare_notificare">Titlu categorie notificare</string> -->
+<!-- 	<string name="setari_titlu_notificare">Titlu checkbox</string>	 -->
+<!-- 	<string name="setari_sumar_frecventaSincro">Sumar frecventa sincro</string> -->
+<!-- 	<string name="setari_titlu_frecventaSincro">Titlu frecventa sincro</string>	 -->
+		
+		
+<!-- 	<string-array name="setari_frecventaSincro" > -->
+<!-- 	    <item>opt sincro 1</item> -->
+<!-- 	    <item>opt sincro 2></item> -->
+<!-- 	    <item>opt sincro 3></item> -->
+<!-- 	</string-array> -->
+<!-- 	<string-array name="setari_valori_frecventaSincro"> -->
+<!-- 	    <item >val opt 1</item> -->
+<!-- 	    <item >val opt 2</item> -->
+<!-- 	    <item >val opt 3</item> -->
+<!-- 	</string-array>	 -->
+	
+</resources>

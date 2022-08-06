@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btnInitDataLocal">Initializare B.D. locala</string>
+    <string name="btnTestConnServer">Testeaza conexiunea la server</string>
+    <string name="txtNrInitDatalocal">Nr de initializare</string>
+</resources>

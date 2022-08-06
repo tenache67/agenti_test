@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layFrgDocIncasare"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:layout_weight="0.50"
+    android:orientation="vertical"
+    android:weightSum="1.0" >
+
+    <EditText
+        android:id="@+id/editNrInitdataLocal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnInitdataLocal"
+        android:layout_alignBottom="@+id/btnInitdataLocal"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/btnInitdataLocal"
+        android:ems="10"
+        android:hint="@string/txtNrInitDatalocal"
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/btnTestConnServer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/btnTestConnServer" />
+
+    <Button
+        android:id="@+id/btnInitdataLocal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnTestConnServer"
+        android:layout_marginTop="16dp"
+        android:text="@string/btnInitDataLocal" />
+
+    <EditText
+        android:id="@+id/txtCpanelCresteSerie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editNrInitdataLocal"
+        android:layout_toRightOf="@+id/btnCpanelCresteSerie"
+        android:ems="10"
+        android:hint="@string/txtCpanelCresteSerie"
+        android:inputType="numberSigned" />
+
+    <Button
+        android:id="@+id/btnCpanelCresteSerie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editNrInitdataLocal"
+        android:text="@string/btnCpanelCresteSerie" />
+
+    <Button
+        android:id="@+id/btnCopiazaDb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btnCpanelCresteSerie"
+        android:text="Copiaza db" />
+
+    <Button
+        android:id="@+id/btnCPanelraportZ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btnCopiazaDb"
+        android:text="Raport Z ( casa de marcat)" />
+
+    <Button
+        android:id="@+id/btnCPanelDeblocCasa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btnCPanelraportZ"
+        android:text="Deblocare ( casa de marcat)" />
+
+    <Button
+        android:id="@+id/btnCPanelPuePret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnCPanelDeblocCasa"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="Reface preturi la doc cu zero" />
+
+    <Button
+        android:id="@+id/btnCPanelExpSetari"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnCPanelDeblocCasa"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginRight="-3dp"
+        android:text="Export setari in server" />
+
+    <Button
+        android:id="@+id/btnCPanelImpSetari"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnCPanelDeblocCasa"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginRight="0dp"
+        android:text="Import setari din server" />
+
+    <Button
+        android:id="@+id/btnTesteDiverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnCPanelDeblocCasa"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="159dp"
+        android:layout_marginRight="-2dp"
+        android:text="Test" />
+
+</RelativeLayout>

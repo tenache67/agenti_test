@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+	<PreferenceScreen 
+    	android:title="@string/setari_ecran1"
+    	android:summary="@string/setari_ecran1_sumar" >
+    	
+		<EditTextPreference 
+		    android:key="@string/key_ecran1_id_agent"
+		    android:title="@string/titlu_ecran1_id_agent"
+		    android:inputType="number"
+	    />
+
+        <ListPreference
+            android:key="@string/key_ecran1_set_delegat_activ"
+            android:entries="@array/array_ecran1_set_delegat_activ"
+            android:entryValues="@array/array_ecran1_valori_set_delegat_activ"
+            android:title="@string/titlu_ecran1_set_delegat_activ"
+            android:defaultValue="@string/default_ecran1_set_delegat_activ"
+            />
+
+        <PreferenceScreen
+            android:title="Date delegat SET 1"
+            android:summary="alternativa delegat SET 1" >
+
+            <EditTextPreference
+                android:key="@string/key_ecran1_numeagent"
+                android:title="@string/titlu_ecran1_numeagent"
+				android:inputType="text"
+                />
+            <EditTextPreference
+                android:key="@string/key_ecran1_biagent"
+                android:title="@string/titlu_ecran1_biagent"
+                />
+            <EditTextPreference
+                android:key="@string/key_ecran1_polagent"
+                android:title="@string/titlu_ecran1_polagent"
+				android:defaultValue="ppp"
+                />
+            <EditTextPreference
+                android:key="@string/key_ecran1_cnpagent"
+                android:title="@string/titlu_ecran1_cnpagent"
+                />
+            <EditTextPreference
+                android:key="@string/key_ecran1_auto"
+                android:title="@string/titlu_ecran1_auto"
+                />
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:title="Date delegat SET 2"
+            android:summary="alternativa delegat SET 2" >
+
+            <EditTextPreference
+                android:key="@string/key_ecran1_numeagent2"
+                android:title="@string/titlu_ecran1_numeagent2"
+                />
+            <EditTextPreference
+                android:key="@string/key_ecran1_biagent2"
+                android:title="@string/titlu_ecran1_biagent2"
+                />
+            <EditTextPreference
+                android:key="@string/key_ecran1_polagent2"
+                android:title="@string/titlu_ecran1_polagent2"
+                />
+            <EditTextPreference
+                android:key="@string/key_ecran1_cnpagent2"
+                android:title="@string/titlu_ecran1_cnpagent2"
+                />
+            <EditTextPreference
+                android:key="@string/key_ecran1_auto2"
+                android:title="@string/titlu_ecran1_auto2"
+                />
+        </PreferenceScreen>
+
+		<EditTextPreference
+		    android:key="@string/key_ecran1_codagent"
+		    android:title="@string/titlu_ecran1_codagent"
+	    />
+		</PreferenceScreen>
+    <PreferenceScreen 
+        android:title="@string/setari_ecran2"
+        android:summary="@string/setari_ecran2_sumar" >
+		<PreferenceCategory
+	    	android:title="@string/titlu_ecran2_categorie_facturi" >
+		<EditTextPreference
+		    android:title="@string/titlu_ecran2_facturi_curent"
+		    android:key="@string/key_ecran2_facturi_curent"
+		    android:defaultValue="1"
+		    android:inputType="number"
+		    />
+		<EditTextPreference
+		    android:title="@string/titlu_ecran2_facturi_final"
+		    android:key="@string/key_ecran2_facturi_final"
+		    android:defaultValue="1"
+		    android:inputType="number"
+		    />
+		</PreferenceCategory>    	
+		<PreferenceCategory
+	    	android:title="@string/titlu_ecran2_categorie_avize" >
+		<EditTextPreference
+		    android:title="@string/titlu_ecran2_aviz_curent"
+		    android:key="@string/key_ecran2_aviz_curent"
+		    android:defaultValue="1"
+		    android:inputType="number"
+		    />
+		<EditTextPreference
+		    android:title="@string/titlu_ecran2_aviz_final"
+		    android:key="@string/key_ecran2_aviz_final"
+		    android:defaultValue="1"
+		    android:inputType="number"
+		    />
+		</PreferenceCategory>
+        <PreferenceCategory
+            android:title="@string/titlu_ecran2_categorie_chitanta" >
+            <EditTextPreference
+                android:title="@string/titlu_ecran2_chitanta_curent"
+                android:key="@string/key_ecran2_chitanta_curent"
+                android:defaultValue="1"
+                android:inputType="number"
+                />
+            <EditTextPreference
+                android:title="@string/titlu_ecran2_chitanta_final"
+                android:key="@string/key_ecran2_chitanta_final"
+                android:defaultValue="1"
+                android:inputType="number"
+                />
+        </PreferenceCategory>
+
+        <PreferenceCategory
+	    	android:title="@string/titlu_ecran2_categorie_comenzi" >
+		<EditTextPreference
+		    android:title="@string/titlu_ecran2_comanda_curent"
+		    android:key="@string/key_ecran2_comanda_curent"
+		    android:defaultValue="1"
+		    android:inputType="number"
+		    />
+		<EditTextPreference
+		    android:title="@string/titlu_ecran2_comanda_final"
+		    android:key="@string/key_ecran2_comanda_final"
+		    android:defaultValue="1"
+		    android:inputType="number"
+		    />
+		</PreferenceCategory>    	
+		<PreferenceCategory
+	    	android:title="@string/titlu_ecran2_categorie_avize_marfa" >
+		<EditTextPreference
+		    android:title="@string/titlu_ecran2_avmf_curent"
+		    android:key="@string/key_ecran2_avmf_curent"
+		    android:defaultValue="1"
+		    android:inputType="number"
+		    />
+		<EditTextPreference
+		    android:title="@string/titlu_ecran2_avmf_final"
+		    android:key="@string/key_ecran2_avmf_final"
+		    android:defaultValue="1"
+		    android:inputType="number"
+		    />
+		</PreferenceCategory>    	
+		
+		</PreferenceScreen>
+<!-- parametri de conectare -->		
+    <PreferenceScreen 
+        android:title="@string/setari_ecran3"
+        android:summary="@string/setari_ecran3_sumar" >
+	    <CheckBoxPreference 
+	        android:defaultValue="true"
+	        android:key="@string/key_ecran3_fara_server"
+	        android:title="@string/titlu_ecran3_fara_server"
+	        />
+        <EditTextPreference 
+		    android:key="@string/key_ecran3_ipserver"
+		    android:title="@string/titlu_ecran3_ipserver"
+			android:dependency="@string/key_ecran3_fara_server"
+	    />
+        <EditTextPreference 
+		    android:key="@string/key_ecran3_nume_db"
+		    android:title="@string/titlu_ecran3_nume_db"
+			android:dependency="@string/key_ecran3_fara_server"
+	    />
+                <EditTextPreference 
+		    android:key="@string/key_ecran3_instanta_sql"
+		    android:title="@string/titlu_ecran3_instanta_sql"
+			android:dependency="@string/key_ecran3_fara_server"
+	    />
+                <EditTextPreference 
+		    android:key="@string/key_ecran3_user"
+		    android:title="@string/titlu_ecran3_user"
+            android:password="true"
+			android:dependency="@string/key_ecran3_fara_server"
+	    />
+       <EditTextPreference 
+		    android:key="@string/key_ecran3_parola"
+		    android:title="@string/titlu_ecran3_parola"
+           android:password="true"
+			android:dependency="@string/key_ecran3_fara_server"
+	    />
+<!-- numele adaptorului bluet pt imprimanta -->
+       <EditTextPreference 
+		    android:key="@string/key_ecran3_bluetadapter"
+		    android:title="@string/titlu_ecran3_bluetadapter"
+	    />
+<!-- numele adaptorului bluet pt casa de marcat-->
+       <EditTextPreference 
+		    android:key="@string/key_ecran3_bluetcasamarcat"
+		    android:title="@string/titlu_ecran3_bluetcasamarcat"
+	    />
+       
+       
+<!-- 	    <ListPreference  -->
+<!-- 	        android:key="agenti_setari_FrecventaSincronizare" -->
+<!-- 	        android:entries="@array/setari_frecventaSincro" -->
+<!-- 	        android:entryValues="@array/setari_valori_frecventaSincro" -->
+<!-- 	        android:summary="@string/setari_sumar_frecventaSincro" -->
+<!-- 	        android:title="@string/setari_titlu_frecventaSincro" -->
+<!-- 	        /> -->
+		</PreferenceScreen>
+	<!-- parametri pentru facturare . scrren 4 -->
+	<PreferenceScreen 
+	    android:title="@string/setari_ecran4"
+	    android:summary="@string/setari_ecran4_sumar">
+	    <CheckBoxPreference 
+	        android:defaultValue="true"
+	        android:key="@string/key_ecran4_pret_vanzare"
+	        android:title="@string/titlu_ecran4_pret_vanzare"
+	     />
+        <EditTextPreference 
+		    android:key="@string/key_ecran4_nume_firma"
+		    android:title="@string/titlu_ecran4_nume_firma"
+	    />
+        <EditTextPreference 
+		    android:key="@string/key_ecran4_cf"
+		    android:title="@string/titlu_ecran4_cf"
+	    />
+        <EditTextPreference 
+		    android:key="@string/key_ecran4_nrrc"
+		    android:title="@string/titlu_ecran4_nrrc"
+	    />
+        <EditTextPreference 
+		    android:key="@string/key_ecran4_adresa"
+		    android:title="@string/titlu_ecran4_adresa"
+	    />
+
+        <EditTextPreference
+            android:key="@string/key_ecran4_judet"
+            android:title="@string/titlu_ecran4_judet"
+            />
+
+        <EditTextPreference 
+		    android:key="@string/key_ecran4_banca1"
+		    android:title="@string/titlu_ecran4_banca1"
+	    />
+        <EditTextPreference 
+		    android:key="@string/key_ecran4_cont1"
+		    android:title="@string/titlu_ecran4_cont1"
+	    />
+        <EditTextPreference 
+		    android:key="@string/key_ecran4_banca2"
+		    android:title="@string/titlu_ecran4_banca2"
+	    />
+        <EditTextPreference 
+		    android:key="@string/key_ecran4_cont2"
+		    android:title="@string/titlu_ecran4_cont2"
+	    />
+        <EditTextPreference 
+		    android:key="@string/key_ecran4_banca3"
+		    android:title="@string/titlu_ecran4_banca3"
+	    />
+        <EditTextPreference 
+		    android:key="@string/key_ecran4_cont3"
+		    android:title="@string/titlu_ecran4_cont3"
+	    />
+        <EditTextPreference 
+		    android:key="@string/key_ecran4_cap_social"
+		    android:title="@string/titlu_ecran4_cap_social"
+	    />
+        <EditTextPreference 
+		    android:key="@string/key_ecran4_telfax"
+		    android:title="@string/titlu_ecran4_telfax"
+	    />
+        
+        <EditTextPreference 
+		    android:key="@string/key_ecran4_serie_facturi"
+		    android:title="@string/titlu_ecran4_serie_facturi"
+	    />
+        
+        
+<!-- 	    <ListPreference  -->
+<!-- 		    android:key="@string/key_ecran4_pret_vanzare" -->
+<!-- 		    android:entries="@array/ecran4_prompt_pret_vanzare" -->
+<!-- 		    android:entryValues="@array/ecran4_valori_pret_vanzare" -->
+<!-- 		    android:title="@string/titlu_ecran4_pret_vanzare" -->
+<!-- 		    android:defaultValue="@string/default_ecran4_pret_vanzare" -->
+<!-- 		    />     -->
+	</PreferenceScreen>
+
+		<!-- Diversi parametru . scrren 5 -->
+<!-- 	<PreferenceScreen  -->
+<!--         <EditTextPreference  -->
+<!-- 		    android:key="@string/key_ecran4_serie_facturi" -->
+<!-- 		    android:title="@string/titlu_ecran4_serie_facturi" -->
+<!-- 		    android:defaultValue="1" -->
+<!-- 		    android:inputType="number" -->
+<!-- 	    /> -->
+	    
+	    
+<!-- 	<PreferenceScreen /> -->
+
+	<PreferenceScreen 
+	    android:title="@string/setari_ecran5"
+	    android:summary="@string/setari_ecran5_sumar">    	    
+	    <EditTextPreference 
+		    android:key="@string/key_ecran5_zile_date"
+		    android:title="@string/titlu_ecran5_zile_date"
+		    android:defaultValue="1"
+		    android:inputType="numberSigned"
+        />
+	    <CheckBoxPreference 
+	        android:defaultValue="false"
+	        android:key="@string/key_ecran5_comenzi_online"
+	        android:title="@string/titlu_ecran5_comenzi_online"
+	     />
+	    
+	    <CheckBoxPreference 
+	        android:defaultValue="false"
+	        android:key="@string/key_ecran5_casa_marcat_test"
+	        android:title="@string/titlu_ecran5_casa_marcat_test"
+	     />
+	    <ListPreference 
+		    android:key="@string/key_ecran5_model_printer"
+		    android:entries="@array/array_ecran5_opt_model_printer"
+		    android:entryValues="@array/array_ecran5_valori_model_printer"
+		    android:title="@string/titlu_ecran5_model_printer"
+		    android:defaultValue="@string/default_ecran5_model_printer"
+		 />    
+	    <CheckBoxPreference 
+	        android:defaultValue="false"
+	        android:key="@string/key_ecran5_ambalaje_obligat"
+	        android:title="@string/titlu_ecran5_ambalaje_obligat"
+	     />
+	    <EditTextPreference 
+		    android:key="@string/key_ecran5_catpret_baza"
+		    android:title="@string/titlu_ecran5_catpret_baza"
+		    android:defaultValue="0"
+		    android:inputType="number"
+        />
+        <EditTextPreference
+            android:key="@string/key_ecran5_varianta"
+            android:title="@string/titlu_ecran5_varianta"
+
+        />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/key_ecran5_actual_clienti"
+            android:title="@string/titlu_ecran5_actual_clienti"
+        />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/key_ecran5_forme_ambalare"
+            android:title="@string/titlu_ecran5_forme_ambalare"
+            />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/key_ecran5_transmite_avincdesc"
+            android:title="@string/titlu_ecran5_transmite_avincdesc"
+            />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/key_ecran5_fara_descarcare"
+            android:title="@string/titlu_ecran5_fara_descarcare"
+            />
+
+		<CheckBoxPreference
+			android:defaultValue="false"
+			android:key="@string/key_ecran5_fara_comanda"
+			android:title="@string/titlu_ecran5_fara_comanda"
+			/>
+
+		<CheckBoxPreference
+			android:defaultValue="false"
+			android:key="@string/key_ecran5_chitanta_serie_separata"
+			android:title="@string/titlu_ecran5_chitanta_serie_separata"
+			/>
+
+    </PreferenceScreen>
+
+</PreferenceScreen>

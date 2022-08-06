@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ATENTIE pentru ca ransdul din listview sa faca schimbarea de culoare la click 
+si ca raspunda la click este necesar 
+ca tot randul si toate componentele din rand sa aiba android:focusable="false" -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:focusable="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <TextView
+        android:id="@+id/listDen_txt_label_pret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/listDen_txt_denumire_produs"
+        android:focusable="false"
+        android:text="Pret:"
+        />
+
+    <TextView
+        android:id="@+id/listDen_txt_pret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/listDen_txt_label_pret"
+        android:layout_alignBottom="@+id/listDen_txt_label_pret"
+        android:layout_marginLeft="26dp"
+        android:layout_toRightOf="@+id/listDen_txt_label_pret"
+        android:text="0000.00"
+        android:focusable="false"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/listDen_txt_denumire_produs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:focusable="false"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+ 
+</RelativeLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/lblRowPrCantDenumire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+	        <TextView
+	            android:id="@+id/lblRowPrCantPret"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+        		android:layout_weight="1"	            
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	        <TextView
+	            android:id="@+id/lblRowPrCantPretRedus"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+        		android:layout_weight="1"	            
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+	        	        
+        </LinearLayout>
+
+
+    </LinearLayout>
+	<LinearLayout 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+	    <TextView
+	        android:id="@+id/lblRowPrCantCantitate"
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	    <TextView
+	        android:id="@+id/lblRowPrCantCantitateBonus"
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	  </LinearLayout>
+</LinearLayout>

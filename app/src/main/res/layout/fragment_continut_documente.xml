@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical" >
+
+		<ToggleButton
+		    android:id="@+id/togFrgDocActBonus"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:textOff="@string/togFrgDocBonusInactiv"
+			android:textOn="@string/togFrgDocBonusActiv"
+			android:enabled="false" />
+	    
+    <ListView
+        android:id="@id/android:list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9" >
+
+    </ListView>
+
+	<LinearLayout
+        android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1"
+	    android:orientation="horizontal" >
+
+	    <Button
+	        android:id="@+id/btnFrgContInchide"
+	        android:layout_width="0dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1"
+	        android:text="@string/btnFrgContInchide"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	    <Button
+	        android:id="@+id/btnFrgContUpLevel"
+	        android:layout_width="0dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1"
+	        android:text="@string/btnFrgContUpLevel"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	</LinearLayout>
+</LinearLayout>
+	

@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+
+final def var = android {
+    compileSdkVersion 31
+//    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "ro.prosoftsrl.agenti"
+        minSdkVersion 16
+        targetSdkVersion 31
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+
+dependencies {
+    api files('libs/com.datecs.fiscalprinter.jar')
+    api files('libs/jtds-1.2.5.jar')
+    api files('libs/com.datecs.api.jar')
+    implementation files('libs/AndroiDude.jar')
+//    compile 'com.android.support:support-v4:28.0.0'
+//    compile files('libs/com.datecs.fiscalprinter.jar')
+//    compile files('libs/jtds-1.2.5.jar')
+  //compile 'com.android.support:appcompat-v7:28.0.0'
+
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.navigation:navigation-fragment:2.4.0-beta02'
+    implementation 'androidx.navigation:navigation-ui:2.4.0-beta02'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+//    compile files('libs/com.datecs.api.jar')
+}
+
+//android {
+//    defaultConfig {
+//        minSdkVersion 16
+//        targetSdkVersion 31
+//    }
+//    lint
+//
+//}
+android {
+    lintOptions {
+    checkReleaseBuilds false
+    // Or, if you prefer, you can continue to check for errors in release builds,
+    // but continue the build even when errors are found:
+    abortOnError false
+}
+    buildFeatures {
+        viewBinding true
+    }
+}

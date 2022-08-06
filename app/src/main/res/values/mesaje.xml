@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- mesaje de eroare -->
+    <string name="err_bluet_nuexistaadaptor">Nu exista nici un adaptor bluetooth asociat</string>
+    <string name="err_bluet_nupoatefiaccesat">Nu poate fi accesat dispozitivul </string>
+    <string name="err_bluet_nusatransmis">Nu s-a transmis catre dispozitiv </string>
+    <string name="bluet_asteapta">Asteptati conectarea </string>
+<!-- sfarsit mesaje de eroare -->
+    
+</resources>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Agenti</string>
+    <string name="action_settings">Settings</string>
+    <!-- meniu lista clienti -->
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_lista_denumiri">ListaDenumiri</string>
+    <string name="title_activity_CPanel">Panou de control</string>
+    <string name="title_activity_sincro">SincroActivity</string>
+    <string name="title_activity_setari">SetariActivity</string>
+    <string name="title_action_back_lista_denumiri">Inapoi</string>
+    <!-- pentru sincronizare -->
+    <string name="sincro_btn_sincro">Sincronizare totala</string>
+    <string name="title_activity_client_detalii_activity_port">ClientDetalii_activity_port</string>
+    <string name="title_activity_documente">Actualizare documente</string>
+
+    <!-- array pentru definirea tipurilor de document -->
+    <!--     <string-array name="arrayTipdoc"> -->
+    <!--         <item>COMANDA</item> -->
+    <!--         <item>FACTURA</item> -->
+    <!--         <item>AVIZ CLIENT</item> -->
+    <!--         <item>DESCARCARE</item> -->
+    <!--         <item>INCARCARE</item> -->
+    <!--         <item>BON FISCAL</item> -->
+    <!--         <item>CERERE MARFA</item> -->
+    <!--     </string-array> -->
+
+    <!-- optiuni pentru alegere tip document -->
+    <string-array name="spnTipDocOpt">
+        <item>FACTURA</item>
+        <item>BON FISCAL</item>
+        <item>AVIZ CLIENT</item>
+        <item>COMANDA</item>
+    </string-array>
+
+    <!-- optiuni pentru alegere tip document FARA BON FISCAL-->
+    <string-array name="spnTipDocOptFaraBf">
+        <item>FACTURA</item>
+        <item>AVIZ CLIENT</item>
+        <item>COMANDA</item>
+    </string-array>
+
+
+    <!-- <string-array name="spnTipDocOpt"> -->
+    <!-- <item>COMANDA</item> -->
+    <!-- <item>BON FISCAL</item> -->
+    <!-- <item>FACTURA</item> -->
+    <!-- <item>AVIZ CLIENT</item> -->
+    <!-- <item>CERERE MARFA</item> -->
+    <!-- </string-array> -->
+    <string-array name="spnTipDocOptIncDesc">
+        <item>AVIZ INC</item>
+        <item>AVIZ DESC</item>
+    </string-array>
+
+    <string-array name="spnCoteTva">
+        <item>Tva  * </item>
+        <item>Tva 19%</item>
+        <item>Tva  9%</item>
+    </string-array>
+    <string-array name="spnTipDocOptTransAmanunt">
+        <item>TRANSFER</item>
+    </string-array>
+
+
+    <!-- Pentru afragment documente -->
+    <string name="lblFrgDocValSold">valoare</string>
+    <string name="togFrgDocIncOptAnuleaza">Inc. PE LOC</string>
+    <string name="togFrgDocIncOptIncaseaza">Inc. LA TERMEN</string>
+    <string name="togFrgDocNuIeseDinDepozit">Miscare in timpul cursei</string>
+    <string name="togFrgDocIeseDinDepozit">La plecarea in cursa</string>
+
+    <string name="btnFrgDocListaArticole">Actualizeaza continut</string>
+    <string name="btnFrgDocRenunta">Renunta</string>
+    <string name="btnFrgDocSalveaza">Salveaza</string>
+    <string name="btnFrgDocListeaza">Listeaza</string>
+    <string name="lblFrgDocTotal">Total: 00000.00</string>
+    <!-- Pentru fragment continut -->
+    <string name="btnFrgContInchide">Inchide</string>
+    <string name="btnFrgContUpLevel">Inapoi</string>
+    <string name="lblDlgProdContinut">Cantitate:</string>
+    <string name="lblDlgProdPret">Pret:</string>
+    <string name="togFrgDocBonusActiv">Bonus ACTIV</string>
+    <string name="togFrgDocBonusInactiv">Activeaza BONUS</string>
+    <string name="title_activity_istoric_documente">IstoricDocumenteActivity</string>
+    <string name="title_activity_clientactivity">Actualizare client</string>
+    <string name="title_activity_rapoarte">Rapoarte</string>
+    <string name="btnCpanelCresteSerie">Decaleaza serie interna:</string>
+    <string name="txtCpanelCresteSerie">Nr. pt decalare</string>
+    <!-- Pentru fragment sablon -->
+    <string name="btnFrgSablonRenunta">Renunta</string>
+    <string name="btnFrgSablonSalveaza">Salveaza</string>
+    <string name="btnFrgSablonBlocheaza">Bloc.</string>
+    <string name="btnFrgSablonContinut">Actualizeaza continut</string>
+    <!-- Pentru fragment ambalaje -->
+    <string name="btnFrgAmbSalveaza">Continua</string>
+    <!-- Pentru alegerea zilei si a cursei la sabloncomanda -->
+    <string-array name="spnSablonZi">
+        <item>Luni</item>
+        <item>Marti</item>
+        <item>Miercuri</item>
+        <item>Joi</item>
+        <item>Vineri</item>
+        <item>Sambata</item>
+        <item>Duminica</item>
+    </string-array>
+    <string-array name="spnSablonCursa">
+        <item>Cursa 1</item>
+        <item>Cursa 2</item>
+        <item>Cursa 3</item>
+        <item>Cofetarie</item>
+    </string-array>
+
+    <string name="lblDlgProdContDiferente">Diferente</string>
+    <string name="title_activity_incasare">Incasare</string>
+    <!-- Pentru aplicatia de listare la dpp-450 -->
+    <string name="title_select_device">Select a device to connect</string>
+    <string name="title_scanning">Scanning for devices&#8230;</string>
+    <string name="title_bluetooth_disabled">Bluetooth este dezactivat</string>
+    <string name="title_unknown_device">[DISPOZITIV NECUNOSCUT]</string>
+    <string name="title_print_self_test">Listeaza test imprimanta</string>
+    <string name="title_print_text">Print text</string>
+    <string name="title_print_image">Print image</string>
+    <string name="title_print_page">Print page</string>
+    <string name="title_print_barcode">Print barcode</string>
+    <string name="title_read_card">Read card</string>
+    <string name="title_read_barcode">Read barcode</string>
+    <string name="title_scan">Scaneaza dispozitive</string>
+    <string name="title_please_wait">Asteptati ...</string>
+    <string name="title_warning">Avertizare</string>
+    <string name="title_address">Address</string>
+    <string name="title_connect">Connect</string>
+
+    <string name="msg_bluetooth_not_supported">Bluetooth is not supported on this hardware platform</string>
+    <string name="msg_low_battery">Bateria este descarcata</string>
+    <string name="msg_no_paper">Nu este hartie</string>
+    <string name="msg_paper_ready">Imprimanta pregatita</string>
+    <string name="msg_overheated">Supraincalzire</string>
+    <string name="msg_read_card">Read card</string>
+    <string name="msg_read_encrypted_card">Read encrypted card</string>
+    <string name="msg_read_barcode">Read barcode</string>
+    <string name="msg_printing_self_test">Printing self test&#8230;</string>
+    <string name="msg_printing_text">Printing text&#8230;</string>
+    <string name="msg_printing_image">Printing image&#8230;</string>
+    <string name="msg_printing_page">Printing page&#8230;</string>
+    <string name="msg_printing_barcode">Printing barcode&#8230;</string>
+    <string name="msg_reading_magstripe">Reading magnetic card&#8230;</string>
+    <string name="msg_reading_barcode">Reading barcode&#8230;</string>
+    <string name="msg_connecting">Conectare imprimanta&#8230;</string>
+    <string name="msg_unsupport_page_mode">Printer does not supports page mode</string>
+
+    <string name="msg_failed_to_connect">Nu se poate stabili conexiunea cu imprimanta</string>
+    <string name="msg_failed_to_init">Nu se poate initializa imprimanta</string>
+    <string name="msg_failed_to_print_self_test">Failed to print self test</string>
+    <string name="msg_failed_to_print_text">Failed to print text</string>
+    <string name="msg_failed_to_print_image">Failed to print image</string>
+    <string name="msg_failed_to_print_page">Failed to print page</string>
+    <string name="msg_failed_to_print_barcode">Failed to print barcode</string>
+    <string name="msg_failed_to_read_card">Failed to read card</string>
+    <string name="msg_failed_to_read_barcode">Failed to read barcode</string>
+
+    <string name="card_info">Card information</string>
+    <string name="barcode">Barcode</string>
+    <string name="card_no">Card#</string>
+    <string name="holder">Holder</string>
+    <string name="exp_date">Exp date</string>
+    <string name="no_card_read">No card information read</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

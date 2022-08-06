@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="New Button"
+        android:id="@+id/btnFrgRapDatePick1"
+        android:layout_weight="1" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="New Button"
+        android:id="@+id/btnFrgRapDatePick2"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btnFrgListVanz"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:text="Total comenzi" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1" >
+
+        <CheckBox
+            android:id="@+id/chkFrgRapCuTotIncas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cu Generare" />
+
+        <Button
+            android:id="@+id/btnFrgListIncas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Total general" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnFrgListStoc"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:text="Stoc" />
+
+    <Button
+        android:id="@+id/btnFrgListProduse"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:text="Total / grupe" />
+
+    <Button
+        android:id="@+id/btnFrgListdesfasuratorClienti"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:text="Desfasurator clienti" />
+
+    <Button
+        android:id="@+id/btnFrgListSoldPornire"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:text="Solduri initiale"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btnFrgListSoldCurent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:text="Solduri curente"
+        android:visibility="gone" />
+
+</LinearLayout>

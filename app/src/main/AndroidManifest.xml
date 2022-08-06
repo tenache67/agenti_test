@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="ro.prosoftsrl.agenti"
+    android:versionCode="9"
+    android:versionName="2.0.1">
+
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="16" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name="ro.prosoftsrl.listare.DatecsDudeActivity"
+            android:exported="false" />
+        <activity
+            android:name="ro.prosoftsrl.listare.PrintActivity"
+            android:label="Print"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ListaDenumiriActivity"
+            android:label="@string/title_activity_lista_denumiri"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CPanelActivity"
+            android:label="@string/title_activity_CPanel"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SincroActivity"
+            android:label="@string/title_activity_sincro" />
+        <activity
+            android:name=".SetariActivity"
+            android:label="@string/title_activity_setari"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name=".ClientDetalii_activity_port"
+            android:label="@string/title_activity_client_detalii_activity_port" /> <!-- <activity -->
+        <!-- android:name="ro.prosoftsrl.agenti.ListaClienti_activity_port" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:label="@string/title_activity_lista_clienti_activity_port" > -->
+        <!-- </activity> -->
+        <activity
+            android:name="ro.prosoftsrl.documente.DocumenteActivity"
+            android:label="@string/title_activity_documente"
+            android:screenOrientation="portrait">
+
+            <!-- android:windowSoftInputMode="stateAlwaysVisible" -->
+
+        </activity>
+        <activity
+            android:name="ro.prosoftsrl.documente.IstoricDocumenteActivity"
+            android:label="@string/title_activity_istoric_documente"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="ro.prosoftsrl.clienti.ClientActivity"
+            android:label="@string/title_activity_clientactivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="ro.prosoftsrl.rapoarte.RapoarteActivity"
+            android:label="@string/title_activity_rapoarte" /> <!-- <activity -->
+        <!-- android:name="ro.prosoftsrl.agenti.ListareBonCasa" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:label="@string/title_activity_listare_bon_casa" > -->
+        <!-- </activity> -->
+        <activity
+            android:name="ro.prosoftsrl.documente.IncasareActivity"
+            android:label="@string/title_activity_incasare" />
+    </application>
+
+</manifest>

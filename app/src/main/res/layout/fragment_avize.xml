@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+    <TextView
+        android:id="@+id/txtFrgDocNrDoc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <LinearLayout
+        android:id="@+id/layFrgDocIncasare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/layFrgDocTipDoc" >
+
+        <TextView
+            android:id="@+id/lblFrgDocValSold"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0"
+            android:text="@string/lblFrgDocValSold"
+            android:enabled="false"
+            android:visibility="invisible"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ToggleButton
+            android:id="@+id/togFrgDocIncTot"
+            android:enabled="false"
+            android:visibility="invisible"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textOff="@string/togFrgDocIncOptIncaseaza"
+            android:textOn="@string/togFrgDocIncOptAnuleaza" />
+        <ToggleButton
+            android:id="@+id/togFrgDocMarfaDepozit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@color/galben_mocasin"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textOff="@string/togFrgDocNuIeseDinDepozit"
+            android:textOn="@string/togFrgDocIeseDinDepozit"
+            android:visibility="gone" />
+        
+        
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnFrgDocListaArticole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/layFrgDocIncasare"
+        android:text="@string/btnFrgDocListaArticole"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:id="@+id/layFrgDocButoane"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" >
+
+        <Button
+            android:id="@+id/btnFrgDocRenunta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btnFrgDocRenunta" />
+
+        <Button
+            android:id="@+id/btnFrgDocSalveaza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btnFrgDocSalveaza" />
+
+        <Button
+            android:id="@+id/btnFrgDocListeaza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btnFrgDocListeaza" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lstFrgDocContinut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lblfrgDocTotal"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnFrgDocListaArticole" >
+
+    </ListView>
+
+    <EditText
+        android:id="@+id/btnFrgDocIncasare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layFrgDocButoane"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/lblfrgDocTotal"
+        android:background="@color/galben_mocasin"
+        android:ems="10"
+        android:inputType="numberSigned|numberDecimal" />
+
+    <TextView
+        android:id="@+id/lblfrgDocTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/btnFrgDocIncasare"
+        android:text="@string/lblFrgDocTotal"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:id="@+id/layFrgDocTipDoc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/txtFrgDocNrDoc" >
+
+        <Spinner
+            android:id="@+id/spnFrgDocTipDoc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:entries="@array/spnTipDocOpt"
+            android:focusable="false" />
+
+        <Spinner
+            android:id="@+id/spnFrgDocCotaTva"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:entries="@array/spnCoteTva"
+            android:focusable="false" />
+    </LinearLayout>
+
+</RelativeLayout>
