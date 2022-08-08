@@ -545,6 +545,7 @@ public class Biz {
 		String sqlSir="";
 		String sData1=Siruri.dtos(Calendar.getInstance(),"-");
 		String sData2=Siruri.dtos(Calendar.getInstance(),"-");
+		String hhhh = "";
 		Log.d("PEAICI","iTLD= "+iTLD);
 		switch (iTLD) {
        //pentru extragere info din client_agent
