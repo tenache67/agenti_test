@@ -203,7 +203,8 @@ public class MainActivity extends  FragmentActivity  {
 			Cursor crs=db.rawQuery("select max(substr(antet.data,1,10)) as maxdata from antet", null);
 			if (crs.getCount() > 0) {
 				crs.moveToFirst();
-				String maxData=crs.getString(crs.getColumnIndex("maxdata"));
+				//if(crs.getColumnIndex("maxdata")>=0)
+				@SuppressLint("Range") String maxData=crs.getString(crs.getColumnIndex("maxdata"));
 				Log.d("STERG","maxdata"+maxData);
 				if (maxData!=null && !maxData.equals("")) {
 					// se compara data maxima din tabela cu data din sistem
