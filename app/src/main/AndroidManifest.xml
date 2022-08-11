@@ -46,7 +46,10 @@
             android:name=".ListaDenumiriActivity"
             android:label="@string/title_activity_lista_denumiri"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize"
+
+            />
         <activity
             android:name=".CPanelActivity"
             android:label="@string/title_activity_CPanel"

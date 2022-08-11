@@ -3,6 +3,42 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/agentiA/app/src/debug/res/layout/fragment_first.xml" value="0.16979166666666667" />
+        <entry key="..\:/agentiA/app/src/main/res/drawable/ic_action_search.xml" value="0.102" />
+        <entry key="..\:/agentiA/app/src/main/res/layout-large/row_listview_start.xml" value="0.264" />
+        <entry key="..\:/agentiA/app/src/main/res/layout-normal/row_listview_start.xml" value="0.18333333333333332" />
+        <entry key="..\:/agentiA/app/src/main/res/layout-small/row_listview_start.xml" value="0.5345188284518828" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/activity_ambalaje.xml" value="0.15885416666666666" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/activity_lista_denumiri.xml" value="0.6" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/activity_main_listview.xml" value="0.15885416666666666" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/activity_sincro.xml" value="0.16979166666666667" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/dialog_produs_document.xml" value="0.18333333333333332" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/dialog_sablon_alege.xml" value="0.18333333333333332" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/fragment_ambalaje.xml" value="0.18333333333333332" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/fragment_avize.xml" value="0.11302083333333333" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/fragment_baza_documente.xml" value="0.11302083333333333" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/fragment_continut_documente.xml" value="0.11302083333333333" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/fragment_documente.xml" value="0.18333333333333332" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/fragment_rapoarte.xml" value="0.11302083333333333" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/fragment_rapoarte_list_tablea.xml" value="0.11302083333333333" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/fragment_sablon_cerere.xml" value="0.11302083333333333" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/row_listview_continut_document.xml" value="0.18333333333333332" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/row_listview_continut_sablon.xml" value="0.18333333333333332" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/row_listview_denumiri_agenti.xml" value="0.18333333333333332" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/row_listview_denumiri_clienti.xml" value="0.18333333333333332" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/row_listview_denumiri_produse.xml" value="0.16979166666666667" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/row_listview_produse_alege_cantitate.xml" value="0.18333333333333332" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/spinner_item.xml" value="0.1" />
+        <entry key="..\:/agentiA/app/src/main/res/menu/client_detalii_port.xml" value="0.11302083333333333" />
+        <entry key="..\:/agentiA/app/src/main/res/menu/clientactivity.xml" value="0.11302083333333333" />
+        <entry key="..\:/agentiA/app/src/main/res/menu/documente.xml" value="0.11302083333333333" />
+        <entry key="..\:/agentiA/app/src/main/res/menu/istoric_documente.xml" value="0.16799999999999998" />
+        <entry key="..\:/agentiA/app/src/main/res/menu/lista_denumiri.xml" value="0.11302083333333333" />
+        <entry key="..\:/agentiA/app/src/main/res/menu/main.xml" value="0.264" />
+        <entry key="..\:/agentiA/app/src/main/res/menu/menu_incasare.xml" value="0.11302083333333333" />
+        <entry key="..\:/agentiA/app/src/main/res/menu/rapoarte.xml" value="0.11302083333333333" />
+        <entry key="..\:/agentiA/app/src/main/res/menu/setari.xml" value="0.11302083333333333" />
+        <entry key="..\:/agentiA/app/src/main/res/xml/setari_globale.xml" value="0.18333333333333332" />
         <entry key="..\:/surse/android_studio/agenti/app/src/main/res/layout/activity_cpanel.xml" value="0.25" />
         <entry key="..\:/surse/android_studio/agenti/app/src/main/res/layout/activity_datecs_dude.xml" value="0.1" />
         <entry key="..\:/surse/android_studio/agenti/app/src/main/res/layout/activity_documente.xml" value="0.2125" />
@@ -35,7 +71,7 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
