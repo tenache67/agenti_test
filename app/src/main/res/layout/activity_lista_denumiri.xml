@@ -23,6 +23,7 @@
         android:layout_marginEnd="0dp"
         android:layout_marginRight="0dp"
         android:background="@drawable/normal_corner"
+        android:capitalize="none"
         android:ems="10"
         android:gravity="center"
         android:hint="Cautare"

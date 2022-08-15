@@ -57,7 +57,7 @@ public class ListaDenumiriActivity extends FragmentActivity
     int iIdMaster = 0;
     int iCodIntCrt = 0;
     int iTLD = 0;
-    EditText etCautare;
+    public static  EditText etCautare;
     List<String> arraySpinner = new ArrayList<String>();
     ArrayAdapter<String> adapterSpin;
 
@@ -74,7 +74,6 @@ public class ListaDenumiriActivity extends FragmentActivity
 
     private void InitSpinnerRezultate() {
         Spinner sp = (Spinner) findViewById(R.id.spinnerOptiuni);
-
         adapterSpin = new ArrayAdapter<String>(this,
                 R.layout.spinner_item, arraySpinner);
 
@@ -121,12 +120,7 @@ public class ListaDenumiriActivity extends FragmentActivity
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
+            public void onTextChanged(CharSequence charSequence, int start, int curLength, int afterLength) {
                 //frg.getListView();
                 //RelativeLayout rl = (RelativeLayout) frg.getListView().getChildAt(i);
                 //TextView tv = (TextView) rl.getChildAt(0);
@@ -134,16 +128,16 @@ public class ListaDenumiriActivity extends FragmentActivity
                 adapterSpin.clear();
                 Spinner sp = (Spinner) findViewById(R.id.spinnerOptiuni);
 
-
                 String cautareString = etCautare.getText().toString().toLowerCase();
-                if (cautareString.length() < 3)
-                    return;
-
                 ListaDenumiriFragment frg = (ListaDenumiriFragment) getSupportFragmentManager().findFragmentById(R.id.lista_denumiri_fragment);
-                //frg.getListView().getChildAt(0).findViewById(R.id.listDen_txt_denumire_client).setVisibility((View.INVISIBLE));
-
-
                 int childCount = frg.getListView().getAdapter().getCount();
+
+                if (childCount == 0) //daca nu exista produse
+                    return;
+                if (cautareString.length() < 3) //daca sunt mai putin de 3 litere in cautare
+                    return;
+                if (afterLength < curLength) //daca se da backspace nu cauta
+                    return;
 
                 Cursor crs = (Cursor) frg.getListView().getItemAtPosition(1);
 
@@ -152,14 +146,15 @@ public class ListaDenumiriActivity extends FragmentActivity
                 for (int i = 0; i < childCount; i++) {
                     @SuppressLint("Range") String numeBase = crs.getString(crs.getColumnIndex(Table_Produse.COL_DENUMIRE));
                     numeBase = numeBase.toLowerCase();
-                    StringTokenizer stringTokenizer = new StringTokenizer(numeBase); //cauta fiecare cuvant al liniei
+                    StringTokenizer stringTokenizer = new StringTokenizer(numeBase," ."); //cauta fiecare cuvant al liniei
 
-                    for (int o = 1; stringTokenizer.hasMoreTokens(); o++) {
+                    while (stringTokenizer.hasMoreTokens()) {
                         if (stringTokenizer.nextToken().startsWith(cautareString) && !cautareString.isEmpty()) {
                             //rl.setVisibility(View.INVISIBLE);
                             //frg.getListView().setSelection(i);
-                            sp.performClick();
+
                             adapterSpin.add(numeBase);
+                            sp.performClick();
 
 
                             Log.d("FOUND", "YEEES");
@@ -168,14 +163,14 @@ public class ListaDenumiriActivity extends FragmentActivity
 
                     }
 
-
-                    if (cautareString.equals("")) {
-                        frg.getListView().setSelection(0);
-
-                    }
                     crs.moveToNext();
 
                 }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
             }
         });
     }
