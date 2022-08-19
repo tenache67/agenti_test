@@ -43,10 +43,14 @@
 
     <Spinner
         android:id="@+id/spinnerOptiuni"
-        android:layout_width="match_parent"
+        android:layout_width="1dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="12dp"
         android:background="#00131111"
         android:spinnerMode="dialog"
         android:visibility="visible" />

@@ -26,6 +26,7 @@ import ro.prosoftsrl.sqlserver.MySQLDBadapter;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -44,6 +45,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -56,8 +58,9 @@ public class ListaDenumiriActivity extends FragmentActivity
         implements ActivityComunicatorInterface, onDlgClick, ActivityReceiveActionsInterface {
     int iIdMaster = 0;
     int iCodIntCrt = 0;
+
     int iTLD = 0;
-    public static  EditText etCautare;
+    public static EditText etCautare;
     List<String> arraySpinner = new ArrayList<String>();
     ArrayAdapter<String> adapterSpin;
 
@@ -94,8 +97,15 @@ public class ListaDenumiriActivity extends FragmentActivity
                     numeBase = numeBase.toLowerCase();
                     if (numeBase.equals(cautareString)) {
 
-                        frg.getListView().setSelection(i);
                         Log.d("GASIT", "YAY");
+
+                        //scrolleaza lista
+                        frg.getListView().setSelection(i);
+
+                        //ascunde tastatura
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
                         break;
                     }
 
@@ -146,7 +156,7 @@ public class ListaDenumiriActivity extends FragmentActivity
                 for (int i = 0; i < childCount; i++) {
                     @SuppressLint("Range") String numeBase = crs.getString(crs.getColumnIndex(Table_Produse.COL_DENUMIRE));
                     numeBase = numeBase.toLowerCase();
-                    StringTokenizer stringTokenizer = new StringTokenizer(numeBase," ."); //cauta fiecare cuvant al liniei
+                    StringTokenizer stringTokenizer = new StringTokenizer(numeBase, " ."); //cauta fiecare cuvant al liniei
 
                     while (stringTokenizer.hasMoreTokens()) {
                         if (stringTokenizer.nextToken().startsWith(cautareString) && !cautareString.isEmpty()) {
@@ -684,7 +694,7 @@ public class ListaDenumiriActivity extends FragmentActivity
             String sql = "SELECT * FROM " + Table_Clienti.TABLE_NAME + " WHERE _id=" + _id;
             Cursor crsClient = db.rawQuery(sql, null);
             crsClient.moveToFirst();
-            boolean lBlocatV = (crsClient.getInt(crsClient.getColumnIndex(Table_Clienti.COL_BLOCAT_VANZARE)) == 1);
+            @SuppressLint("Range") boolean lBlocatV = (crsClient.getInt(crsClient.getColumnIndex(Table_Clienti.COL_BLOCAT_VANZARE)) == 1);
             crsClient.close();
             db.close();
             colectie.close();
@@ -787,6 +797,7 @@ public class ListaDenumiriActivity extends FragmentActivity
         dlg.show(ft, "alegesablondialog");
     }
 
+    @SuppressLint("Range")
     @Override
     public void transmite_actiuni(View view, final Bundle arg) {
         // primeste date de la dialog (dialogul de alegere zi si cursa pt sablon) si apeleaza macheta pt sablon
