@@ -102,11 +102,14 @@ public class ListaDenumiriFragment extends ListFragment implements FragmentComun
         //listview.setClickable(true);
         setListAdapter(adapter);
         ///Pt a afisa bara de cautare
+        /*
         if (iTLD != Biz.TipListaDenumiri.TLD_PRODUSE && iTLD != Biz.TipListaDenumiri.TLD_CLIENTI) {
             EditText etCautare = ListaDenumiriActivity.etCautare;
             etCautare.setVisibility(View.INVISIBLE);
             Log.e("huh", String.valueOf(iTLD));
         }
+
+         */
     }
 
     // se apeleaza la click din lista de denumiri
