@@ -59,7 +59,8 @@ public class DialogContinutProdus extends DialogFragment {
 		LayoutInflater inflater= getActivity().getLayoutInflater();
 //        String versiune=PreferenceManager.getDefaultSharedPreferences(context)
 //                .getString(getString(R.string.key_ecran5_varianta), "betty");
-
+// daca este activata modificarea de pret apare activa si caseta cu modificarea pretului in care ste preluat pretul curent nu cel
+        // de la discount
 		switch (mNum) {
             case 0: // tip dialog pentru cantitatea de la continut apelat din lista de produse
             {

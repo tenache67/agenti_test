@@ -271,7 +271,7 @@ public class Biz {
 	
 	//determina sirul de update pt continutul documentului in fisierul pozitii
 	public static ContentValues getInsertPozitii (Bundle arg) {
-		boolean lFaraRedInFact=true; // ca sa nu se vada reducerea in factura
+		boolean lFaraRedInFact=false; // ca sa nu se vada reducerea in factura
 		ContentValues val =new ContentValues();
 		val.put(Table_Pozitii._ID, arg.getLong("_id"));
 		val.put(Table_Pozitii.COL_ID_ANTET, arg.getLong(Table_Pozitii.COL_ID_ANTET));
@@ -844,8 +844,8 @@ public class Biz {
 						" THEN " ;
 					if (lPVcuTVA)
 							sqlSir=sqlSir+" IFNULL("+
-									Table_TempContinutDocumente.TABLE_NAME+"."+Table_TempContinutDocumente.COL_PRET_CU+","+
-									" IFNULL("+Table_Discount.TABLE_NAME+"."+Table_Discount.COL_PRET_CU+","+
+									Table_Discount.TABLE_NAME+"."+Table_Discount.COL_PRET_CU +","+
+									" IFNULL("+Table_TempContinutDocumente.TABLE_NAME+"."+Table_TempContinutDocumente.COL_PRET_CU+","+
 									Table_Produse.TABLE_NAME+"."+Table_Produse.COL_PRET_CU+"))";
 					else
 							sqlSir=sqlSir+" IFNULL("+

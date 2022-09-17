@@ -244,6 +244,7 @@ public class ListaProdusePtContinutFragment extends ListFragment implements Frag
             this.fb = new Bundle();
             Log.d("PRO", "1");
             this.fb.putLong(Table_TempContinutDocumente.COL_ID_FA1, nIdFa1);
+
             Log.d("PRO", "2");
             this.fb.putInt("tipdialog", 0);
             this.fb.putLong("id_produs", nIdM); // idul articolului

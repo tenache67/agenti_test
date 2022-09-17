@@ -21,7 +21,7 @@ import android.provider.BaseColumns;
 import android.renderscript.Type;
 import android.util.Log;
 	public class ColectieAgentHelper extends SQLiteOpenHelper {
-		public static final int DATABASE_VERSION =103 ;
+		public static final int DATABASE_VERSION =105 ;
 		public static final String DATABASE_NAME="ColectieAgenti";
 		public long nIdStartGenunic=0;
 		private Context context; 
@@ -327,6 +327,7 @@ import android.util.Log;
 			public static final String TEXT=" TEXT NOT NULL DEFAULT \'\' ";
 			public static final String DATE=" DATE NOT NULL DEFAULT CURRENT_DATE ";
 			public static final String VALOARE=" NUMERIC NOT NULL DEFAULT 0.000000 ";
+			public static final String VALOARENULL=" NUMERIC ";
 			public static final String TIMESTAMP=" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ";
 		}
 		
@@ -398,8 +399,8 @@ import android.util.Log;
 				Table_TempContinutDocumente.COL_ID_PRODUS+Types.INTREG+" , "+
 				Table_TempContinutDocumente.COL_CANTITATE+Types.VALOARE+" , "+
 				Table_TempContinutDocumente.COL_DIFERENTE+Types.VALOARE+" , "+
-				Table_TempContinutDocumente.COL_PRET_FARA+Types.VALOARE+" , "+
-				Table_TempContinutDocumente.COL_PRET_CU+Types.VALOARE+" , "+
+				Table_TempContinutDocumente.COL_PRET_FARA+Types.VALOARENULL+" , "+
+				Table_TempContinutDocumente.COL_PRET_CU+Types.VALOARENULL+" , "+
                 Table_TempContinutDocumente.COL_ID_FA1+Types.INTREG+" , "+
                 Table_TempContinutDocumente.COL_ID_FA2+Types.INTREG+" , "+
 				Table_TempContinutDocumente.COL_C_ESTE_BONUS+Types.INTREG+","+
@@ -1076,6 +1077,7 @@ import android.util.Log;
 				public static final String COL_ID_AGENT="id_agent";
 				public static final String COL_ID_RUTA="id_ruta";
 				public static final String COL_ID_CURSA="id_cursa";
+//				public static final String COL_ID_SITE="id_site"; // pentru separarea comenzilor din site
 				public static final String COL_DATA="data";
 				public static final String COL_ID_TIPDOC="id_tipdoc";
 				public static final String COL_TRANSMIS="transmis";
@@ -1091,6 +1093,7 @@ import android.util.Log;
 				public static final String SCOL_ID_AGENT="id_agent";
 				public static final String SCOL_ID_RUTA="id_ruta";
 				public static final String SCOL_ID_CURSA="id_cursa";
+//				public static final String SCOL_ID_SITE="id_site";
 				public static final String SCOL_DATA="data";
 				public static final String SCOL_DATA_DOC="data_doc";
 				public static final String SCOL_ID_TIPDOC="id_tipdoc";
@@ -1106,6 +1109,7 @@ import android.util.Log;
 					{Table_Sablon_Antet.COL_ID_PART,Types.INTREG,Table_Sablon_Antet.SCOL_ID_PART,STypes.INTREG},
 					{Table_Sablon_Antet.COL_ID_RUTA,Types.INTREG,Table_Sablon_Antet.SCOL_ID_RUTA,STypes.INTREG},
 					{Table_Sablon_Antet.COL_ID_CURSA,Types.INTREG,Table_Sablon_Antet.SCOL_ID_CURSA,STypes.INTREG},
+//						{Table_Sablon_Antet.COL_ID_SITE,Types.INTREG,Table_Sablon_Antet.SCOL_ID_SITE,STypes.INTREG},
 					{Table_Sablon_Antet.COL_ID_TIPDOC,Types.INTREG,Table_Sablon_Antet.SCOL_ID_TIPDOC,STypes.INTREG},
 					{Table_Sablon_Antet.COL_ID_USER,Types.INTREG,Table_Sablon_Antet.SCOL_ID_USER,STypes.INTREG},
 					{Table_Sablon_Antet.COL_BLOCAT,Types.INTREG,Table_Sablon_Antet.SCOL_BLOCAT,STypes.INTREG}
@@ -1121,6 +1125,7 @@ import android.util.Log;
 						Table_Sablon_Antet.COL_ID_AGENT+Types.INTREG+" , "+
 						Table_Sablon_Antet.COL_ID_RUTA+Types.INTREG+" , "+
 						Table_Sablon_Antet.COL_ID_CURSA+Types.INTREG+" , "+
+//						Table_Sablon_Antet.COL_ID_SITE+Types.INTREG+" , "+
 						Table_Sablon_Antet.COL_DATA+Types.TIMESTAMP+" , "+
 						Table_Sablon_Antet.COL_ID_TIPDOC+Types.INTREG+" , "+
 						Table_Sablon_Antet.COL_TRANSMIS+Types.INTREG+" , "+

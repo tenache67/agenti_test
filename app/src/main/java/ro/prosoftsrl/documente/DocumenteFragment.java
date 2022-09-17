@@ -84,6 +84,7 @@ public class DocumenteFragment extends BazaFragmentDocumente implements Fragment
 	boolean lDupaAmbalaje=false;
 	int actiuneFinala=0 ; // primeste valori la apelarea fragmentului de ambalaje (0 - salvare 1 - listare) si serveste pt reluarea actiunii din care s-a apelate fragmentul de ambalaje   
 	boolean lCuAmbalaje=false ;
+	boolean lSerieSeparataChitanta=false;
 	double nProcRed; // daca este 100 se fac preturi 0
 	int LAUNCH_SECOND_ACTIVITY = 1;
 	@Override
@@ -114,6 +115,7 @@ public class DocumenteFragment extends BazaFragmentDocumente implements Fragment
 		this.crsClient=this.colectie.getReadableDatabase().rawQuery(sql , null);
 		this.crsClient.moveToFirst();
 		this.lCuAmbalaje=PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.key_ecran5_ambalaje_obligat), false);
+		this.lSerieSeparataChitanta = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(getString(R.string.key_ecran5_chitanta_serie_separata) , false);
 		final View view=_idClient==-1 ?  inflater.inflate(R.layout.fragment_avize, container,false) : 
 				inflater.inflate(R.layout.fragment_documente, container,false) ;		
 		// schimba titlul cu denumirea clientului
@@ -527,15 +529,18 @@ public class DocumenteFragment extends BazaFragmentDocumente implements Fragment
 			if (togg.isChecked()) {
 				// incas pe loc
 				if (sTipDoc.equals("FACTURA")) {
-					nNumarChitanta=Biz.getNumarCrtDoc(context, "CHITANTA");
+					if (this.lSerieSeparataChitanta) {
+						nNumarChitanta=Biz.getNumarCrtDoc(context, "CHITANTA");
+					} else {
+						nNumarChitanta=nNumarDoc;
+					}
 				}
 				arg.putLong(Table_Antet.COL_ID_MODPL,5);
 				if (lCuIncasare) {		
 					arg.putDouble(Table_Antet.COL_INCASAT,nValFara+nValTva);
 					Toast.makeText(context, "Atentie ! Trebuie sa incasezi banii !", Toast.LENGTH_LONG).show();
-					arg.putString(Table_Antet.COL_NR_CHITANTA,""+nNumarChitanta);
-
 				}
+				arg.putString(Table_Antet.COL_NR_CHITANTA,""+nNumarChitanta);
 			} else {
 				arg.putLong(Table_Antet.COL_ID_MODPL,0);
 				if (sTipDoc.equals("COMANDA")) {
@@ -584,7 +589,7 @@ public class DocumenteFragment extends BazaFragmentDocumente implements Fragment
 			// daca este factura cu incas pe loc si in preferinte este trecut ca avem serie separata de chitanta se mareste si
 			// seria chitantei
 			if ( (Biz.getIdTipDoc(sTipDoc)==Biz.TipDoc.ID_TIPDOC_FACTURA)
-					&& pref.getBoolean(getString(R.string.key_ecran5_chitanta_serie_separata) , false)
+					&& lSerieSeparataChitanta
 					&& actiune=="a"
 					&& lIncasPeLoc
 					) {

@@ -215,7 +215,7 @@ public class DocumenteActivity extends FragmentActivity
 			case ConstanteGlobale.Actiuni_la_documente.SET_CANTITATE_IN_LINIE:
 				Double nCant = arg.getDouble("cantitate", 0);
 				Double nDif = arg.getDouble("diferente", 0);
-				Double nPret=arg.getDouble("pret_cu");
+				Double nPret=arg.getDouble("pret_cu"); // pretul poate veni modificat fata de cel curent ( pe poz separata fata de pretul cu discoun)
 				long nIdProdus = arg.getLong("id_produs");
 				int nBonus = arg.getInt("este_bonus", 0);
 				long _id_temp = arg.getLong("_id_temp");

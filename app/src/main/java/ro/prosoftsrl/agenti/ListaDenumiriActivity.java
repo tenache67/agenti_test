@@ -1027,6 +1027,7 @@ public class ListaDenumiriActivity extends FragmentActivity
                 }
             }
             break;
+            // initializare document din sablon
             case ConstanteGlobale.Actiuni_la_documente.ADAUGA_DOCUMENT_DIN_SABLON: {
                 // se primeste un sablon si se initializeaza continututl
                 long nIdAntet = 0;
@@ -1093,6 +1094,8 @@ public class ListaDenumiriActivity extends FragmentActivity
                                 }
                                 cval.put(Table_TempContinutDocumente.COL_ID_PRODUS, crstemp.getLong(crstemp.getColumnIndex(Table_Sablon_Pozitii.COL_ID_PRODUS)));
                                 cval.put(Table_TempContinutDocumente.COL_S_TIMESTAMP, crstemp.getLong(crstemp.getColumnIndex(Table_Sablon_Pozitii.COL_S_TIMESTAMP)));
+                                cval.put(Table_TempContinutDocumente.COL_PRET_CU, (Double) null);
+                                cval.put(Table_TempContinutDocumente.COL_PRET_FARA, (Double) null);
                                 db.insert(Table_TempContinutDocumente.TABLE_NAME, null, cval);
                                 cval.clear();
                                 crstemp.moveToNext();

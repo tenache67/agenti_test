@@ -9,20 +9,19 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
-import androidx.fragment.app.FragmentActivity;
-
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.datecs.api.printer.Printer;
 import com.datecs.api.printer.PrinterInformation;
@@ -42,7 +41,7 @@ import ro.prosoftsrl.agenti.R;
 import ro.prosoftsrl.diverse.ConvertNumar;
 import ro.prosoftsrl.diverse.Siruri;
 
-public class PrintActivity extends FragmentActivity {
+public class PrintActivity_nou extends FragmentActivity {
     Intent returnIntent = new Intent();
     private static final String LOG_TAG = "PrinterSample";
     private static final boolean DEBUG = true;
@@ -112,7 +111,7 @@ public class PrintActivity extends FragmentActivity {
                 // se trimite inapoi idAntet
                 SQLiteDatabase db = new ColectieAgentHelper(context).getWritableDatabase();
                 Cursor crs = db.rawQuery(Biz.getSqlImagineDoc(idAntet), null);
-                printDocument(idAntet, crs,5,1);
+                printDocument(idAntet, crs,5);
 
 //                crs.close();
 //                db.close();
@@ -145,19 +144,10 @@ public class PrintActivity extends FragmentActivity {
 
         mRestart = true;
         macadress = getMacAdress();
-        if ( !macadress.equals("")) {
-            if (BluetoothAdapter.checkBluetoothAddress(macadress)) {
-            }
-
-            waitForConnection();
-        } else {
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-            String sAdapter = settings.getString(this.getString(R.string.key_ecran3_bluetadapter), "");
-            Toast.makeText(getApplicationContext(), "Verificati daca exista "+sAdapter+" la dispozitive Bluetooth imperecheate", Toast.LENGTH_LONG).show();
-            setResult(Activity.RESULT_CANCELED, returnIntent);
-            returnIntent.putExtra("IdAntet", idAntet);
-            finish();
+        if (BluetoothAdapter.checkBluetoothAddress(macadress)) {
         }
+
+        waitForConnection();
     }
 
     @SuppressLint("MissingPermission")
@@ -167,7 +157,6 @@ public class PrintActivity extends FragmentActivity {
         String sAdapter = settings.getString(this.getString(R.string.key_ecran3_bluetadapter), "");
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
         BluetoothDevice device = null;
-        String sMac="";
         @SuppressLint("MissingPermission") Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
         if (pairedDevices.size() > 0) {
             for (BluetoothDevice mdevice : pairedDevices) {
@@ -179,8 +168,7 @@ public class PrintActivity extends FragmentActivity {
                 }
             }
         }
-        sMac=device!=null ? device.getAddress(): "";
-        return sMac;
+        return device.getAddress();
     }
 
     // The listener for all printer events
@@ -321,7 +309,7 @@ public class PrintActivity extends FragmentActivity {
             @Override
             public void run() {
                 // Progress dialog available due job execution
-                final ProgressDialog dialog = new ProgressDialog(PrintActivity.this);
+                final ProgressDialog dialog = new ProgressDialog(PrintActivity_nou.this);
                 dialog.setTitle(getString(R.string.title_please_wait));
                 dialog.setMessage(getString(resId));
                 dialog.setCancelable(false);
@@ -532,11 +520,6 @@ public class PrintActivity extends FragmentActivity {
     }
 
     private void printDocument(long idAntet, Cursor crs, Integer nBloc) {
-        printDocument(idAntet,crs,nBloc,0);
-    }
-
-
-    private void printDocument(long idAntet, Cursor crs, Integer nBloc,Integer nEx) {
         int versiune = ConstanteGlobale.Parametri_versiune.VERSIUNE_BETTY;
         doJob(new Runnable() {
             @Override
@@ -560,7 +543,7 @@ public class PrintActivity extends FragmentActivity {
                         }
                         if ("DPP-450".contains(modelPrinter)) {
                             Log.d("PRO&", "Ininte de listare");
-                            createFisImagineDPP450(idAntet, versiune, context, crs, nBloc,nEx);
+                            createFisImagineDPP450(idAntet, versiune, context, crs, nBloc);
                         }
                         if ("DPP-350".contains(modelPrinter)) {
                             Log.d("PRO&", "Ininte de listare");
@@ -584,7 +567,7 @@ public class PrintActivity extends FragmentActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AlertDialog.Builder builder = new AlertDialog.Builder(PrintActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(PrintActivity_nou.this);
                 builder.setIcon(iconResId);
                 builder.setTitle(title);
                 builder.setMessage(msg);
@@ -642,10 +625,10 @@ public class PrintActivity extends FragmentActivity {
     }
 
     private void createFisImagineDPP450(Long nIdAntet, int versiune, Context context,
-                                        Cursor crs, Integer nBloc,Integer nEx) {
+                                        Cursor crs, Integer nBloc) {
         String ssir = ConvertNumar.convert(5567.00);
         crs.moveToFirst();
-        int nCopii = 0; // daca nEx este 0 atunci se stabileste default pt fiecare tip de doc
+        int nCopii = 1;
         int nIndex;
         iInaltInPagina=0 ; //this.iInalt;
         //        int nPause=Math.round((4+crs.getCount()/4))*1000;
@@ -656,90 +639,98 @@ public class PrintActivity extends FragmentActivity {
         int nTipDoc = crs.getInt(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Antet.TABLE_NAME + "_" + ColectieAgentHelper.Table_Antet.COL_ID_TIPDOC));
         switch (nTipDoc) {
             case Biz.TipDoc.ID_TIPDOC_COMANDA: // comanda
-                nCopii=(nEx==0 ? 2 :nEx);
                 iInaltInPagina= printComanda(crs,iInaltInPagina);
                 break;
             case Biz.TipDoc.ID_TIPDOC_FACTURA: // factura sau chitanta
-// varianta preluata de la aviz incarcare
-//            {
-//                int nRec = crs.getCount();
-//                int nPas = 0;
-//                //            int nBloc = 15;
-//                while (nPas * nBloc < nRec) {
-//                    if (nPas == 0) {
-//                        if (nRec <= nBloc) {
-//                            printFactura(crs, nPas * nBloc,  nBloc, true, true,0);
-//                        } else {
-//                            printFactura(crs, nPas * nBloc,  nBloc, true, false,0);
+            {
+                int nRec = crs.getCount();
+                int nPas = 0;
+                //            int nBloc = 15;
+                while (nPas * nBloc < nRec) {
+                    if (nPas == 0) {
+                        if (nRec <= nBloc) {
+                            printFactura(crs, nPas * nBloc,  nBloc, true, true,0);
+                        } else {
+                            printFactura(crs, nPas * nBloc,  nBloc, true, false,0);
+                        }
+                    } else if ((nPas + 1) * nBloc >= nRec) {
+                        // suntem la ultimul pas
+                        printFactura(crs, nPas * nBloc,  nBloc, false, true,0);
+                    } else {
+                        printFactura(crs, nPas * nBloc,  nBloc, false, false,0);
+                    }
+//                        try {
+//                            Thread.sleep(Math.round((4 + nBloc / 4) * 1000) + 1000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
 //                        }
-//                    } else if ((nPas + 1) * nBloc >= nRec) {
-//                        // suntem la ultimul pas
-//                        printFactura(crs, nPas * nBloc,  nBloc, false, true,0);
-//                    } else {
-//                        printFactura(crs, nPas * nBloc,  nBloc, false, false,0);
-//                    }
-//                    nPas = nPas + 1;
-//                }
-//            }
-// end varianta de la aviz incarcare
-                nCopii=(nEx==0 ? 2 : nEx);
-                nIndex=crs.getColumnIndex(ColectieAgentHelper.Table_Antet.TABLE_NAME + "_" + ColectieAgentHelper.Table_Antet.COL_LISTAT);
-                if (crs.getInt(nIndex)> 0) nCopii = 1; // daca s-a listat deja se scoate un singur ex
-                for (int i = 0; i <nCopii ; i++) {
-                    {
-                        if (lCuChit) {
-//                            iInaltInPagina=0 ;
-                            printChitanta(crs, iInaltInPagina);
+                    nPas = nPas + 1;
+                }
+            }
+
+
+
+
+
+//                Log.d("PRO&","2");
+//                nIndex=crs.getColumnIndex(ColectieAgentHelper.Table_Antet.TABLE_NAME + "_" + ColectieAgentHelper.Table_Antet.COL_LISTAT);
+//                if (crs.getInt(nIndex)> 0) nCopii = 1;
+//                for (int i = 0; i <nCopii ; i++) {
+//                    {
+//                        if (lCuChit) {
+////                            iInaltInPagina=0 ;
+//                            printChitanta(crs, iInaltInPagina);
+//                        }
+//
+//                        try {
+//                            Thread.sleep(500);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//
+//                        int nRec = crs.getCount();
+//                        int nPas = 0;
+////                        int nBloc = 15;
+//                        while (nPas * nBloc < nRec) {
+//                            Log.d("PRO LISTAFORMAT"," Pas:"+nPas+"  Bloc:"+nBloc);
+//                            if (nPas == 0) {
+//                                if (nRec <= nBloc) {
+//                                    printFactura(crs, nPas * nBloc, nBloc, true, true,iInaltInPagina);
+//                                    Log.d("PRO LISTAFORMAT","True, True ");
+//                                } else {
+//                                    printFactura(crs, nPas * nBloc, nBloc, true, false,iInaltInPagina);
+//                                    Log.d("PRO LISTAFORMAT","True, False ");
+//                                }
+//                            } else if ((nPas + 1) * nBloc >= nRec) {
+//                                // suntem la ultimul pas
+//                                printFactura(crs, nPas * nBloc, nBloc, false, true,iInaltInPagina);
+//                            } else {
+//                                printFactura(crs, nPas * nBloc, nBloc, false, false,iInaltInPagina);
+//                                Log.d("PRO LISTAFORMAT","False, False ");
+//                            }
 //                            try {
-//                                Thread.sleep(500);
+//                                Thread.sleep(Math.round((4 + nBloc / 4) * 800)+0);
 //                            } catch (InterruptedException e) {
 //                                e.printStackTrace();
 //                            }
-                        }
-
-                        int nRec = crs.getCount();
-                        int nPas = 0;
-//                        int nBloc = 15;
-                        while (nPas * nBloc < nRec) {
-                            Log.d("PRO LISTAFORMAT"," Pas:"+nPas+"  Bloc:"+nBloc);
-                            if (nPas == 0) {
-                                if (nRec <= nBloc) {
-                                    printFactura(crs, nPas * nBloc, nBloc, true, true,iInaltInPagina);
-                                    Log.d("PRO LISTAFORMAT","True, True ");
-                                } else {
-                                    printFactura(crs, nPas * nBloc, nBloc, true, false,iInaltInPagina);
-                                    Log.d("PRO LISTAFORMAT","True, False ");
-                                }
-                            } else if ((nPas + 1) * nBloc >= nRec) {
-                                // suntem la ultimul pas
-                                printFactura(crs, nPas * nBloc, nBloc, false, true,iInaltInPagina);
-                            } else {
-                                printFactura(crs, nPas * nBloc, nBloc, false, false,iInaltInPagina);
-                                Log.d("PRO LISTAFORMAT","False, False ");
-                            }
-                            try {
-                                Thread.sleep(Math.round((4 + nBloc / 4) * 800)+0);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            nPas = nPas + 1;
-                        }
-
-                    }
+//
+//                            nPas = nPas + 1;
+//                        }
+//                        try {
+//                            Thread.sleep(2000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
 //
 //                            com.printFactura(crs);
                     // asteapta terminarea listarii
-                    if ( i+1<nCopii) // se face pauza doar daca mai urmeaza un exemplar
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    Log.d("PRO EXEMPLAR ",i+"");
-                }
+
+                //}
                 break;
             case Biz.TipDoc.ID_TIPDOC_AVIZCLIENT: // aviz client
-                nCopii=(nEx==0 ? 2 : nEx);
                 nIndex=crs.getColumnIndex(ColectieAgentHelper.Table_Antet.TABLE_NAME + "_" + ColectieAgentHelper.Table_Antet.COL_LISTAT);
                 if (crs.getInt(nIndex)> 0) nCopii = 1;
                 for (int i = 0; i <nCopii ; i++) {
@@ -783,12 +774,9 @@ public class PrintActivity extends FragmentActivity {
                 }
                 break;
             case Biz.TipDoc.ID_TIPDOC_AVIZDESC: // aviz descarcare
-                nCopii=(nEx==0 ? 1 : nEx);
                 iInaltInPagina= printAvizDescarcare(crs,iInaltInPagina);
                 break;
             case Biz.TipDoc.ID_TIPDOC_AVIZINC: // aviz incarcare
-                nCopii=(nEx==0 ? 1 : nEx);
-
             {
                 int nRec = crs.getCount();
                 int nPas = 0;
@@ -1395,14 +1383,16 @@ public class PrintActivity extends FragmentActivity {
         int nNextIndex = 0;
         try {
 
-                    setStampila(context);
-                    final int width = imagewidth;
-                    final int height = imageheight;
-                    final int[] argb = imageargb;
-                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+            setStampila(context);
+            final int width = imagewidth;
+            final int height = imageheight;
+            final int[] argb = imageargb;
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
                     crs.moveToFirst();
                     Log.d("PRO&","Inainte de compunere reset listare fact fara red : "+mPrinter.getStatus());
-                    antePrint();
+                    mPrinter.reset();
+                    Log.d("PRO&","Inainte de compunere dupa reset listare: "+mPrinter.getStatus());
+                    mPrinter.selectPageMode();
                     // 80-pixeli= 1 cm pe latime
                     // 100-pixeli = 12 mm pe inaltime
                     int iCurrLeft=iCurrLeftAbsolut;
@@ -1793,8 +1783,8 @@ public class PrintActivity extends FragmentActivity {
 
                     }
                     // descriere subsol ( 8 randuri)
-                    crs.moveToFirst();
                     if (lSubsol) {
+                        crs.moveToFirst();
                         while (!crs.isAfterLast()) {
                             nValFara = nValFara + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_VAL_FARA));
                             nValTva = nValTva + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_VAL_TVA));
@@ -1923,9 +1913,10 @@ public class PrintActivity extends FragmentActivity {
 //                    iCurrTop=2;
 //                    mPrinter.setPageXY(iCurrLeft, iCurrTop);
 //                    mPrinter.printTaggedText("{reset}{left}{i}{s}"+"Software pentru agenti de vanzari realizat de PROSOFT SRL . Tel. 0722 236256"+"{br}");
-                    // Log.d("PRO&", "Inainte de printpage factura: " + mPrinter.getStatus());
-                    postPrint(lSubsol);
-                    return iTopPageRegion + iHeightPageRegion;
+            Log.d("PRO&", "Inainte de printpage factura: " + mPrinter.getStatus());
+            postPrint(lSubsol);
+
+            return iTopPageRegion + iHeightPageRegion;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -3581,14 +3572,18 @@ public class PrintActivity extends FragmentActivity {
     public void postPrint(Boolean lSubsol) {
        try {
             mPrinter.printPage();
+           try {
+               Thread.sleep(500);
+           } catch (InterruptedException e) {
+               e.printStackTrace();
+           }
+
            mPrinter.selectStandardMode();
             if (lSubsol) {
                 mPrinter.feedPaper(150);
             }
             mPrinter.flush();
-            Thread.sleep(500);
-
-           // mPrinter.reset();
+            mPrinter.reset();
         } catch (Exception e ) {
             e.printStackTrace();
         }

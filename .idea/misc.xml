@@ -11,7 +11,7 @@
         <entry key="..\:/agentiA/app/src/main/res/layout/activity_ambalaje.xml" value="0.15885416666666666" />
         <entry key="..\:/agentiA/app/src/main/res/layout/activity_cpanel.xml" value="0.1" />
         <entry key="..\:/agentiA/app/src/main/res/layout/activity_documente.xml" value="0.1" />
-        <entry key="..\:/agentiA/app/src/main/res/layout/activity_lista_denumiri.xml" value="0.264" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/activity_lista_denumiri.xml" value="0.6" />
         <entry key="..\:/agentiA/app/src/main/res/layout/activity_main_listview.xml" value="0.15885416666666666" />
         <entry key="..\:/agentiA/app/src/main/res/layout/activity_sincro.xml" value="0.16979166666666667" />
         <entry key="..\:/agentiA/app/src/main/res/layout/dialog_produs_document.xml" value="0.18333333333333332" />
@@ -19,11 +19,11 @@
         <entry key="..\:/agentiA/app/src/main/res/layout/fragment_ambalaje.xml" value="0.18333333333333332" />
         <entry key="..\:/agentiA/app/src/main/res/layout/fragment_avize.xml" value="0.11302083333333333" />
         <entry key="..\:/agentiA/app/src/main/res/layout/fragment_baza_documente.xml" value="0.11302083333333333" />
-        <entry key="..\:/agentiA/app/src/main/res/layout/fragment_continut_documente.xml" value="0.264" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/fragment_continut_documente.xml" value="0.11302083333333333" />
         <entry key="..\:/agentiA/app/src/main/res/layout/fragment_documente.xml" value="0.18333333333333332" />
         <entry key="..\:/agentiA/app/src/main/res/layout/fragment_rapoarte.xml" value="0.11302083333333333" />
         <entry key="..\:/agentiA/app/src/main/res/layout/fragment_rapoarte_list_tablea.xml" value="0.11302083333333333" />
-        <entry key="..\:/agentiA/app/src/main/res/layout/fragment_sablon_cerere.xml" value="0.264" />
+        <entry key="..\:/agentiA/app/src/main/res/layout/fragment_sablon_cerere.xml" value="0.11302083333333333" />
         <entry key="..\:/agentiA/app/src/main/res/layout/row_listview_continut_document.xml" value="0.18333333333333332" />
         <entry key="..\:/agentiA/app/src/main/res/layout/row_listview_continut_sablon.xml" value="0.18333333333333332" />
         <entry key="..\:/agentiA/app/src/main/res/layout/row_listview_denumiri_agenti.xml" value="0.18333333333333332" />
@@ -51,6 +51,11 @@
         <entry key="..\:/surse/android_studio/agenti/app/src/main/res/layout/fragment_continut_documente.xml" value="0.1403985507246377" />
         <entry key="..\:/surse/android_studio/agenti/app/src/main/res/layout/fragment_documente.xml" value="0.2125" />
         <entry key="..\:/surse/android_studio/agenti/app/src/main/res/xml/setari_globale.xml" value="0.12083333333333333" />
+        <entry key="..\:/surse/android_studio/agenti_test/app/src/main/res/layout/activity_lista_denumiri.xml" value="0.2125" />
+        <entry key="..\:/surse/android_studio/agenti_test/app/src/main/res/layout/dialog_produs_document.xml" value="0.25" />
+        <entry key="..\:/surse/android_studio/agenti_test/app/src/main/res/layout/dialog_sablon_alege.xml" value="0.1" />
+        <entry key="..\:/surse/android_studio/agenti_test/app/src/main/res/layout/fragment_continut_documente.xml" value="0.2125" />
+        <entry key="..\:/surse/android_studio/agenti_test/app/src/main/res/layout/fragment_sablon_cerere.xml" value="0.2125" />
       </map>
     </option>
   </component>
@@ -73,7 +78,7 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

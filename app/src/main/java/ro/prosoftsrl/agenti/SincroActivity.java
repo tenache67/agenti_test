@@ -196,24 +196,24 @@ public class SincroActivity extends Activity {
 			} else {
 				if (iIdDevice>0) {					
 					switch (iTipSincro) {
-                        case -1:
+                    case -1:
 
 
                             break;
-                        case 0:
+                    case 0:
 						// totala
 						// se fac stergerile din tabela stergeri din server
-                        publishProgress("Preia sabloane");
-						sincro.sincroSablon(iIdDevice);
-						publishProgress("Stergeri");
-						sincro.sincroSterge(iIdDevice);
-						publishProgress("Preia discounturi");
-                            sincro.sincroPreiaDinServer(
+							publishProgress("Stergeri");
+							sincro.sincroSterge(iIdDevice);
+							publishProgress("Preia sabloane");
+							sincro.sincroSablon(iIdDevice);
+							publishProgress("Preia discounturi");
+							sincro.sincroPreiaDinServer(
 									Table_Discount.TABLE_NAME,
 									Table_Discount.STABLE_NAME,
 									Table_Discount.STR_DISCOUNT,
 									1, iIdDevice, ""
-							);
+								);
 						//sincro.sincroPreiaDiscount(iIdDevice);
 						publishProgress("Preia produse");
 						sincro.sincroPreiaProduse(-1); // se preiau toate produsele

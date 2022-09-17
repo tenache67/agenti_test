@@ -13,6 +13,8 @@ import ro.prosoftsrl.agenthelper.ColectieAgentHelper;
 import ro.prosoftsrl.agenthelper.ColectieAgentHelper.*;
 import ro.prosoftsrl.diverse.Siruri;
 import ro.prosoftsrl.sqlserver.MySQLDBadapter;
+
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -28,7 +30,8 @@ public class Sincronizare {
     //preia stocul initial zilnic pentru varianta fara descarcare masina
     // stocul initial apare ca un aviz de incarcare generat
 
-    public void sincroPreiaStocIniZi (int idDevice,Context context) {
+    @SuppressLint("Range")
+	public void sincroPreiaStocIniZi (int idDevice, Context context) {
         // sterge avizul anterior
         int nBlocat=0 ; // se preia flagul blocat de la imaginea anterioara
         String sCmd="";
@@ -119,6 +122,7 @@ public class Sincronizare {
     }
 
 	// preia avizul de incarcare generat automat
+	@SuppressLint("Range")
 	public void sincroPreiaAvizGenerat (int idDevice) {
 		// sterge avizul preluat anterior
 		int nBlocat=0 ; // se preia flagul blocat de la imaginea anterioara
@@ -152,6 +156,7 @@ public class Sincronizare {
 	}
 	// pune data preluata din server la avizul de incarcare . Data vine in forma DTOS iar aici e nevoie de data 
 	// de forma aaaa-ll-zz
+	@SuppressLint("Range")
 	public void puneDataAvizPreluat(int idDevice, int nBlocat) {
 		String sCmd=""; 
 		sCmd="select "+Table_Antet._ID+" from "+Table_Antet.TABLE_NAME +" where " + 
@@ -176,6 +181,7 @@ public class Sincronizare {
 	}
 		
 	
+	@SuppressLint("Range")
 	public void blocheazaAvizInc (int idDevice) {
 		// se blocheaza avizul in server
 		String sCmd=""; 
@@ -265,6 +271,7 @@ public class Sincronizare {
 		}
 	}
 	
+	@SuppressLint("Range")
 	public void sincroSablon (int idDevice) {
 		ResultSet res =null;
 		ResultSet respoz=null;
@@ -288,6 +295,7 @@ public class Sincronizare {
 				while (res.next()) {
 					Log.d("PRO","AD SAB row "+res.getRow());
 					lActual=false;
+					// se verifica in tabela locala daca s-a facut trimiterea - col_c_timestamp = flag
 					scmd="SELECT "+
 							Table_Sablon_Antet._ID+","+
 							Table_Sablon_Antet.COL_C_TIMESTAMP+
@@ -974,28 +982,33 @@ public class Sincronizare {
 		String sqlVal="";
 		String sval="";
         String sqlSir="";
-		for (int i = 0; i < str.length; i++) {
-			if (str[i].length>2) {
-				if(!str[i][3].equals("")) {
-					// denumirile campurilor din tabela server sunt in coloana a treia (index 2)
-					sqlCamp=sqlCamp+(sqlCamp.equals("") ? "" : ",")+str[i][2];
-					if (str[i][3].equals(STypes.INTREG)) {
-						sval=Integer.toString(crs.getInt(crs.getColumnIndexOrThrow(str[i][0])));
-					} else if (str[i][3].equals(STypes.DATA)) {
-						sval="'"+crs.getString(crs.getColumnIndexOrThrow(str[i][0]))+"'";
-					} else if (str[i][3].equals(STypes.DTOS)) {
-						sval=crs.getString(crs.getColumnIndexOrThrow(str[i][0]));
-						sval="'"+sval.substring(0,4)+sval.subSequence(5, 7)+sval.substring(8, 10)+"'";
-					} else if (str[i][3].equals(STypes.STRING)) {
-						sval="'"+crs.getString(crs.getColumnIndexOrThrow(str[i][0]))+"'";
-					} else if (str[i][3].equals(STypes.VALOARE)) {
-						sval=Double.toString(crs.getDouble(crs.getColumnIndexOrThrow(str[i][0])));
+		try {
+			for (int i = 0; i < str.length; i++) {
+				if (str[i].length > 2) {
+					if (!str[i][3].equals("")) {
+						// denumirile campurilor din tabela server sunt in coloana a treia (index 2)
+						sqlCamp = sqlCamp + (sqlCamp.equals("") ? "" : ",") + str[i][2];
+						if (str[i][3].equals(STypes.INTREG)) {
+							sval = Integer.toString(crs.getInt(crs.getColumnIndexOrThrow(str[i][0])));
+						} else if (str[i][3].equals(STypes.DATA)) {
+							sval = "'" + crs.getString(crs.getColumnIndexOrThrow(str[i][0])) + "'";
+						} else if (str[i][3].equals(STypes.DTOS)) {
+							sval = crs.getString(crs.getColumnIndexOrThrow(str[i][0]));
+							sval = "'" + sval.substring(0, 4) + sval.subSequence(5, 7) + sval.substring(8, 10) + "'";
+						} else if (str[i][3].equals(STypes.STRING)) {
+							sval = "'" + crs.getString(crs.getColumnIndexOrThrow(str[i][0])) + "'";
+						} else if (str[i][3].equals(STypes.VALOARE)) {
+							sval = Double.toString(crs.getDouble(crs.getColumnIndexOrThrow(str[i][0])));
+						}
+						sqlVal = sqlVal + (sqlVal.equals("") ? "" : ",") + sval;
 					}
-					sqlVal=sqlVal+(sqlVal.equals("") ? "" : ",")+sval;
 				}
 			}
+		} catch (IllegalArgumentException e) {
+			String msg = e.getMessage();
+			e.printStackTrace();
 		}
-        if (lCuIdDevice) {
+		if (lCuIdDevice) {
             sqlSir=" INSERT INTO "+tbServer+" ( "+sqlCamp+",id_device ) VALUES ("+sqlVal+","+idDevice+")";
         } else {
             sqlSir=" INSERT INTO "+tbServer+" ( "+sqlCamp+") VALUES ("+sqlVal+")";
@@ -1116,6 +1129,7 @@ public class Sincronizare {
 	}
 	
 	// determina vloarea maxima a timestamp aferent serverului din baza locala
+	@SuppressLint("Range")
 	public long getmaxServerTimeDinLocal (String ctabela) {
 		Cursor liteCrs = this.db.query(	ctabela,new String[] {"max(s_timestamp) as maxtime"}, null, null, null, null, null);
 		long nMax=0;

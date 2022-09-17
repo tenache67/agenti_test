@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.slidingpanelayout:slidingpanelayout:1.2.0-beta01@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/259bd81409b5ddaded54a164e9b6992d/transformed/slidingpanelayout-1.2.0-beta01/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/e181ea2b9d3feb4eb1030b1bf2b72623/transformed/slidingpanelayout-1.2.0-beta01/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/259bd81409b5ddaded54a164e9b6992d/transformed/slidingpanelayout-1.2.0-beta01/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/259bd81409b5ddaded54a164e9b6992d/transformed/slidingpanelayout-1.2.0-beta01/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/259bd81409b5ddaded54a164e9b6992d/transformed/slidingpanelayout-1.2.0-beta01/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/e181ea2b9d3feb4eb1030b1bf2b72623/transformed/slidingpanelayout-1.2.0-beta01/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e181ea2b9d3feb4eb1030b1bf2b72623/transformed/slidingpanelayout-1.2.0-beta01/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e181ea2b9d3feb4eb1030b1bf2b72623/transformed/slidingpanelayout-1.2.0-beta01/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

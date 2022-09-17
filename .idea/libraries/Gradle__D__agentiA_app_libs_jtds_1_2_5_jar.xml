@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Gradle: D./agentiA/app/libs/jtds-1.2.5.jar">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/jtds-1.2.5.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
