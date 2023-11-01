@@ -31,9 +31,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -42,6 +44,7 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -64,6 +67,7 @@ public class ListaDenumiriActivity extends FragmentActivity
     List<String> arraySpinner = new ArrayList<String>();
     ArrayAdapter<String> adapterSpin;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +77,11 @@ public class ListaDenumiriActivity extends FragmentActivity
         InitCautare(); //bara cautare
 
         InitSpinnerRezultate(); //unde sunt pusi itemi gasiti
+
+        //ascunde tastatura
+        //InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        //imm.hideSoftInputFromWindow( getCurrentFocus().getWindowToken(), 0);
+
     }
 
     private void InitSpinnerRezultate() {
@@ -121,8 +130,18 @@ public class ListaDenumiriActivity extends FragmentActivity
         });
     }
 
+
     private void InitCautare() {
         etCautare = (EditText) findViewById(R.id.editTextCautare);
+   //     etCautare.setFocusable(false);
+
+        etCautare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int ssss=1;
+            }
+        });
         etCautare.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -205,6 +224,7 @@ public class ListaDenumiriActivity extends FragmentActivity
 
     // implementare pt onDlgClick
     // de la dialogul activat de lista de denumiri ( de ex la laista de clienti)
+    // adica atunci cand se apasa pe un client apare o lista de optiuni . Onclick de aici se apeleaza de la acea lista
     @Override
     public void onListItemSelected(Bundle arg) {
         int iTLD = arg.getInt("iTLD", 0);
@@ -804,7 +824,9 @@ public class ListaDenumiriActivity extends FragmentActivity
         int iAct = arg.getInt(ConstanteGlobale.Actiuni_la_documente.ETICHETA_ACTIUNE);
         switch (iAct) {
             case ConstanteGlobale.Actiuni_la_documente.ALEGE_AGENT: {
-                // se promeste idul agentului la keya _id
+                // se primeste idul agentului la keya _id
+                // apare numai la varianta pe comenzi
+                // se initializeaza tavelele pt noul traseu
                 long id = arg.getLong("_id");
                 ColectieAgentHelper colectie = new ColectieAgentHelper(this);
                 SQLiteDatabase db = colectie.getWritableDatabase();
@@ -812,49 +834,76 @@ public class ListaDenumiriActivity extends FragmentActivity
                 db.execSQL(" UPDATE " + Table_Agent.TABLE_NAME + " set " + Table_Agent.COL_ACTIV + " =0 ");
                 db.execSQL(" UPDATE " + Table_Agent.TABLE_NAME + " set " + Table_Agent.COL_ACTIV + " =1 " + " where " + Table_Agent._ID + "=" + id);
                 db.delete(Table_Clienti.TABLE_NAME, null, null);
-                String sqlCmd = " INSERT INTO " + Table_Clienti.TABLE_NAME + " ( " +
-                        Table_Clienti._ID + "," +
-                        Table_Clienti.COL_ORDONARE + "," +
-                        Table_Clienti.COL_ID_PART + "," +
-                        Table_Clienti.COL_DENUMIRE + "," +
-                        Table_Clienti.COL_NR_FISc + "," +
-                        Table_Clienti.COL_NR_RC + "," +
-                        Table_Clienti.COL_JUDET + "," +
-                        Table_Clienti.COL_LOC + "," +
-                        Table_Clienti.COL_ADRESA + "," +
-                        Table_Clienti.COL_TEL1 + "," +
-                        Table_Clienti.COL_TEL2 + "," +
-                        Table_Clienti.COL_CONTACT + "," +
-                        Table_Clienti.COL_BANCA + "," +
-                        Table_Clienti.COL_CONT + "," +
-                        Table_Clienti.COL_ID_ZONA +
-                        " ) " +
-                        " SELECT " +
-                        Table_Partener.TABLE_NAME + "." + Table_Partener._ID + "," +
-                        Table_Client_Agent.COL_ORDONARE + "," +
-                        Table_Partener.COL_ID_PART + "," +
-                        Table_Partener.COL_DENUMIRE + "," +
-                        Table_Partener.COL_NR_FISc + "," +
-                        Table_Partener.COL_NR_RC + "," +
-                        Table_Partener.COL_JUDET + "," +
-                        Table_Partener.COL_LOC + "," +
-                        Table_Partener.COL_ADRESA + "," +
-                        Table_Partener.COL_TEL1 + "," +
-                        Table_Partener.COL_TEL2 + "," +
-                        Table_Partener.COL_CONTACT + "," +
-                        Table_Partener.COL_BANCA + "," +
-                        Table_Partener.COL_CONT + "," +
-                        Table_Partener.COL_ID_ZONA +
-                        " from " + Table_Partener.TABLE_NAME + " inner join " + Table_Client_Agent.TABLE_NAME + " on " +
-                        Table_Partener.TABLE_NAME + "." + Table_Partener._ID + " = " + Table_Client_Agent.TABLE_NAME + "." + Table_Client_Agent.COL_ID_CLIENT +
-                        " where " + Table_Partener.TABLE_NAME + "." + Table_Partener.COL_BLOCAT + "=0" +
-                        " and " + Table_Client_Agent.TABLE_NAME + "." + Table_Client_Agent.COL_ID_AGENT + " = " + id;
-                Log.d("PRO", "Sir clienti: " + sqlCmd);
-                db.execSQL(sqlCmd);
+                db.delete(Table_Antet.TABLE_NAME, null, null);
+                db.delete(Table_Pozitii.TABLE_NAME, null, null);
+                db.delete(Table_Sablon_Antet.TABLE_NAME, null, null);
+                db.delete(Table_Sablon_Pozitii.TABLE_NAME, null, null);
+                db.delete(Table_Client_Agent.TABLE_NAME, null, null);
+                db.delete(Table_Partener.TABLE_NAME, null, null);
+                db.delete(Table_Produse.TABLE_NAME, null, null);
+                db.delete(Table_TempContinutDocumente.TABLE_NAME, null, null);
+                db.delete(ColectieAgentHelper.Table_Discount.TABLE_NAME, null, null);
+                db.delete(ColectieAgentHelper.Table_GenUnic.TABLE_NAME, null, null);
+
+//                String sqlCmd = " INSERT INTO " + Table_Clienti.TABLE_NAME + " ( " +
+//                        Table_Clienti._ID + "," +
+//                        Table_Clienti.COL_ORDONARE + "," +
+//                        Table_Clienti.COL_ID_PART + "," +
+//                        Table_Clienti.COL_DENUMIRE + "," +
+//                        Table_Clienti.COL_NR_FISc + "," +
+//                        Table_Clienti.COL_NR_RC + "," +
+//                        Table_Clienti.COL_JUDET + "," +
+//                        Table_Clienti.COL_LOC + "," +
+//                        Table_Clienti.COL_ADRESA + "," +
+//                        Table_Clienti.COL_TEL1 + "," +
+//                        Table_Clienti.COL_TEL2 + "," +
+//                        Table_Clienti.COL_CONTACT + "," +
+//                        Table_Clienti.COL_BANCA + "," +
+//                        Table_Clienti.COL_CONT + "," +
+//                        Table_Clienti.COL_ID_ZONA +
+//                        " ) " +
+//                        " SELECT " +
+//                        Table_Partener.TABLE_NAME + "." + Table_Partener._ID + "," +
+//                        Table_Client_Agent.COL_ORDONARE + "," +
+//                        Table_Partener.COL_ID_PART + "," +
+//                        Table_Partener.COL_DENUMIRE + "," +
+//                        Table_Partener.COL_NR_FISc + "," +
+//                        Table_Partener.COL_NR_RC + "," +
+//                        Table_Partener.COL_JUDET + "," +
+//                        Table_Partener.COL_LOC + "," +
+//                        Table_Partener.COL_ADRESA + "," +
+//                        Table_Partener.COL_TEL1 + "," +
+//                        Table_Partener.COL_TEL2 + "," +
+//                        Table_Partener.COL_CONTACT + "," +
+//                        Table_Partener.COL_BANCA + "," +
+//                        Table_Partener.COL_CONT + "," +
+//                        Table_Partener.COL_ID_ZONA +
+//                        " from " + Table_Partener.TABLE_NAME + " inner join " + Table_Client_Agent.TABLE_NAME + " on " +
+//                        Table_Partener.TABLE_NAME + "." + Table_Partener._ID + " = " + Table_Client_Agent.TABLE_NAME + "." + Table_Client_Agent.COL_ID_CLIENT +
+//                        " where " + Table_Partener.TABLE_NAME + "." + Table_Partener.COL_BLOCAT + "=0" +
+//                        " and " + Table_Client_Agent.TABLE_NAME + "." + Table_Client_Agent.COL_ID_AGENT + " = " + id;
+//                Log.d("PRO", "Sir clienti: " + sqlCmd);
+//                db.execSQL(sqlCmd);
                 db.setTransactionSuccessful();
                 db.endTransaction();
                 db.close();
                 colectie.close();
+                // se scrie noul id in parametrui
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString(getString(R.string.key_ecran1_id_agent), ""+id);
+                editor.commit();
+
+                // se face sincronizaer pe noul id
+
+                Intent intent = new Intent();
+                intent.setClassName(this,"ro.prosoftsrl.agenti.SincroActivity");
+                intent.putExtra("pozitie", 0);
+                intent.putExtra("idTipLista", 0);
+                intent.putExtra("lAuto",true) ;
+                intent.putExtra("lFinish",true) ; // se transmite ca sa se inchida fereastra de sincronizare dupa
+                startActivity(intent);
+
                 this.finish();
             }
             break;
@@ -943,6 +992,7 @@ public class ListaDenumiriActivity extends FragmentActivity
                             db.delete(Table_Mesaje.TABLE_NAME, Table_Mesaje.COL_ID_MESAJ + "=" + ConstanteGlobale.Mesaje.SUCCES_PREIA_SABLON, null);
                             db.setTransactionSuccessful();
                             db.endTransaction();
+                            // preia din server sablonul
                             String sqlCmd = " SELECT " +
                                     "SABLON_ANTET.cod_int as SABLON_ANTET_cod_int ," +
                                     "SABLON_POZITII.cod_int ," +
@@ -951,12 +1001,14 @@ public class ListaDenumiriActivity extends FragmentActivity
                                     "SABLON_POZITII.cantitate ," +
                                     "SABLON_POZITII.diferente ," +
                                     "SABLON_POZITII.cod_int as " + Table_TempContinutDocumente.COL_S_TIMESTAMP +
-                                    " from SABLON_ANTET inner join SABLON_POZITII on	SABLON_ANTET.cod_int=SABLON_POZITII.id_antet " +
-                                    " WHERE " +
+                                    " from ( SELECT TOP 1 * FROM SABLON_ANTET "+
+                                    "WHERE " +
                                     "SABLON_ANTET.id_part= " + arg.getLong("_id") + " and " +
                                     "SABLON_ANTET.id_agent= " + iCodAgent + " and " +
                                     "SABLON_ANTET.id_ruta= " + (arg.getLong("id_ruta") + 1) + " and " +
-                                    "SABLON_ANTET.id_cursa=" + arg.getInt("id_cursa");
+                                    "SABLON_ANTET.id_cursa=" + arg.getInt("id_cursa") +" and "+
+                                    "SABLON_ANTET.id_site=0 ) SABLON_ANTET "+
+                            "inner join SABLON_POZITII on	SABLON_ANTET.cod_int=SABLON_POZITII.id_antet " ;
                             MySQLDBadapter sqldb = new MySQLDBadapter(getApplicationContext());
                             try {
                                 sqldb.open();
@@ -1072,12 +1124,27 @@ public class ListaDenumiriActivity extends FragmentActivity
                         lAreSablon = true;
                         crs.moveToFirst();
                         nIdAntet = crs.getLong(crs.getColumnIndexOrThrow(Table_Sablon_Antet._ID));
-                        Cursor crstemp = Biz.getCursorListaDenumiri(
-                                colectie,
-                                Biz.TipListaDenumiri.TLD_LINIE_SABLON,
-                                nIdAntet,
-                                arg.getLong("_id"),
-                                true);
+                        Cursor crstemp ;
+                        if (arg.getInt("id_cursa")==3){
+                            // pt cursa 4 se apeleaza alt sql cu poz suplimentare aduaugate
+                            // aici se apeleaza numai cand este creare de document din sablon nu si la editarea sabonului
+                            //
+                            crstemp = Biz.getCursorListaDenumiri(
+                                    colectie,
+                                    Biz.TipListaDenumiri.TLD_INIT_DIN_SABLON ,
+                                    nIdAntet,
+                                    arg.getLong("_id"),
+                                    true);
+
+                        } else {
+                            crstemp = Biz.getCursorListaDenumiri(
+                                    colectie,
+                                    Biz.TipListaDenumiri.TLD_LINIE_SABLON,
+                                    nIdAntet,
+                                    arg.getLong("_id"),
+                                    true);
+                        }
+
                         Log.d("STARTSABLON", "Row: " + crstemp.getCount());
 
                         if (crstemp.getCount() > 0) {

@@ -284,7 +284,7 @@ public class Sincronizare {
 		long nlastTime=getmaxServerTimeDinLocal(Table_Sablon_Antet.TABLE_NAME);
 		scmd="SELECT *,cast(timestamp as integer) as "+Table_Sablon_Antet.SCOL_PT_TIMESTAMP+
 				" FROM "+Table_Sablon_Antet.STABLE_NAME+
-				" WHERE cast(timestamp as integer)>"+nlastTime+ " and "+
+				" WHERE cast(timestamp as integer)>"+nlastTime+ " and id_site=0 and "+
 					Table_Sablon_Antet.COL_ID_AGENT+"="+idDevice;
 		Log.d("PRO","Lat time="+scmd);
 		res=sqldb.query(scmd);
@@ -366,6 +366,7 @@ public class Sincronizare {
 				db.setTransactionSuccessful();
 				db.endTransaction();
 				res.close();
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -389,6 +390,7 @@ public class Sincronizare {
 				nIdServer=0;
 				scmd="SELECT cod_int FROM "+Table_Sablon_Antet.STABLE_NAME+
 					" WHERE "+
+						"id_site=0 and "+
 						Table_Sablon_Antet.SCOL_ID_AGENT+"="+idDevice +" AND "+
 						Table_Sablon_Antet.SCOL_ID_PART+"="+crs.getLong(crs.getColumnIndex(Table_Sablon_Antet.COL_ID_PART)) +" AND "+
 						Table_Sablon_Antet.SCOL_ID_RUTA+"="+crs.getLong(crs.getColumnIndex(Table_Sablon_Antet.COL_ID_RUTA)) +" AND "+
@@ -426,6 +428,7 @@ public class Sincronizare {
 				ntime=0;
 				scmd="SELECT cast(timestamp as integer) as time FROM "+Table_Sablon_Antet.STABLE_NAME+
 						" WHERE "+
+						"id_site=0 and "+
 						Table_Sablon_Antet.SCOL_ID_AGENT+"="+idDevice +" AND "+
 						Table_Sablon_Antet.SCOL_ID_PART+"="+crs.getLong(crs.getColumnIndex(Table_Sablon_Antet.COL_ID_PART)) +" AND "+
 						Table_Sablon_Antet.SCOL_ID_RUTA+"="+crs.getLong(crs.getColumnIndex(Table_Sablon_Antet.COL_ID_RUTA)) +" AND "+
@@ -470,7 +473,78 @@ public class Sincronizare {
 			db.setTransactionSuccessful();
 			db.endTransaction();
 		}
-		// preia din server
+		//preia din server antetele de sabloane suplimentare ( id_site<>0 )
+		// se face stergerea mai intai
+		db.beginTransaction();
+		db.delete(Table_Sablon_Antet_supl.TABLE_NAME,"1=1",null);
+		scmd="exec myproc_get_sablon_ant_suplimentare "+idDevice ;
+		res=sqldb.query(scmd);
+
+		if (res!=null) {
+			try {
+				while (res.next()) {
+					cval.clear();
+					cval.put(Table_Sablon_Antet_supl._ID, res.getLong(Table_Sablon_Antet.SCOL_COD_INT));
+					cval.put(Table_Sablon_Antet_supl.COL_BLOCAT, res.getInt(Table_Sablon_Antet.SCOL_BLOCAT));
+					cval.put(Table_Sablon_Antet_supl.COL_DATA, res.getString(Table_Sablon_Antet.SCOL_DATA));
+					cval.put(Table_Sablon_Antet_supl.COL_ID_AGENT, res.getLong(Table_Sablon_Antet.SCOL_ID_AGENT));
+					cval.put(Table_Sablon_Antet_supl.COL_ID_CURSA, res.getLong(Table_Sablon_Antet.SCOL_ID_CURSA));
+					cval.put(Table_Sablon_Antet_supl.COL_ID_DEVICE, res.getLong(Table_Sablon_Antet.SCOL_ID_DEVICE));
+					cval.put(Table_Sablon_Antet_supl.COL_ID_PART, res.getLong(Table_Sablon_Antet.SCOL_ID_PART));
+					cval.put(Table_Sablon_Antet_supl.COL_ID_RUTA, res.getLong(Table_Sablon_Antet.SCOL_ID_RUTA) - 1);
+					cval.put(Table_Sablon_Antet_supl.COL_ID_TIPDOC, res.getLong(Table_Sablon_Antet.SCOL_ID_TIPDOC));
+					cval.put(Table_Sablon_Antet_supl.COL_C_TIMESTAMP, "U");
+					// cval.put(Table_Sablon_Antet_supl.COL_S_TIMESTAMP, res.getLong(Table_Sablon_Antet.SCOL_PT_TIMESTAMP));
+					db.insert(Table_Sablon_Antet_supl.TABLE_NAME, null, cval);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				try {
+					res.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				db.setTransactionSuccessful();
+				db.endTransaction();
+
+			}
+		}
+
+		// preia din server pozitiile de comanda suplimentare ( cele care au la id_site <> 0 )
+		db.beginTransaction();
+		db.delete(Table_Sablon_Pozitii_supl.TABLE_NAME,"1=1",null);
+		scmd="exec myproc_get_sablon_poz_suplimentare "+idDevice ;
+		Log.d("PRO","Lat time="+scmd);
+		res=sqldb.query(scmd);
+		if (res!=null) {
+			try {
+				while (res.next()) {
+					cval.clear();
+					cval.put(Table_Sablon_Pozitii_supl._ID, res.getLong(Table_Sablon_Pozitii.SCOL_COD_INT));
+					cval.put(Table_Sablon_Pozitii_supl.COL_C_TIMESTAMP, "U");
+					cval.put(Table_Sablon_Pozitii_supl.COL_CANTITATE, res.getDouble(Table_Sablon_Pozitii.SCOL_CANTITATE));
+					cval.put(Table_Sablon_Pozitii_supl.COL_DIFERENTE, res.getDouble(Table_Sablon_Pozitii.SCOL_DIFERENTE));
+					cval.put(Table_Sablon_Pozitii_supl.COL_ID_ANTET, res.getLong(Table_Sablon_Pozitii.SCOL_ID_ANTET));
+					cval.put(Table_Sablon_Pozitii_supl.COL_ID_PRODUS, res.getLong(Table_Sablon_Pozitii.SCOL_ID_PRODUS));
+					cval.put(Table_Sablon_Pozitii.COL_ID_UM, res.getLong(Table_Sablon_Pozitii.SCOL_ID_UM));
+					db.insert(Table_Sablon_Pozitii_supl.TABLE_NAME, null, cval);
+				} // de la while
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				try {
+					res.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				db.setTransactionSuccessful();
+				db.endTransaction();
+			}
+		}
+
 		
 	}
 
@@ -704,9 +778,16 @@ public class Sincronizare {
 //	}
 
 	public void sincroPreiaAgent(int idDevice) {
+		sincroPreiaAgent(idDevice, "", false) ;
+	}
+	public void sincroPreiaAgent(int idDevice, String cFiltru, boolean lPtComenzi) {
 		Log.d("PRO","PreiaAgent 1");
-		ResultSet res=sincroGetSetDinServer(Table_Agent.TABLE_NAME, Table_Agent.STABLE_NAME,
-				Table_Agent.STR_AGENT, -1, true, "", 0);
+		String sTabelaServer = Table_Agent.STABLE_NAME ;
+		if (lPtComenzi) {
+			sTabelaServer="view_agenti" ;
+		}
+		ResultSet res=sincroGetSetDinServer(Table_Agent.TABLE_NAME, sTabelaServer,
+				Table_Agent.STR_AGENT, -1, true,cFiltru, 0);
 		Log.d("PRO","2");
 		db.beginTransaction();
 		try {

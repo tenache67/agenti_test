@@ -11,6 +11,7 @@ import ro.prosoftsrl.agenti.R;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -22,6 +23,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 public class DocumenteActivity extends FragmentActivity 
@@ -274,6 +277,10 @@ public class DocumenteActivity extends FragmentActivity
 			default:
 				break;
 		}
+		//ascunde tastatura
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN );
+
 	}
 //	@Override
 //	public void transmiteDlg(Bundle arg) {

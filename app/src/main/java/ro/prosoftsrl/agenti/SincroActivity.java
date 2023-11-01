@@ -36,7 +36,10 @@ public class SincroActivity extends Activity {
 //	ProgressDialog myPd;
 	TaskSincro task=null;
 	private int iTipSincro =0 ; //0 - sincro total , 1 - sincro documente
-	
+	private boolean lNumaiAgenti=false ;
+	private boolean lAuto =false ; // se face sincronizare fara apasare de buton la accesul feresteri
+	private boolean lFinish =false ; // daca e true se inchide activitatea dupa sincronizare
+	private String cCodSincro ;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d("crea","1");
@@ -57,6 +60,13 @@ public class SincroActivity extends Activity {
 			Log.d("crea","10");
 
 		}
+		// verifica daca apelul este doar pt agenti
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		cCodSincro= settings.getString(getString(R.string.key_ecran1_codagent),"");
+
+		lNumaiAgenti = getIntent().getBooleanExtra("lNumaiAgenti",false);
+		lAuto=getIntent().getBooleanExtra("lAuto",false);
+		lFinish=getIntent().getBooleanExtra("lFinish",false);
 		Log.d("crea", "6");
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -67,22 +77,7 @@ public class SincroActivity extends Activity {
 				// TODO Auto-generated method stub
 				//myPd.setMessage("Asteapta");
 				//myPd.show();
-				iTipSincro=0;
-				Boolean lCreeaza =false;
-				if (task==null) {
-					lCreeaza=true;
-				} else {
-					if (task.isDone()) {
-						task.detach();
-						task=null;
-						lCreeaza=true;
-					}
-				}
-				if (lCreeaza) {
-					task=new TaskSincro();
-					task.attach(SincroActivity.this);
-					task.execute("");					
-				}
+				laClickSincronizare();
 			}
 
 		});
@@ -119,7 +114,12 @@ public class SincroActivity extends Activity {
 //				
 //			}
 //		});
-		
+		if (lAuto) {
+			laClickSincronizare();
+		}
+		if (lFinish) {
+			finish();
+		}
 	}
 
 	@Override
@@ -170,29 +170,77 @@ public class SincroActivity extends Activity {
 
 			if (lComenziOnline) {
 				// sincronizare pentru comenzi online. Se preiau in totalitate agentii , clientii si produsele
-				publishProgress("Parteneri");
-//                sincro.sincroPreiaClient(iIdDevice);
-                sincro.sincroAdaugInServer(
-                        Table_Partener.TABLE_NAME,
-                        Table_Partener.STABLE_NAME,
-                        Table_Partener.STR_PARTENER,
-                        "",false
-                );
-                sincro.sincroPreiaDinServer(
-                        Table_Partener.TABLE_NAME,
-                        Table_Partener.TABLE_NAME,
-                        Table_Partener.STR_PARTENER,
-                        -1, ""
-                );
-                Log.d("PRO&","Dupa client");
-				publishProgress("ClientAgent");
-				sincro.sincroPreiaClientAgent(-1);
-				publishProgress("Agent");
-				sincro.sincroPreiaAgent(-1);
-				publishProgress("Preia produse");
-				sincro.sincroPreiaProduse(-1); // se preiau toate produsele
-				
-				
+				if (iIdDevice>0) {
+					switch (iTipSincro) {
+						case -1:
+							break;
+						case 0:
+							// totala
+							// se fac stergerile din tabela stergeri din server
+							publishProgress("Stergeri");
+							sincro.sincroSterge(iIdDevice);
+							publishProgress("Agent");
+							sincro.sincroPreiaAgent(-1,"cod_sincro='"+  cCodSincro+"'",true);
+							publishProgress("Preia sabloane");
+							// sincro.sincroSablon(iIdDevice);
+							publishProgress("Preia produse");
+							sincro.sincroPreiaProduse(-1); // se preiau toate produsele
+							// sincro.sincroPreiaClient(iIdDevice);
+							publishProgress("Preia clienti");
+							Log.d("PRO","1");
+							sincro.sincroAdaugInServerNou(
+									Table_Clienti.TABLE_NAME,
+									"partener",
+									Table_Clienti.STR_CLIENTI,
+									"",false
+							);
+							Log.d("PRO","2");
+							sincro.sincroPreiaDinServer(
+									Table_Clienti.TABLE_NAME,
+									Table_Clienti.STABLE_NAME,
+									Table_Clienti.STR_CLIENTI,
+									1,iIdDevice,""
+							);
+							Log.d("PRO","3");
+							publishProgress("Preia client_agent");
+							sincro.sincroAdaugInServerNou(
+									Table_Client_Agent.TABLE_NAME,
+									Table_Client_Agent.STABLE_NAME,
+									Table_Client_Agent.STR_CLIENT_AGENT,
+									"",false);
+							sincro.sincroPreiaDinServer(
+									Table_Client_Agent.TABLE_NAME,
+									Table_Client_Agent.STABLE_NAME,
+									Table_Client_Agent.STR_CLIENT_AGENT,
+									-1,Table_Client_Agent.COL_ID_AGENT+"="+iIdDevice);
+
+							publishProgress("Preia rute");
+							sincro.sincroPreiaDinServer(Table_Rute.TABLE_NAME,
+									Table_Rute.STABLE_NAME,
+									Table_Rute.STR_RUTE,1,-1,"");
+							// pentru ca aici nu este break se trece mai departe la documente
+						case 1:
+
+							// sincro documnete
+						default:
+							break;
+					}
+					try {
+						sqldb.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					// TODO Auto-generated method stub
+					mDone=true;
+				} else {
+					if (lNumaiAgenti) {
+						publishProgress("Agent");
+						sincro.sincroPreiaAgent(-1, "cod_agent_comenzi='"+cCodSincro+"'",true);
+						mDone=true;
+					} else
+						Toast.makeText(getApplicationContext(), "Atentie ! Nu a fost declarat cod agent pentru sincronizare", Toast.LENGTH_LONG).show();
+				}
 			} else {
 				if (iIdDevice>0) {					
 					switch (iTipSincro) {
@@ -207,6 +255,7 @@ public class SincroActivity extends Activity {
 							sincro.sincroSterge(iIdDevice);
 							publishProgress("Preia sabloane");
 							sincro.sincroSablon(iIdDevice);
+
 							publishProgress("Preia discounturi");
 							sincro.sincroPreiaDinServer(
 									Table_Discount.TABLE_NAME,
@@ -412,6 +461,26 @@ public class SincroActivity extends Activity {
         super.onDestroy();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
+	// codul care se apeleaza la butonul de sincronizare
+	private void laClickSincronizare () {
+		iTipSincro=0;
+		Boolean lCreeaza =false;
+		if (task==null) {
+			lCreeaza=true;
+		} else {
+			if (task.isDone()) {
+				task.detach();
+				task=null;
+				lCreeaza=true;
+			}
+		}
+		if (lCreeaza) {
+			task=new TaskSincro();
+			task.attach(SincroActivity.this);
+			task.execute("");
+		}
+
+	}
 }
 
 //public void old_sincronizare() {

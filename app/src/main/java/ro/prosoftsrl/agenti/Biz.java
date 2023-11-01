@@ -76,7 +76,7 @@ public class Biz {
 		Log.d("PRO","Select sold ambalaje: "+scmd);
 		return scmd;
 	}
-	
+	// sauta sablon
 	public static String getSqlCautaSablon (long id_part,long id_agent, long id_ruta , int id_cursa) {
 		String scmd=
 			"SELECT "+
@@ -541,6 +541,7 @@ public class Biz {
 	
 	
 	//determina instr sql pt cursorul de denumiri in liste in functie de id client si dicounturi
+	// tot aici se determina si imaginea continutului din sablon ( comenzi )
 	public static String getSqlListaDenumiri(int iTLD, long iIdMaster, long iIdClient, Boolean lPVcuTVA,int nTipTva) {
 		String sqlSir="";
 		String sData1=Siruri.dtos(Calendar.getInstance(),"-");
@@ -573,6 +574,79 @@ public class Biz {
                         " WHERE "+ ColectieAgentHelper.Table_Rute.COL_ID_AGENT+"="+iIdClient;
             }
             break;
+		case Biz.TipListaDenumiri.TLD_INIT_DIN_SABLON: {
+			// numai pt cursa 4 si numai la apel din creare document nou din sablon
+			// nu se apeleaza la actualizarea sablonului
+			sqlSir=
+					" SELECT "+
+							Table_Produse.COL_DENUMIRE+","+
+							Table_Produse.COL_ID_MASTER+","+
+							"SUM (" +Table_Sablon_Pozitii.COL_CANTITATE+ ") as " +Table_Sablon_Pozitii.COL_CANTITATE +","+
+							"0 as _id_temp"+","+
+							Table_Sablon_Pozitii.COL_ID_PRODUS+","+
+							"0 as "+Table_Sablon_Pozitii.COL_DIFERENTE+","+
+							Table_Sablon_Pozitii.COL_S_TIMESTAMP+","+
+							Table_Produse._ID +
+							" FROM ( " ;
+			sqlSir=sqlSir+
+					"SELECT "+
+					Table_Produse.TABLE_NAME+"."+Table_Produse.COL_DENUMIRE+","+
+					"0 as "+Table_Produse.COL_ID_MASTER+","+
+					Table_Sablon_Pozitii.TABLE_NAME+"."+Table_Sablon_Pozitii.COL_CANTITATE+","+
+					Table_Sablon_Pozitii.TABLE_NAME+"."+Table_Sablon_Pozitii._ID +" as _id_temp "+","+
+					Table_Sablon_Pozitii.TABLE_NAME+"."+Table_Sablon_Pozitii.COL_ID_PRODUS+","+
+					Table_Sablon_Pozitii.TABLE_NAME+"."+Table_Sablon_Pozitii.COL_DIFERENTE+","+
+					"0 as "+Table_Sablon_Pozitii.COL_S_TIMESTAMP+","+
+					Table_Produse.TABLE_NAME+"."+Table_Produse._ID+
+					" FROM "+Table_Sablon_Antet.TABLE_NAME+
+					" INNER JOIN "+ Table_Sablon_Pozitii.TABLE_NAME+ " ON "+ Table_Sablon_Antet.TABLE_NAME+"."+Table_Sablon_Antet._ID+"="+
+					Table_Sablon_Pozitii.TABLE_NAME+"."+Table_Sablon_Pozitii.COL_ID_ANTET+
+					" INNER JOIN "+Table_Produse.TABLE_NAME+" ON "+	Table_Produse.TABLE_NAME+"."+Table_Produse._ID+"="+
+					Table_Sablon_Pozitii.TABLE_NAME+"."+Table_Sablon_Pozitii.COL_ID_PRODUS+
+					" WHERE "+Table_Sablon_Antet.TABLE_NAME+"."+Table_Sablon_Antet._ID+" = "+iIdMaster;
+			sqlSir=sqlSir+
+					" UNION ALL "+
+					" SELECT "+
+					Table_Produse.TABLE_NAME+"."+Table_Produse.COL_DENUMIRE+","+
+					"0 as "+Table_Produse.COL_ID_MASTER+","+
+					ColectieAgentHelper.Table_Sablon_Pozitii_supl.TABLE_NAME+"."+ ColectieAgentHelper.Table_Sablon_Pozitii_supl.COL_CANTITATE+","+
+					ColectieAgentHelper.Table_Sablon_Pozitii_supl.TABLE_NAME+"."+ ColectieAgentHelper.Table_Sablon_Pozitii_supl._ID +" as _id_temp "+","+
+					ColectieAgentHelper.Table_Sablon_Pozitii_supl.TABLE_NAME+"."+ ColectieAgentHelper.Table_Sablon_Pozitii_supl.COL_ID_PRODUS+","+
+					ColectieAgentHelper.Table_Sablon_Pozitii_supl.TABLE_NAME+"."+ ColectieAgentHelper.Table_Sablon_Pozitii_supl.COL_DIFERENTE+","+
+					"0 as "+ ColectieAgentHelper.Table_Sablon_Pozitii_supl.COL_S_TIMESTAMP+","+
+					Table_Produse.TABLE_NAME+"."+Table_Produse._ID+
+					" FROM "+ ColectieAgentHelper.Table_Sablon_Antet_supl.TABLE_NAME+
+					" INNER JOIN "+Table_Sablon_Antet.TABLE_NAME+" ON "+
+					Table_Sablon_Antet.TABLE_NAME+"."+Table_Sablon_Antet.COL_ID_CURSA+"="+
+					ColectieAgentHelper.Table_Sablon_Antet_supl.TABLE_NAME+"."+	ColectieAgentHelper.Table_Sablon_Antet_supl.COL_ID_CURSA+
+					" AND "+
+					Table_Sablon_Antet.TABLE_NAME+"."+Table_Sablon_Antet.COL_ID_RUTA+"="+
+					ColectieAgentHelper.Table_Sablon_Antet_supl.TABLE_NAME+"."+ColectieAgentHelper.Table_Sablon_Antet_supl.COL_ID_RUTA+
+					" AND "+
+					Table_Sablon_Antet.TABLE_NAME+"."+Table_Sablon_Antet.COL_ID_PART+"="+
+					ColectieAgentHelper.Table_Sablon_Antet_supl.TABLE_NAME+"."+ColectieAgentHelper.Table_Sablon_Antet_supl.COL_ID_PART+
+					" AND "+ Table_Sablon_Antet.TABLE_NAME+"."+Table_Sablon_Antet._ID+"=" +iIdMaster +
+					" INNER JOIN "+ ColectieAgentHelper.Table_Sablon_Pozitii_supl.TABLE_NAME+ " ON "+ ColectieAgentHelper.Table_Sablon_Antet_supl.TABLE_NAME+"."+ ColectieAgentHelper.Table_Sablon_Antet_supl._ID+"="+
+					ColectieAgentHelper.Table_Sablon_Pozitii_supl.TABLE_NAME+"."+ ColectieAgentHelper.Table_Sablon_Pozitii_supl.COL_ID_ANTET+
+					" INNER JOIN "+Table_Produse.TABLE_NAME+" ON "+	Table_Produse.TABLE_NAME+"."+Table_Produse._ID+"="+
+					ColectieAgentHelper.Table_Sablon_Pozitii_supl.TABLE_NAME+"."+ ColectieAgentHelper.Table_Sablon_Pozitii_supl.COL_ID_PRODUS+
+					" WHERE "+ColectieAgentHelper.Table_Sablon_Pozitii_supl.TABLE_NAME+"."+ ColectieAgentHelper.Table_Sablon_Pozitii_supl.COL_CANTITATE+"<>0";
+
+			sqlSir=sqlSir+
+					" )  aaa  " +
+					" GROUP BY " +
+					Table_Produse.COL_DENUMIRE+","+
+					Table_Produse.COL_ID_MASTER+","+
+					Table_Sablon_Pozitii.COL_ID_PRODUS+","+
+					Table_Sablon_Pozitii.COL_S_TIMESTAMP+","+
+					Table_Produse._ID+
+					" ORDER BY " +Table_Produse.COL_ID_MASTER
+			;
+
+
+
+			}
+			break;
 		// pentru linia de continut din sablon
 		case Biz.TipListaDenumiri.TLD_LINIE_SABLON:
 			if (iIdMaster==0) {
@@ -589,7 +663,9 @@ public class Biz {
 					" INNER JOIN "+Table_TempContinutDocumente.TABLE_NAME+" ON "+
 							Table_Produse.TABLE_NAME+"."+Table_Produse._ID+"="+Table_TempContinutDocumente.TABLE_NAME+"."+
 							Table_TempContinutDocumente.COL_ID_PRODUS+
-					" ORDER BY "+Table_TempContinutDocumente.TABLE_NAME+"."+Table_TempContinutDocumente._ID;
+					" ORDER BY "+Table_Produse.TABLE_NAME+"."+Table_Produse.COL_ID_MASTER ;
+					//
+				//	Table_TempContinutDocumente.TABLE_NAME+"."+Table_TempContinutDocumente._ID;
 			} else {
 				// imaginea doc din pozitii
 				sqlSir="SELECT "+
@@ -606,7 +682,9 @@ public class Biz {
 							Table_Sablon_Pozitii.TABLE_NAME+"."+Table_Sablon_Pozitii.COL_ID_ANTET+
 					" INNER JOIN "+Table_Produse.TABLE_NAME+" ON "+	Table_Produse.TABLE_NAME+"."+Table_Produse._ID+"="+
 							Table_Sablon_Pozitii.TABLE_NAME+"."+Table_Sablon_Pozitii.COL_ID_PRODUS+
-					" WHERE "+Table_Sablon_Antet.TABLE_NAME+"."+Table_Sablon_Antet._ID+" = "+iIdMaster;
+					" WHERE "+Table_Sablon_Antet.TABLE_NAME+"."+Table_Sablon_Antet._ID+" = "+iIdMaster+
+						" ORDER BY "+Table_Produse.TABLE_NAME+"."+Table_Produse.COL_ID_MASTER
+				;
 			}
 		
 			break;
@@ -1310,6 +1388,8 @@ public class Biz {
         public static final int TLD_RUTE=17;
         // pentru client_agent
         public static final int TLD_CLIENT_AGENT=18;
+		// pentru initializare document din sablon
+		public static final int TLD_INIT_DIN_SABLON=19;
 
 
 	}

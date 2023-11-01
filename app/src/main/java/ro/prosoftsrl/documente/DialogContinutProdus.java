@@ -17,11 +17,14 @@ import androidx.fragment.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 
 public class DialogContinutProdus extends DialogFragment {
@@ -32,7 +35,7 @@ public class DialogContinutProdus extends DialogFragment {
 //	public interface DialogContinutProdusTransmite {
 //		public void transmiteDlg (Bundle arg);
 //	}
-	
+
 	@Override
 	public void onAttach(Activity activity) {
 		// TODO Auto-generated method stub
@@ -41,7 +44,7 @@ public class DialogContinutProdus extends DialogFragment {
 		if (activity instanceof ActivityReceiveActionsInterface)
 			actiontrans=(ActivityReceiveActionsInterface) activity;
 		else
-			throw new ClassCastException(activity.toString()+" trebuie implementata interfata de la ActivityReceiveActionsInterface" );
+			throw new ClassCastException(activity+" trebuie implementata interfata de la ActivityReceiveActionsInterface" );
 	}
 	
 	static DialogContinutProdus newinstance (Bundle fb) {
@@ -71,25 +74,25 @@ public class DialogContinutProdus extends DialogFragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
                                 AlertDialog dlg = (AlertDialog) dialog;
-                                EditText edt = (EditText) dlg.findViewById(R.id.txtDlgProdContinutCant);
+                                EditText edt = dlg.findViewById(R.id.txtDlgProdContinutCant);
                                 edt.requestFocus();
                                 // 30.05.2017 - am pus butonul pentru bonus invizibil ca sa nu se mai poata da
                                 // vezi si mai jos ca este fortat argumentul pt este bonus ca sa fie 0
-                                CheckBox chk = (CheckBox) dlg.findViewById(R.id.chkDlgProdContinut);
+                                CheckBox chk = dlg.findViewById(R.id.chkDlgProdContinut);
                                 // deja in argumente s-a primit id_produs
                                 Bundle arg = getArguments();
-                                Log.d("INDIALOG", edt.toString() + " " + edt.getText().toString());
+                                Log.d("INDIALOG", edt+ " " + edt.getText().toString());
                                 arg.putInt(ConstanteGlobale.Actiuni_la_documente.ETICHETA_ACTIUNE,
                                         ConstanteGlobale.Actiuni_la_documente.SET_CANTITATE_LA_DOCUMENT);
-                                Double nCant = (double) 0;
+                                double nCant = 0;
                                 try {
                                     nCant = Double.parseDouble(edt.getText().toString());
                                 } catch (NumberFormatException e) {
                                     // TODO Auto-generated catch block
                                 }
                                 arg.putDouble("cantitate", nCant);
-                                EditText pret = (EditText)  dlg.findViewById(R.id.txtDlgProdContinutPret);
-                                Double nPret=Siruri.getDoubleDinString(pret.getText().toString());
+                                EditText pret =  dlg.findViewById(R.id.txtDlgProdContinutPret);
+                                double nPret=Siruri.getDoubleDinString(pret.getText().toString());
                                 arg.putDouble("pret_cu",nPret  );
                                 // 30.05.2017 - am pus butonul pentru bonus invizibil ca sa nu se mai poata da
                                 // am fortat ca argumentul pt bonus sa fie 0 in permanenta
@@ -98,7 +101,7 @@ public class DialogContinutProdus extends DialogFragment {
                                 // daca activez linia de mai jos bonusul nu este activ
                                 //arg.putInt("este_bonus", 0); // trebuia sa fie linia de mai sus
 
-                                RadioGroup rdg= (RadioGroup) dlg.findViewById(R.id.rdbGrdlgProd);
+                                RadioGroup rdg= dlg.findViewById(R.id.rdbGrdlgProd);
                                 long nIdFA=4;
                                 switch (rdg.getCheckedRadioButtonId()) {
                                     case R.id.rdbDlgProdFA1:
@@ -114,6 +117,11 @@ public class DialogContinutProdus extends DialogFragment {
                                 arg.putLong("forma_ambalare_selectata", nIdFA);
                                 // se transmite mai departe
                                 actiontrans.transmite_actiuni(null, arg); // la DocumenteActivty
+                                //ascunde tastatura
+
+                                // InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                // imm.hideSoftInputFromWindow( requireActivity().getCurrentFocus().getWindowToken(), 0);
+
                             }
                         })
                         .setNegativeButton("Renunta", new DialogInterface.OnClickListener() {
@@ -126,8 +134,8 @@ public class DialogContinutProdus extends DialogFragment {
                         });
                 // se cauta argumentul pentru activarea bonusului
                 // bonusul se activeaza numai la apelarea din lista de produse
-                Boolean lActBonus = getArguments().getBoolean("bonus", false);
-                CheckBox chk = (CheckBox) view.findViewById(R.id.chkDlgProdContinut);
+                boolean lActBonus = getArguments().getBoolean("bonus", false);
+                CheckBox chk = view.findViewById(R.id.chkDlgProdContinut);
                 chk.setEnabled(lActBonus);
                 chk.setVisibility(lActBonus ? View.VISIBLE : View.GONE);
                 // pentru pret

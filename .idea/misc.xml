@@ -52,10 +52,12 @@
         <entry key="..\:/surse/android_studio/agenti/app/src/main/res/layout/fragment_documente.xml" value="0.2125" />
         <entry key="..\:/surse/android_studio/agenti/app/src/main/res/xml/setari_globale.xml" value="0.12083333333333333" />
         <entry key="..\:/surse/android_studio/agenti_test/app/src/main/res/layout/activity_lista_denumiri.xml" value="0.2125" />
+        <entry key="..\:/surse/android_studio/agenti_test/app/src/main/res/layout/activity_main_listview.xml" value="0.20742753623188406" />
         <entry key="..\:/surse/android_studio/agenti_test/app/src/main/res/layout/dialog_produs_document.xml" value="0.25" />
-        <entry key="..\:/surse/android_studio/agenti_test/app/src/main/res/layout/dialog_sablon_alege.xml" value="0.1" />
+        <entry key="..\:/surse/android_studio/agenti_test/app/src/main/res/layout/dialog_sablon_alege.xml" value="0.15" />
         <entry key="..\:/surse/android_studio/agenti_test/app/src/main/res/layout/fragment_continut_documente.xml" value="0.2125" />
         <entry key="..\:/surse/android_studio/agenti_test/app/src/main/res/layout/fragment_sablon_cerere.xml" value="0.2125" />
+        <entry key="..\:/surse/android_studio/agenti_test/app/src/main/res/xml/setari_globale.xml" value="0.2125" />
       </map>
     </option>
   </component>

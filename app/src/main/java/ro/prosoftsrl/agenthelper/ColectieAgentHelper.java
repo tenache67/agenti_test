@@ -21,7 +21,7 @@ import android.provider.BaseColumns;
 import android.renderscript.Type;
 import android.util.Log;
 	public class ColectieAgentHelper extends SQLiteOpenHelper {
-		public static final int DATABASE_VERSION =105 ;
+		public static final int DATABASE_VERSION =108 ;
 		public static final String DATABASE_NAME="ColectieAgenti";
 		public long nIdStartGenunic=0;
 		private Context context; 
@@ -795,7 +795,7 @@ import android.util.Log;
 				public static final String COL_ID_MASINA="id_masina";
 				public static final String COL_S_TIMESTAMP="s_timestamp";
 				public static final String COL_ACTIV="activ"; // se foloseste pt comenzi online si denumirea lui se afiseaza in meniul de inceput
-				public static final String COL_SETARI="setari";
+			//	public static final String COL_SETARI="setari";
 				public static final String COL_C_TIMESTAMP="flag";
 				
 				public static final String STABLE_NAME = "agent";
@@ -806,7 +806,7 @@ import android.util.Log;
 				public static final String SCOL_BI_SERIE="bi_serie";
 				public static final String SCOL_BI_NUMAR="bi_numar";
 				public static final String SCOL_ID_MASINA="id_masina";
-				public static final String SCOL_SETARI="setari";
+			//	public static final String SCOL_SETARI="setari";
 				public static final String SCOL_PT_TIMESTAMP="pt_timestamp";
 				
 				public static String[][] STR_AGENT= {
@@ -819,7 +819,7 @@ import android.util.Log;
 					{Table_Agent.COL_COD_AG,Types.TEXT,Table_Agent.SCOL_COD_AG,STypes.STRING},
 					{Table_Agent.COL_DENUMIRE,Types.TEXT,Table_Agent.SCOL_DENUMIRE,STypes.STRING},
 					{Table_Agent.COL_ID_MASINA,Types.INTREG,Table_Agent.SCOL_ID_MASINA,STypes.STRING},
-						{Table_Agent.COL_SETARI,Types.TEXT,Table_Agent.SCOL_SETARI,STypes.STRING},
+			//			{Table_Agent.COL_SETARI,Types.TEXT,Table_Agent.SCOL_SETARI,STypes.STRING},
 					{Table_Agent.COL_S_TIMESTAMP,Types.INTREG}
 				};
 				public static final String SQL_DROP_TABLE="DROP TABLE IF EXISTS "+Table_Agent.TABLE_NAME;
@@ -833,7 +833,7 @@ import android.util.Log;
 						Table_Agent.COL_BI_SERIE+Types.TEXT+" , "+
 						Table_Agent.COL_BI_NUMAR+Types.TEXT+" , "+
 						Table_Agent.COL_ID_MASINA+Types.INTREG+" , "+
-                                Table_Agent.COL_SETARI+Types.TEXT+" , "+
+              //                  Table_Agent.COL_SETARI+Types.TEXT+" , "+
 						Table_Agent.COL_ACTIV+Types.INTREG+" , "+
 						Table_Agent.COL_S_TIMESTAMP+Types.INTREG +" , "+
 						Table_Agent.COL_C_TIMESTAMP+Types.TEXT+
@@ -1067,8 +1067,8 @@ import android.util.Log;
 						Table_Antet.COL_S_TIMESTAMP+Types.INTREG +" , "+
 						Table_Antet.COL_C_TIMESTAMP+Types.TEXT +
 						" )";
-				
 			}
+
 			public static abstract class Table_Sablon_Antet implements BaseColumns {
 				public static final String TABLE_NAME = "sablon_antet";
 				public static final String COL_ID_USER="id_user";
@@ -1135,6 +1135,7 @@ import android.util.Log;
 						" )";
 				
 			}
+
 			public static abstract class Table_Sablon_Pozitii implements BaseColumns {
 				public static final String TABLE_NAME = "sablon_pozitii";
 				public static final String COL_ID_ANTET="id_antet";
@@ -1183,8 +1184,127 @@ import android.util.Log;
 						" ) ";
 				
 			}
+// pozitii suplimentare pt comenzi ( cele care vin din site sau din platforme )
+public static abstract class Table_Sablon_Antet_supl implements BaseColumns {
+	public static final String TABLE_NAME = "sablon_antet_supl";
+	public static final String COL_ID_USER="id_user";
+	public static final String COL_ID_DEVICE="id_device";
+	public static final String COL_ID_PART="id_part";
+	public static final String COL_ID_AGENT="id_agent";
+	public static final String COL_ID_RUTA="id_ruta";
+	public static final String COL_ID_CURSA="id_cursa";
+	//				public static final String COL_ID_SITE="id_site"; // pentru separarea comenzilor din site
+	public static final String COL_DATA="data";
+	public static final String COL_ID_TIPDOC="id_tipdoc";
+	public static final String COL_TRANSMIS="transmis";
+	public static final String COL_BLOCAT="blocat";
+	public static final String COL_S_TIMESTAMP="s_timestamp";
+	public static final String COL_C_TIMESTAMP="flag";
 
-			// pentru blocare cursa sa nu poata fi folosita decat o data pe zi
+	public static final String STABLE_NAME="sablon_antet";
+	public static final String SCOL_COD_INT="cod_int";
+	public static final String SCOL_ID_USER="id_user";
+	public static final String SCOL_ID_DEVICE="id_device";
+	public static final String SCOL_ID_PART="id_part";
+	public static final String SCOL_ID_AGENT="id_agent";
+	public static final String SCOL_ID_RUTA="id_ruta";
+	public static final String SCOL_ID_CURSA="id_cursa";
+	//				public static final String SCOL_ID_SITE="id_site";
+	public static final String SCOL_DATA="data";
+	public static final String SCOL_DATA_DOC="data_doc";
+	public static final String SCOL_ID_TIPDOC="id_tipdoc";
+	public static final String SCOL_TRANSMIS="transmis";
+	public static final String SCOL_BLOCAT="blocat";
+	public static final String SCOL_PT_TIMESTAMP="pt_timestamp";
+
+	public static final String [][] STR_SABLON_ANTET= {
+			{Table_Sablon_Antet_supl._ID,Types.INTREG,Table_Sablon_Antet_supl.SCOL_COD_INT,STypes.INTREG},
+			{Table_Sablon_Antet_supl.COL_DATA,Types.DATE,Table_Sablon_Antet_supl.SCOL_DATA,STypes.DATA},
+			{Table_Sablon_Antet_supl.COL_DATA,Types.DATE,Table_Sablon_Antet_supl.SCOL_DATA_DOC,STypes.DTOS},
+			{Table_Sablon_Antet_supl.COL_ID_AGENT,Types.INTREG,Table_Sablon_Antet_supl.SCOL_ID_AGENT,STypes.INTREG},
+			{Table_Sablon_Antet_supl.COL_ID_PART,Types.INTREG,Table_Sablon_Antet_supl.SCOL_ID_PART,STypes.INTREG},
+			{Table_Sablon_Antet_supl.COL_ID_RUTA,Types.INTREG,Table_Sablon_Antet_supl.SCOL_ID_RUTA,STypes.INTREG},
+			{Table_Sablon_Antet_supl.COL_ID_CURSA,Types.INTREG,Table_Sablon_Antet_supl.SCOL_ID_CURSA,STypes.INTREG},
+//						{Table_Sablon_Antet.COL_ID_SITE,Types.INTREG,Table_Sablon_Antet.SCOL_ID_SITE,STypes.INTREG},
+			{Table_Sablon_Antet_supl.COL_ID_TIPDOC,Types.INTREG,Table_Sablon_Antet_supl.SCOL_ID_TIPDOC,STypes.INTREG},
+			{Table_Sablon_Antet_supl.COL_ID_USER,Types.INTREG,Table_Sablon_Antet_supl.SCOL_ID_USER,STypes.INTREG},
+			{Table_Sablon_Antet_supl.COL_BLOCAT,Types.INTREG,Table_Sablon_Antet_supl.SCOL_BLOCAT,STypes.INTREG}
+	};
+
+	public static final String SQL_DROP_TABLE="DROP TABLE IF EXISTS "+Table_Sablon_Antet_supl.TABLE_NAME;
+	public static final String SQL_CREATE_ENTRIES="CREATE TABLE IF NOT EXISTS " +
+			Table_Sablon_Antet_supl.TABLE_NAME + " ( " +
+			Table_Sablon_Antet_supl._ID+Types.PRIMARY+" , "+
+			Table_Sablon_Antet_supl.COL_ID_USER+Types.INTREG+" , "+
+			Table_Sablon_Antet_supl.COL_ID_DEVICE+Types.INTREG+" , "+
+			Table_Sablon_Antet_supl.COL_ID_PART+Types.INTREG+" , "+
+			Table_Sablon_Antet_supl.COL_ID_AGENT+Types.INTREG+" , "+
+			Table_Sablon_Antet_supl.COL_ID_RUTA+Types.INTREG+" , "+
+			Table_Sablon_Antet_supl.COL_ID_CURSA+Types.INTREG+" , "+
+//						Table_Sablon_Antet.COL_ID_SITE+Types.INTREG+" , "+
+			Table_Sablon_Antet_supl.COL_DATA+Types.TIMESTAMP+" , "+
+			Table_Sablon_Antet_supl.COL_ID_TIPDOC+Types.INTREG+" , "+
+			Table_Sablon_Antet_supl.COL_TRANSMIS+Types.INTREG+" , "+
+			Table_Sablon_Antet_supl.COL_BLOCAT+Types.INTREG+" , "+
+			Table_Sablon_Antet_supl.COL_S_TIMESTAMP+Types.INTREG +" , "+
+			Table_Sablon_Antet_supl.COL_C_TIMESTAMP+Types.TEXT +
+			" )";
+}
+
+
+
+		// aceste pozitii apar doar la incarcarea facturii din sablon altfel nu sunt accesibile agentlui
+		public static abstract class Table_Sablon_Pozitii_supl implements BaseColumns {
+			public static final String TABLE_NAME = "sablon_pozitii_supl";
+			public static final String COL_ID_ANTET="id_antet";
+			public static final String COL_ID_PRODUS="id_produs";
+			public static final String COL_CANTITATE="cantitate";
+			public static final String COL_DIFERENTE="diferente";
+			public static final String COL_TRANSMIS="transmis";
+			public static final String COL_STERS="sters";
+			public static final String COL_ID_UM="id_um";
+			public static final String COL_S_TIMESTAMP="s_timestamp";
+			public static final String COL_C_TIMESTAMP="flag";
+
+			public static final String STABLE_NAME="sablon_pozitii";
+			public static final String SCOL_ID_ANTET="id_antet";
+			public static final String SCOL_COD_INT="cod_int";
+			public static final String SCOL_ID_PRODUS="id_produs";
+			public static final String SCOL_CANTITATE="cantitate";
+			public static final String SCOL_DIFERENTE="diferente";
+			public static final String SCOL_TRANSMIS="transmis";
+			public static final String SCOL_STERS="sters";
+			public static final String SCOL_ID_UM="id_um";
+			public static final String SCOL_PT_TIMESTAMP="pt_timestamp";
+
+			public static final String[][] STR_SABLON_POZITII_SUPL = {
+					{Table_Sablon_Pozitii_supl._ID,Types.INTREG,Table_Sablon_Pozitii_supl.SCOL_COD_INT,STypes.INTREG},
+					{Table_Sablon_Pozitii_supl.COL_CANTITATE,Types.VALOARE,Table_Sablon_Pozitii_supl.SCOL_CANTITATE,STypes.VALOARE},
+					{Table_Sablon_Pozitii_supl.COL_DIFERENTE,Types.VALOARE,Table_Sablon_Pozitii_supl.SCOL_DIFERENTE,STypes.VALOARE},
+					{Table_Sablon_Pozitii_supl.COL_ID_ANTET,Types.INTREG,Table_Sablon_Pozitii_supl.SCOL_ID_ANTET,STypes.INTREG},
+					{Table_Sablon_Pozitii_supl.COL_ID_PRODUS,Types.INTREG,Table_Sablon_Pozitii_supl.SCOL_ID_PRODUS,STypes.INTREG},
+					{Table_Sablon_Pozitii_supl.COL_ID_UM,Types.INTREG,Table_Sablon_Pozitii_supl.SCOL_ID_UM,STypes.INTREG}
+			};
+
+			public static final String SQL_DROP_TABLE="DROP TABLE IF EXISTS "+Table_Sablon_Pozitii_supl.TABLE_NAME;
+			public static final String SQL_CREATE_ENTRIES=
+					"CREATE TABLE IF NOT EXISTS " +
+							Table_Sablon_Pozitii_supl.TABLE_NAME + " ( " +
+							Table_Sablon_Pozitii_supl._ID+Types.PRIMARY+" , "+
+							Table_Sablon_Pozitii_supl.COL_ID_ANTET+Types.INTREG+" , "+
+							Table_Sablon_Pozitii_supl.COL_ID_PRODUS+Types.INTREG+" , "+
+							Table_Sablon_Pozitii_supl.COL_CANTITATE+Types.VALOARE+" , "+
+							Table_Sablon_Pozitii_supl.COL_DIFERENTE+Types.VALOARE+" , "+
+							Table_Sablon_Pozitii_supl.COL_TRANSMIS+Types.INTREG+" , "+
+							Table_Sablon_Pozitii_supl.COL_ID_UM+Types.INTREG+" , "+
+							Table_Sablon_Pozitii_supl.COL_S_TIMESTAMP+Types.INTREG +" , "+
+							Table_Sablon_Pozitii_supl.COL_C_TIMESTAMP+Types.TEXT+
+							" ) ";
+
+		}
+
+
+		// pentru blocare cursa sa nu poata fi folosita decat o data pe zi
 			// pentru cursa 0
 			public static abstract class Table_Bloc_Cursa implements BaseColumns {
 				public static final String TABLE_NAME = "bloc_cursa";

@@ -120,6 +120,7 @@ public class ListaProdusePtContinutFragment extends ListFragment implements Frag
         InitSpinnerRezultate(view);
         InitCautare(view);
 
+
         return view;
     }
 
@@ -341,6 +342,7 @@ public class ListaProdusePtContinutFragment extends ListFragment implements Frag
         tog.setChecked(false);
         crs = Biz.getCursorListaDenumiri(colectie, Biz.TipListaDenumiri.TLD_PRODUSE_PT_CONTINUT, this.nIdMaster, this.nIdclient, Biz.pretCuTva(context), nTipTva);
         adapter.changeCursor(crs);
+
     }
 
 

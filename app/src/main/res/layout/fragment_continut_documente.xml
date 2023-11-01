@@ -28,6 +28,7 @@
 		android:background="@drawable/normal_corner"
 		android:capitalize="none"
 		android:ems="10"
+		android:focusable="true"
 		android:gravity="center"
 		android:hint="Cautare"
 		android:inputType="textPersonName"

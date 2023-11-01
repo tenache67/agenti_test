@@ -294,12 +294,13 @@ public class SablonCerereFragment extends BazaFragmentDocumente implements Fragm
 				long nIdAntet=0;
 				// TODO Auto-generated method stub
 				// se cauta in server existenta unei inreg coresp pt antet sablon
-				String sqlCmd="SELECT "+Table_Sablon_Antet.SCOL_COD_INT+" FROM "+Table_Sablon_Antet.STABLE_NAME+
+				String sqlCmd="SELECT TOP 1 "+Table_Sablon_Antet.SCOL_COD_INT+" FROM "+Table_Sablon_Antet.STABLE_NAME+
 					" WHERE "+
 					"SABLON_ANTET.id_part= "+myIdClient+" and "+
 		    		"SABLON_ANTET.id_agent= "+myIdAgent +" and "+ 
 		    		"SABLON_ANTET.id_ruta= "+myIdRuta +" and "+ 
-		    		"SABLON_ANTET.id_cursa="+myIdCursa ;
+		    		"SABLON_ANTET.id_cursa="+myIdCursa + " and "+
+						"SABLON_ANTET.id_site=0 ";
 				db.beginTransaction();
 				db.delete(Table_Mesaje.TABLE_NAME, Table_Mesaje.COL_ID_MESAJ+"="+ConstanteGlobale.Mesaje.SUCCES_SALVEAZA_SABLON, null);
 				db.setTransactionSuccessful();

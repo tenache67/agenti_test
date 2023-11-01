@@ -112,7 +112,7 @@ public class PrintActivity extends FragmentActivity {
                 // se trimite inapoi idAntet
                 SQLiteDatabase db = new ColectieAgentHelper(context).getWritableDatabase();
                 Cursor crs = db.rawQuery(Biz.getSqlImagineDoc(idAntet), null);
-                printDocument(idAntet, crs,5,1);
+                printDocument(idAntet, crs,5,1,true);
 
 //                crs.close();
 //                db.close();
@@ -158,6 +158,12 @@ public class PrintActivity extends FragmentActivity {
             returnIntent.putExtra("IdAntet", idAntet);
             finish();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // blocare buton de back
+
     }
 
     @SuppressLint("MissingPermission")
@@ -532,11 +538,11 @@ public class PrintActivity extends FragmentActivity {
     }
 
     private void printDocument(long idAntet, Cursor crs, Integer nBloc) {
-        printDocument(idAntet,crs,nBloc,0);
+        printDocument(idAntet,crs,nBloc,0,false);
     }
 
 
-    private void printDocument(long idAntet, Cursor crs, Integer nBloc,Integer nEx) {
+    private void printDocument(long idAntet, Cursor crs, Integer nBloc,Integer nEx,boolean lAlternat) {
         int versiune = ConstanteGlobale.Parametri_versiune.VERSIUNE_BETTY;
         doJob(new Runnable() {
             @Override
@@ -560,12 +566,13 @@ public class PrintActivity extends FragmentActivity {
                         }
                         if ("DPP-450".contains(modelPrinter)) {
                             Log.d("PRO&", "Ininte de listare");
-                            createFisImagineDPP450(idAntet, versiune, context, crs, nBloc,nEx);
+                            createFisImagineDPP450(idAntet, versiune, context, crs, nBloc,nEx,lAlternat);
                         }
                         if ("DPP-350".contains(modelPrinter)) {
                             Log.d("PRO&", "Ininte de listare");
-                            // createFisImagineDPP350(nIdAntet, versiune, context, crs);
+                             // createFisImagineDPP350(nIdAntet, versiune, context, crsn,Bloc,nEx,lAlternat);
                         }
+
                     }
                     crs.close();
                 } catch (Exception e) {
@@ -642,11 +649,12 @@ public class PrintActivity extends FragmentActivity {
     }
 
     private void createFisImagineDPP450(Long nIdAntet, int versiune, Context context,
-                                        Cursor crs, Integer nBloc,Integer nEx) {
-        String ssir = ConvertNumar.convert(5567.00);
+                                        Cursor crs, Integer nBlocDoc,Integer nEx,boolean lAlternat) {
+
         crs.moveToFirst();
         int nCopii = 0; // daca nEx este 0 atunci se stabileste default pt fiecare tip de doc
         int nIndex;
+        int nBloc=nBlocDoc ;
         iInaltInPagina=0 ; //this.iInalt;
         //        int nPause=Math.round((4+crs.getCount()/4))*1000;
         Log.d("PRO& LISTF", "1");
@@ -660,44 +668,30 @@ public class PrintActivity extends FragmentActivity {
                 iInaltInPagina= printComanda(crs,iInaltInPagina);
                 break;
             case Biz.TipDoc.ID_TIPDOC_FACTURA: // factura sau chitanta
-// varianta preluata de la aviz incarcare
-//            {
-//                int nRec = crs.getCount();
-//                int nPas = 0;
-//                //            int nBloc = 15;
-//                while (nPas * nBloc < nRec) {
-//                    if (nPas == 0) {
-//                        if (nRec <= nBloc) {
-//                            printFactura(crs, nPas * nBloc,  nBloc, true, true,0);
-//                        } else {
-//                            printFactura(crs, nPas * nBloc,  nBloc, true, false,0);
-//                        }
-//                    } else if ((nPas + 1) * nBloc >= nRec) {
-//                        // suntem la ultimul pas
-//                        printFactura(crs, nPas * nBloc,  nBloc, false, true,0);
-//                    } else {
-//                        printFactura(crs, nPas * nBloc,  nBloc, false, false,0);
-//                    }
-//                    nPas = nPas + 1;
-//                }
-//            }
-// end varianta de la aviz incarcare
                 nCopii=(nEx==0 ? 2 : nEx);
                 nIndex=crs.getColumnIndex(ColectieAgentHelper.Table_Antet.TABLE_NAME + "_" + ColectieAgentHelper.Table_Antet.COL_LISTAT);
                 if (crs.getInt(nIndex)> 0) nCopii = 1; // daca s-a listat deja se scoate un singur ex
                 for (int i = 0; i <nCopii ; i++) {
                     {
-                        if (lCuChit) {
+                        if ( !lAlternat || true) {
+                            crs.moveToFirst();
+                            if (lCuChit) {
 //                            iInaltInPagina=0 ;
-                            printChitanta(crs, iInaltInPagina);
-//                            try {
-//                                Thread.sleep(500);
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
+                                printChitanta(crs, iInaltInPagina);
+
+                                try {
+                                    Thread.sleep(100);
+                                    Thread.sleep(500);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
 
+                        crs.moveToFirst();
                         int nRec = crs.getCount();
+                        // in caz ca nRec = sau mai mic cu o unitate decat nBloc nbloc se face mai mic cu 1 decat nrec
+                        // nBloc=((nBloc>=nRec) && (nBloc-nRec<=1) ? nRec-1 : nBloc );
                         int nPas = 0;
 //                        int nBloc = 15;
                         while (nPas * nBloc < nRec) {
@@ -731,7 +725,7 @@ public class PrintActivity extends FragmentActivity {
                     // asteapta terminarea listarii
                     if ( i+1<nCopii) // se face pauza doar daca mai urmeaza un exemplar
                         try {
-                            Thread.sleep(2000);
+                            Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -1384,6 +1378,7 @@ public class PrintActivity extends FragmentActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.d("PRO&", "Eroare imprimare list factura cu red: ");
+                    postPrint(lSubsol);
                     return 0;
                 }
 
@@ -1546,12 +1541,13 @@ public class PrintActivity extends FragmentActivity {
                                 + "{br}");
                         iCurrTop = iCurrTop + iRowHeight;
                         mPrinter.setPageXY(iCurrLeft, iCurrTop);
+
                         mPrinter.printTaggedText("{reset}{left}{b}{i}" + Siruri.padR("C.U.I.:", 16) + "{/i}" +
-                                crs.getString(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Clienti.TABLE_NAME + "_" + ColectieAgentHelper.Table_Clienti.COL_NR_FISc))
+                                crs.getString(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Clienti.TABLE_NAME + "_" + ColectieAgentHelper.Table_Clienti.COL_NR_FISc)).trim().replace(" ","")
                                 + "{br}");
                         mPrinter.setPageXY(iWidthPageregion / 2, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}{b}{i}" + Siruri.padR("Nr.reg.Com:", 16) + "{/i}" +
-                                crs.getString(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Clienti.TABLE_NAME + "_" + ColectieAgentHelper.Table_Clienti.COL_NR_RC))
+                                crs.getString(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Clienti.TABLE_NAME + "_" + ColectieAgentHelper.Table_Clienti.COL_NR_RC)).trim().replace(" ","")
                                 + "{br}");
                         iCurrTop = iCurrTop + iRowHeight;
                         mPrinter.setPageXY(iCurrLeft, iCurrTop);
@@ -1660,10 +1656,10 @@ public class PrintActivity extends FragmentActivity {
                         }
                         // se ia in considerare si codul suplimentar
                         int suplimini ;
-                            suplimini = crs.getColumnIndex
+                        suplimini = crs.getColumnIndex
                                     (ColectieAgentHelper.Table_Produse.TABLE_NAME+"_"+
                                             ColectieAgentHelper.Table_Produse.COL_SUPLIM2 ) ;
-                            Log.d("DPP","Poz"+crs.getPosition()+" "+ suplimini);
+                        Log.d("DPP","Poz"+crs.getPosition()+" "+ suplimini);
 
                         if (crs.getString(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Cod_Bare.TABLE_NAME + "_" + ColectieAgentHelper.Table_Cod_Bare.COL_COD)).trim().length() > 0) {
                             nRows = nRows + 1;
@@ -1930,6 +1926,7 @@ public class PrintActivity extends FragmentActivity {
         } catch (IOException e) {
             e.printStackTrace();
             Log.d("PRO&", "Eroare imprimare: " + e.getMessage());
+            postPrint(lSubsol);
             return 0;
 
         } finally {
@@ -2096,6 +2093,7 @@ public class PrintActivity extends FragmentActivity {
         } catch (IOException e) {
             e.printStackTrace();
             Log.d("PRO&", "Eroare imprimare: " + e.getMessage());
+            postPrint(true);
             return 0;
         }
 
@@ -2501,6 +2499,7 @@ public class PrintActivity extends FragmentActivity {
         } catch (IOException e) {
             e.printStackTrace();
             Log.d("PRO&", "Eroare imprimare: " + e.getMessage());
+            postPrint(lSubsol);
             return 0;
         }
     }
@@ -2852,6 +2851,7 @@ public class PrintActivity extends FragmentActivity {
         } catch (IOException e) {
             e.printStackTrace();
             Log.d("PRO&", "Eroare imprimare: " + e.getMessage());
+            postPrint();
             return 0;
         } finally {
         }
@@ -3364,6 +3364,7 @@ public class PrintActivity extends FragmentActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.d("PRO&", "Eroare imprimare: " + e.getMessage());
+                    postPrint(lSubsol);
                     return 0;
                 }
 
@@ -3520,15 +3521,26 @@ public class PrintActivity extends FragmentActivity {
             iCurrTop = iCurrTop + iRowHeight;
             mPrinter.setPageXY(iCurrLeft, iCurrTop);
             mPrinter.printTaggedText("{reset}{left}{b}{i}" + "C.U.I.: " + "{/i}" +
-                    crs.getString(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Clienti.TABLE_NAME + "_" + ColectieAgentHelper.Table_Clienti.COL_NR_FISc)) +
+                    crs.getString(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Clienti.TABLE_NAME + "_" + ColectieAgentHelper.Table_Clienti.COL_NR_FISc)).trim().replace(" ","") +
                     "{b}{i} Nr. ORC/an: " +
-                    crs.getString(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Clienti.TABLE_NAME + "_" + ColectieAgentHelper.Table_Clienti.COL_NR_RC))
+                    crs.getString(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Clienti.TABLE_NAME + "_" + ColectieAgentHelper.Table_Clienti.COL_NR_RC)).trim().replace(" ","")
                     + "{br}");
             iCurrTop = iCurrTop + iRowHeight;
             mPrinter.setPageXY(iCurrLeft, iCurrTop);
             mPrinter.printTaggedText("{reset}{left}{b}{i}" + "Adresa: " + "{/i}" +
                     crs.getString(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Clienti.TABLE_NAME + "_" + ColectieAgentHelper.Table_Clienti.COL_JUDET))
                     + "{br}");
+
+            //pozitionare stampila
+            // se mai lasa un rand suplimentar pt a compensa un rand in plus de la textul in litere
+            // mPrinter.setPageXY(iWidthPageregion - width - 20, iCurrTop);
+            mPrinter.setPageXY(iWidthPageregion -  30, iCurrTop+2*iRowHeight);
+            if (argb!=null) {
+                mPrinter.printImage(argb, width, height, Printer.ALIGN_RIGHT, true);
+            }
+
+
+
             iCurrTop = iCurrTop + iRowHeight;
             mPrinter.setPageXY(iCurrLeft, iCurrTop);
             mPrinter.printTaggedText("{reset}{left}{b}{i}" + "Suma de : " + "{/i}{/b}" +
@@ -3541,13 +3553,7 @@ public class PrintActivity extends FragmentActivity {
                                     crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Antet.TABLE_NAME + "_" + ColectieAgentHelper.Table_Antet.COL_VAL_TVA))) +
                     "{br}");
             Log.d("PRO&", "chitanta 7 " );
-
-            //pozitionare stampila
-            mPrinter.setPageXY(iWidthPageregion - width - 20, iCurrTop);
-            if (argb!=null) {
-                mPrinter.printImage(argb, width, height, Printer.ALIGN_LEFT, true);
-            }
-            iCurrTop = iCurrTop + 3 * iRowHeight;
+            iCurrTop = iCurrTop +3* iRowHeight;
             mPrinter.setPageXY(iCurrLeft, iCurrTop);
             mPrinter.printTaggedText("{reset}{left}{b}{i}" + "Reprezentand : " + "{/i}{/b}" +
                     " CV. Fact. " +
@@ -3562,12 +3568,15 @@ public class PrintActivity extends FragmentActivity {
         } catch (IOException e) {
             e.printStackTrace();
             Log.d("PRO&", "Eroare imprimare chitanta: " + e.getMessage());
+            postPrint();
+
             return 0;
         }
 
     }
     public void antePrint () {
         try {
+            Thread.sleep(500);
             mPrinter.reset();
             mPrinter.selectPageMode();
         } catch ( Exception e) {
@@ -3581,6 +3590,8 @@ public class PrintActivity extends FragmentActivity {
     public void postPrint(Boolean lSubsol) {
        try {
             mPrinter.printPage();
+           mPrinter.flush();
+           Thread.sleep(500);
            mPrinter.selectStandardMode();
             if (lSubsol) {
                 mPrinter.feedPaper(150);
@@ -3591,6 +3602,7 @@ public class PrintActivity extends FragmentActivity {
            // mPrinter.reset();
         } catch (Exception e ) {
             e.printStackTrace();
+           Log.d("PRO&", "Eroare postprint: " + e.getMessage());
         }
 
     }
