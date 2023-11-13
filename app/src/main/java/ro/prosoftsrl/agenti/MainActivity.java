@@ -77,7 +77,7 @@ public class MainActivity extends  FragmentActivity  {
 		if (lComenziOnline) {
 			if (iIdDevice<=0) {
 				iIdDevice = 1;
-				cCodSincro=settings.getString(getString(R.string.key_ecran1_codagent), "0");
+				cCodSincro=settings.getString(getString(R.string.key_ecran1_codagent), "");
 				edt = settings.edit().putString(getString(R.string.key_ecran1_id_agent), (Integer.toString(iIdDevice)));
 				edt.commit();
 //				edt = settings.edit().putString(getString(R.string.key_ecran1_codagent), ("037"));
