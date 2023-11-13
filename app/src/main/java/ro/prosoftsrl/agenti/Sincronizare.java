@@ -789,31 +789,32 @@ public class Sincronizare {
 		ResultSet res=sincroGetSetDinServer(Table_Agent.TABLE_NAME, sTabelaServer,
 				Table_Agent.STR_AGENT, -1, true,cFiltru, 0);
 		Log.d("PRO","2");
-		db.beginTransaction();
-		try {
-			Log.d("PRO","Sinc : Inainte de parcurgere agent:"+res.getRow());
-			ContentValues cVal = new ContentValues();
-			while (res.next()) {
-				cVal=setval(Table_Agent.STR_AGENT,res);
-				cVal.put(Table_Agent.COL_C_TIMESTAMP, "U");
-				cVal.put(Table_Agent.COL_S_TIMESTAMP, res.getInt(Table_Agent.SCOL_PT_TIMESTAMP));
-				
-				db.insertWithOnConflict(Table_Agent.TABLE_NAME, null, cVal, SQLiteDatabase.CONFLICT_REPLACE);
-				cVal.clear();
+		if (res != null) {
+
+			db.beginTransaction();
+			try {
+				ContentValues cVal = new ContentValues();
+				while (res.next()) {
+					cVal = setval(Table_Agent.STR_AGENT, res);
+					cVal.put(Table_Agent.COL_C_TIMESTAMP, "U");
+					cVal.put(Table_Agent.COL_S_TIMESTAMP, res.getInt(Table_Agent.SCOL_PT_TIMESTAMP));
+
+					db.insertWithOnConflict(Table_Agent.TABLE_NAME, null, cVal, SQLiteDatabase.CONFLICT_REPLACE);
+					cVal.clear();
+				}
+				db.setTransactionSuccessful();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			db.setTransactionSuccessful();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			db.endTransaction();
+			try {
+				res.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		db.endTransaction();
-		try {
-			res.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 	}
 
 
@@ -882,45 +883,47 @@ public class Sincronizare {
 		// se preiau din server inreg pt sincronizare . Se preiau numai produsele cu versiune=1
 		db.beginTransaction();
 		try {
-			ResultSet res=sincroGetSetDinServer(Table_Produse.TABLE_NAME,Table_Produse.STABLE_NAME,Table_Produse.COL_SINCRO_SERVER,idDevice,false,"versiune=1",0); 
-			Log.d("Sinc","Ininte de parcurgere produse:"+res.getRow());
-			ContentValues cVal = new ContentValues();
-
-			while (res.next()) {
-				Log.d("Sinc","denumire="+res.getString(Table_Produse.SCOL_DENUMIRE));
-				cVal.put(Table_Produse._ID, res.getInt(Table_Produse.SCOL_COD_INT));
-				cVal.put(Table_Produse.COL_ORDONARE, res.getInt(Table_Produse.SCOL_ORDONARE));
-				cVal.put(Table_Produse.COL_DENUMIRE, res.getString(Table_Produse.SCOL_DENUMIRE));
-				cVal.put(Table_Produse.COL_COD_PROD, res.getString(Table_Produse.SCOL_COD_PROD));
-				cVal.put(Table_Produse.COL_PRET_FARA, res.getDouble(Table_Produse.SCOL_PRET_FARA));
-				cVal.put(Table_Produse.COL_PRET_CU, res.getDouble(Table_Produse.SCOL_PRET_CU));
-				cVal.put(Table_Produse.COL_COTA_TVA, res.getDouble(Table_Produse.SCOL_COTA_TVA));
-				cVal.put(Table_Produse.COL_PRET_FARA1, res.getDouble(Table_Produse.SCOL_PRET_FARA1));
-				cVal.put(Table_Produse.COL_PRET_CU1, res.getDouble(Table_Produse.SCOL_PRET_CU1));
-				cVal.put(Table_Produse.COL_ID_TIP, res.getInt(Table_Produse.SCOL_ID_TIP));
-				cVal.put(Table_Produse.COL_ID_MASTER, res.getInt(Table_Produse.SCOL_ID_MASTER));
-				cVal.put(Table_Produse.COL_BUC_BOX, res.getDouble(Table_Produse.SCOL_BUC_BOX));
-				cVal.put(Table_Produse.COL_BLOCAT, res.getInt(Table_Produse.SCOL_BLOCAT));
-				cVal.put(Table_Produse.COL_SUPLIM1, res.getString(Table_Produse.SCOL_SUPLIM1));
-				cVal.put(Table_Produse.COL_SUPLIM2, res.getString(Table_Produse.SCOL_SUPLIM2));
-				cVal.put(Table_Produse.COL_SUPLIM3, res.getString(Table_Produse.SCOL_SUPLIM3));
-				cVal.put(Table_Produse.COL_SUPLIM4, res.getString(Table_Produse.SCOL_SUPLIM4));
-				cVal.put(Table_Produse.COL_S_TIMESTAMP, res.getInt(Table_Produse.SCOL_PT_TIMESTAMP));
-				try {
-					db.insertWithOnConflict(Table_Produse.TABLE_NAME, null, cVal, SQLiteDatabase.CONFLICT_REPLACE);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				cVal.clear();
-			}; 
-			Log.d("sinc:","dupa insert");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ResultSet res = sincroGetSetDinServer(Table_Produse.TABLE_NAME, Table_Produse.STABLE_NAME, Table_Produse.COL_SINCRO_SERVER, idDevice, false, "versiune=1", 0);
+			if (res != null) {
+				ContentValues cVal = new ContentValues();
+				while (res.next()) {
+					Log.d("Sinc", "denumire=" + res.getString(Table_Produse.SCOL_DENUMIRE));
+					cVal.put(Table_Produse._ID, res.getInt(Table_Produse.SCOL_COD_INT));
+					cVal.put(Table_Produse.COL_ORDONARE, res.getInt(Table_Produse.SCOL_ORDONARE));
+					cVal.put(Table_Produse.COL_DENUMIRE, res.getString(Table_Produse.SCOL_DENUMIRE));
+					cVal.put(Table_Produse.COL_COD_PROD, res.getString(Table_Produse.SCOL_COD_PROD));
+					cVal.put(Table_Produse.COL_PRET_FARA, res.getDouble(Table_Produse.SCOL_PRET_FARA));
+					cVal.put(Table_Produse.COL_PRET_CU, res.getDouble(Table_Produse.SCOL_PRET_CU));
+					cVal.put(Table_Produse.COL_COTA_TVA, res.getDouble(Table_Produse.SCOL_COTA_TVA));
+					cVal.put(Table_Produse.COL_PRET_FARA1, res.getDouble(Table_Produse.SCOL_PRET_FARA1));
+					cVal.put(Table_Produse.COL_PRET_CU1, res.getDouble(Table_Produse.SCOL_PRET_CU1));
+					cVal.put(Table_Produse.COL_ID_TIP, res.getInt(Table_Produse.SCOL_ID_TIP));
+					cVal.put(Table_Produse.COL_ID_MASTER, res.getInt(Table_Produse.SCOL_ID_MASTER));
+					cVal.put(Table_Produse.COL_BUC_BOX, res.getDouble(Table_Produse.SCOL_BUC_BOX));
+					cVal.put(Table_Produse.COL_BLOCAT, res.getInt(Table_Produse.SCOL_BLOCAT));
+					cVal.put(Table_Produse.COL_SUPLIM1, res.getString(Table_Produse.SCOL_SUPLIM1));
+					cVal.put(Table_Produse.COL_SUPLIM2, res.getString(Table_Produse.SCOL_SUPLIM2));
+					cVal.put(Table_Produse.COL_SUPLIM3, res.getString(Table_Produse.SCOL_SUPLIM3));
+					cVal.put(Table_Produse.COL_SUPLIM4, res.getString(Table_Produse.SCOL_SUPLIM4));
+					cVal.put(Table_Produse.COL_S_TIMESTAMP, res.getInt(Table_Produse.SCOL_PT_TIMESTAMP));
+					try {
+						db.insertWithOnConflict(Table_Produse.TABLE_NAME, null, cVal, SQLiteDatabase.CONFLICT_REPLACE);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					cVal.clear();
+				};
+			}
+				Log.d("sinc:", "dupa insert");
+		} catch(SQLException e){
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 		}
+
 		db.setTransactionSuccessful();
 		db.endTransaction();
+
 	}
 
 

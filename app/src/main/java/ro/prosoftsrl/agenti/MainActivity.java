@@ -75,6 +75,25 @@ public class MainActivity extends  FragmentActivity  {
 		}
 
 		if (lComenziOnline) {
+			if (iIdDevice<=0) {
+				iIdDevice = 1;
+				edt = settings.edit().putString(getString(R.string.key_ecran1_id_agent), (Integer.toString(iIdDevice)));
+				edt.commit();
+//				edt = settings.edit().putString(getString(R.string.key_ecran1_codagent), ("037"));
+//				edt.commit();
+				edt=settings.edit().putString(getString(R.string.key_ecran3_ipserver), ("192.168.2.99:8833"));
+				edt.commit();
+				edt=settings.edit().putString(getString(R.string.key_ecran3_instanta_sql), ("sqlexpress"));
+				edt.commit();
+				edt=settings.edit().putString(getString(R.string.key_ecran3_nume_db), ("colectie_ppc"));
+				edt.commit();
+				edt=settings.edit().putString(getString(R.string.key_ecran3_user), ("sa"));
+				edt.commit();
+				edt=settings.edit().putString(getString(R.string.key_ecran3_parola), ("prosoftsrl"));
+				edt.commit();
+
+			}
+
 //			if (iIdDevice <=0) {
 //				// se porneste sincronizarea pt a aduce tabela de agenti dac nu exista deja inreg in tabela
 //				Intent intent = new Intent();

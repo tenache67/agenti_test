@@ -761,7 +761,7 @@ public class PrintActivity extends FragmentActivity {
                                 Log.d("PRO LISTAFORMAT","False, False ");
                             }
                             try {
-                                Thread.sleep(Math.round((4 + nBloc / 4) * 1000) + 1000-1000);
+                                Thread.sleep(2000) ; //Math.round((4 + nBloc / 4) * 1000) + 1000-1000);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
