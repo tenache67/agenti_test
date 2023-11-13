@@ -232,6 +232,8 @@ public class MainActivity extends  FragmentActivity  {
 			db.close();
 			colectie.close();
 			// in caz ca nu s-au gasit ag se preia tabela din server
+			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			cCodSincro=settings.getString(getString(R.string.key_ecran1_codagent), "");
 
 			if (!lAreAg && !cCodSincro.equals("")) {
 				Intent intent = new Intent();
