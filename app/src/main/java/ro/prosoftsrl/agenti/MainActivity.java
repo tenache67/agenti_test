@@ -37,7 +37,7 @@ public class MainActivity extends  FragmentActivity  {
 	private int iIdDevice=0;
 	public String cTitlu="Agenti" ;
 	Boolean lComenziOnline=true;
-
+	private String cCodSincro ="";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -77,6 +77,7 @@ public class MainActivity extends  FragmentActivity  {
 		if (lComenziOnline) {
 			if (iIdDevice<=0) {
 				iIdDevice = 1;
+				cCodSincro=settings.getString(getString(R.string.key_ecran1_codagent), "0");
 				edt = settings.edit().putString(getString(R.string.key_ecran1_id_agent), (Integer.toString(iIdDevice)));
 				edt.commit();
 //				edt = settings.edit().putString(getString(R.string.key_ecran1_codagent), ("037"));
@@ -231,7 +232,8 @@ public class MainActivity extends  FragmentActivity  {
 			db.close();
 			colectie.close();
 			// in caz ca nu s-au gasit ag se preia tabela din server
-			if (!lAreAg) {
+
+			if (!lAreAg && !cCodSincro.equals("")) {
 				Intent intent = new Intent();
 				intent.setClassName(this,"ro.prosoftsrl.agenti.SincroActivity");
 				intent.putExtra("pozitie", 0);
