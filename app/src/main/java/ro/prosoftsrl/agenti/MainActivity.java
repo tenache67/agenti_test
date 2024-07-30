@@ -36,7 +36,7 @@ import android.widget.Toast;
 public class MainActivity extends  FragmentActivity  {
 	private int iIdDevice=0;
 	public String cTitlu="Agenti" ;
-	Boolean lComenziOnline=true;
+	Boolean lComenziOnline=false;
 	private String cCodSincro ="";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

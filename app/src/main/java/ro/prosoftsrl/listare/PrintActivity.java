@@ -856,8 +856,9 @@ public class PrintActivity extends FragmentActivity {
                     int iTopPageRegion = iTopCurent;
                     int iHeightPageRegion = 90;
                     int iLinieDen = 5 * 8;
-                    int iLinieUM = iLinieDen + 34 * 8;
-                    int iLiniePRED = iLinieUM + 5 * 8;
+                    int iLinieCotaTva=iLinieDen+35*8 ; // adaugat pt cota tva
+//                    int iLinieUM = iLinieCotaTva ;
+                    int iLiniePRED = iLinieCotaTva + 5 * 8;
                     int iLinieCant = iLiniePRED + 10 * 8;
                     int iLiniePU = iLinieCant + 12 * 8;
                     int iLinieFara = iLiniePU + 12 * 8;
@@ -894,8 +895,7 @@ public class PrintActivity extends FragmentActivity {
                         iCurrTop = iCurrTop + iRowHeight - 3;
                         iCurrLeft = iCurrLeftAbsolut;
                         mPrinter.setPageXY(iCurrLeft, iCurrTop);
-                        mPrinter.printTaggedText("{reset}{left}{b}{i}Cota TVA: {/i}" +
-                                Siruri.str(Biz.round(crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_COTA_TVA)), 0), 4, 0)
+                        mPrinter.printTaggedText("{reset}{left}{b}{i}Cota TVA: 9 , 19 {/i}"
                                 + "{br}");
 
                         // caseta furnizor
@@ -1040,8 +1040,8 @@ public class PrintActivity extends FragmentActivity {
                         mPrinter.printTaggedText("{reset}{left}{b}{i}Nr {br}");
                         mPrinter.setPageXY(iLinieDen, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}{b}{i}" + Siruri.padR(" Denumire articol", 22) + "{br}");
-                        mPrinter.setPageXY(iLinieUM, iCurrTop);
-                        mPrinter.printTaggedText("{reset}{left}{b}{i}" + "UM" + "{br}");
+                        mPrinter.setPageXY(iLinieCotaTva, iCurrTop);
+                        mPrinter.printTaggedText("{reset}{left}{b}{i}" + "TVA" + "{br}");
                         mPrinter.setPageXY(iLiniePRED, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}{b}{i}" + "%RED" + "{br}");
                         mPrinter.setPageXY(iLinieCant, iCurrTop);
@@ -1058,6 +1058,8 @@ public class PrintActivity extends FragmentActivity {
 
                         mPrinter.setPageXY(iCurrLeft, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}{b}{i}cr {br}");
+                        mPrinter.setPageXY(iLinieCotaTva, iCurrTop);
+                        mPrinter.printTaggedText("{reset}{left}{b}{i}" + "%" + "{br}");
                         mPrinter.setPageXY(iLiniePU, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}{b}{i}" + "fara TVA" + "{br}");
                         mPrinter.setPageXY(iLinieFara, iCurrTop);
@@ -1066,7 +1068,7 @@ public class PrintActivity extends FragmentActivity {
                         mPrinter.printTaggedText("{reset}{left}{b}{i}" + "   TVA" + "{br}");
 
                         mPrinter.drawPageRectangle(iLinieDen - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
-                        mPrinter.drawPageRectangle(iLinieUM - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
+                        mPrinter.drawPageRectangle(iLinieCotaTva - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
                         mPrinter.drawPageRectangle(iLiniePRED - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
                         mPrinter.drawPageRectangle(iLinieCant - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
                         mPrinter.drawPageRectangle(iLiniePU - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
@@ -1124,7 +1126,7 @@ public class PrintActivity extends FragmentActivity {
                     iCurrLeft = iCurrLeftAbsolut;
                     iCurrTop = iInalt;
                     mPrinter.drawPageRectangle(iLinieDen - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
-                    mPrinter.drawPageRectangle(iLinieUM - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
+                    mPrinter.drawPageRectangle(iLinieCotaTva - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
                     mPrinter.drawPageRectangle(iLiniePRED - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
                     mPrinter.drawPageRectangle(iLinieCant - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
                     mPrinter.drawPageRectangle(iLiniePU - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
@@ -1146,13 +1148,15 @@ public class PrintActivity extends FragmentActivity {
                     while (!crs.isAfterLast() && k < nLinii) {
                         mPrinter.setPageXY(iCurrLeft, iCurrTop);
                         sDen = crs.getString(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Produse.TABLE_NAME + "_" + ColectieAgentHelper.Table_Produse.COL_DENUMIRE)).trim();
-
+                        nCotaTva=crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME+"_"+ ColectieAgentHelper.Table_Pozitii.COL_COTA_TVA));
                         mPrinter.setPageXY(iCurrLeft, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" + Siruri.padL((k + (nRand) + 1) + "", 3) + " {br}");
                         mPrinter.setPageXY(iLinieDen + 8, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" + Siruri.padR(sDen, 22) + "{br}");
-                        mPrinter.setPageXY(iLinieUM, iCurrTop);
-                        mPrinter.printTaggedText("{reset}{left}" + " bc" + "{br}");
+                        mPrinter.setPageXY(iLinieCotaTva, iCurrTop); // cota tva
+                        mPrinter.printTaggedText("{reset}{left}" +
+                                Siruri.str(nCotaTva,2,0)
+                                +"{br}");
                         mPrinter.setPageXY(iLiniePRED, iCurrTop);
                         Log.d("PRO&", "Ininte de afis proc red");
                         mPrinter.printTaggedText("{reset}{left}" +
@@ -1207,7 +1211,7 @@ public class PrintActivity extends FragmentActivity {
                         crs.moveToFirst();
                         mPrinter.setPageXY(iLinieDen + 8, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" + "         Total marfa:" + "{br}");
-                        mPrinter.setPageXY(iLinieUM, iCurrTop);
+                        mPrinter.setPageXY(iLinieCotaTva, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" + "---" + "{br}");
                         mPrinter.setPageXY(iLiniePRED, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" + "-----" + "{br}");
@@ -1226,7 +1230,7 @@ public class PrintActivity extends FragmentActivity {
                         iCurrTop = iCurrTop + iRowHeight;
                         mPrinter.setPageXY(iLinieDen + 8, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" + "     Discount acordat:" + "{br}");
-                        mPrinter.setPageXY(iLinieUM, iCurrTop);
+                        mPrinter.setPageXY(iLinieCotaTva, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" + "---" + "{br}");
                         mPrinter.setPageXY(iLiniePRED, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" + "-----" + "{br}");
@@ -1265,11 +1269,11 @@ public class PrintActivity extends FragmentActivity {
                         mPrinter.setPageXY(iLinieFara, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" +
                                 Siruri.str(crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Antet.TABLE_NAME + "_" + ColectieAgentHelper.Table_Antet.COL_VAL_FARA))
-                                        , 9, Biz.ConstCalcul.ZEC_VAL_FARA) + "{br}");
-                        mPrinter.setPageXY(iLinieTva, iCurrTop);
+                                        , 8, Biz.ConstCalcul.ZEC_VAL_FARA) + "{br}");
+                        mPrinter.setPageXY(iLinieTva-8, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" +
                                 Siruri.str(crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Antet.TABLE_NAME + "_" + ColectieAgentHelper.Table_Antet.COL_VAL_TVA))
-                                        , 8, Biz.ConstCalcul.ZEC_VAL_TVA) + "{br}");
+                                        , 7, Biz.ConstCalcul.ZEC_VAL_TVA) + "{br}");
                         Log.d("PRO", "Control 1");
                         mPrinter.drawPageRectangle(iLiniePU, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
                         mPrinter.drawPageRectangle(iLinieFara, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
@@ -1389,7 +1393,6 @@ public class PrintActivity extends FragmentActivity {
     public int printFactura_faraRed(final Cursor crs, final int nRand, final int nLinii, final boolean lAntet, final boolean lSubsol, int iTopCurent) {
         int nNextIndex = 0;
         try {
-
                     setStampila(context);
                     final int width = imagewidth;
                     final int height = imageheight;
@@ -1408,11 +1411,12 @@ public class PrintActivity extends FragmentActivity {
                     // mm*8
                     int iLiniiCaseta=0;
                     int iLinieDen = 5 * 8;
-                    int iLinieUM = iLinieDen + 44 * 8;
-                    int iLinieCant = iLinieUM + 5 * 8;
+                    int iLinieCotaTva=iLinieDen+44*8 ; // adaugat pt cota tva
+                    int iLinieUM = iLinieCotaTva + 4 * 8;
+                    int iLinieCant = iLinieUM + 3 * 8;  // modificat pt introd cota tva ( era 5 )
                     int iLiniePU = iLinieCant + 12 * 8;
-                    int iLinieFara = iLiniePU + 12 * 8;
-                    int iLinieTva = iLinieFara + 14 * 8;
+                    int iLinieFara = iLiniePU + 13 * 8;
+                    int iLinieTva = iLinieFara + 12 * 8;
                     int k=0;
                     // descriere antet factura
                     if (lAntet ) {
@@ -1442,8 +1446,7 @@ public class PrintActivity extends FragmentActivity {
                         iCurrTop = iCurrTop + iRowHeight - 3;
                         iCurrLeft = iCurrLeftAbsolut;
                         mPrinter.setPageXY(iCurrLeft, iCurrTop);
-                        mPrinter.printTaggedText("{reset}{left}{b}{i}Cota TVA: {/i}" +
-                                Siruri.str(Biz.round(crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_COTA_TVA)), 0), 4, 0)
+                        mPrinter.printTaggedText("{reset}{left}{b}{i}Cota TVA: 9 , 19  {/i}"
                                 + "{br}");
 
                         // caseta furnizor
@@ -1588,16 +1591,20 @@ public class PrintActivity extends FragmentActivity {
                         mPrinter.printTaggedText("{reset}{left}{b}{i}Nr {br}");
                         mPrinter.setPageXY(iLinieDen, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}{b}{i}" + Siruri.padR(" Denumire articol", 22) + "{br}");
+
+                        mPrinter.setPageXY(iLinieCotaTva, iCurrTop); // pt cota tva
+                        mPrinter.printTaggedText("{reset}{left}{b}{i}" + "TV" +"{br}");
+
                         mPrinter.setPageXY(iLinieUM, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}{b}{i}" + "UM" + "{br}");
                         mPrinter.setPageXY(iLinieCant, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}{b}{i}" + "  Cant" + "{br}");
                         mPrinter.setPageXY(iLiniePU, iCurrTop);
-                        mPrinter.printTaggedText("{reset}{left}{b}{i}" + "Pret unit" + "{br}");
+                        mPrinter.printTaggedText("{reset}{left}{b}{i}" + "Pr. unit" + "{br}");
                         mPrinter.setPageXY(iLinieFara, iCurrTop);
-                        mPrinter.printTaggedText("{reset}{left}{b}{i}" + "Valoarea" + "{br}");
+                        mPrinter.printTaggedText("{reset}{left}{b}{i}" + "Val." + "{br}");
                         mPrinter.setPageXY(iLinieTva, iCurrTop);
-                        mPrinter.printTaggedText("{reset}{left}{b}{i}" + "Valoarea" + "{br}");
+                        mPrinter.printTaggedText("{reset}{left}{b}{i}" + "Val." + "{br}");
 
 
 //                    mPrinter.printTaggedText("{reset}{left}{b}{i}" +
@@ -1614,6 +1621,9 @@ public class PrintActivity extends FragmentActivity {
 
                         mPrinter.setPageXY(iCurrLeft, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}{b}{i}cr {br}");
+                        mPrinter.setPageXY(iLinieCotaTva, iCurrTop); // pt tva
+                        mPrinter.printTaggedText("{reset}{left}{b}{i}A%{br}");
+
                         mPrinter.setPageXY(iLiniePU, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}{b}{i}" + "fara TVA" + "{br}");
                         mPrinter.setPageXY(iLinieFara, iCurrTop);
@@ -1630,6 +1640,7 @@ public class PrintActivity extends FragmentActivity {
 //                            Siruri.padR("   TVA", 9) +
 //                            "{/i}{br}");
                         mPrinter.drawPageRectangle(iLinieDen - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
+                        mPrinter.drawPageRectangle(iLinieCotaTva - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
                         mPrinter.drawPageRectangle(iLinieUM - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
                         mPrinter.drawPageRectangle(iLinieCant - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
                         mPrinter.drawPageRectangle(iLiniePU - 2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
@@ -1688,7 +1699,9 @@ public class PrintActivity extends FragmentActivity {
                             Printer.PAGE_LEFT);
                     iCurrLeft=iCurrLeftAbsolut;
                     iCurrTop=iInalt;
+                    // desenare linii pt coloane
                     mPrinter.drawPageRectangle(iLinieDen-2,0,1,iHeightPageRegion,Printer.FILL_BLACK);
+                    mPrinter.drawPageRectangle(iLinieCotaTva-2,0,1,iHeightPageRegion,Printer.FILL_BLACK); // tva
                     mPrinter.drawPageRectangle(iLinieUM-2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
                     mPrinter.drawPageRectangle(iLinieCant-2,0,1,iHeightPageRegion,Printer.FILL_BLACK);
                     mPrinter.drawPageRectangle(iLiniePU-2, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
@@ -1712,13 +1725,18 @@ public class PrintActivity extends FragmentActivity {
                         Log.d("Pro list f fara","poz: "+crs.getPosition());
                         mPrinter.setPageXY(iCurrLeft, iCurrTop);
                         sDen=crs.getString(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Produse.TABLE_NAME+"_"+ ColectieAgentHelper.Table_Produse.COL_DENUMIRE)).trim();
-
+                        nCotaTva=crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME+"_"+ ColectieAgentHelper.Table_Pozitii.COL_COTA_TVA));
                         mPrinter.setPageXY(iCurrLeft, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" + Siruri.padL((k+(nRand) + 1) + "", 3) + " {br}");
                         mPrinter.setPageXY(iLinieDen+8, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" +Siruri.padR(sDen,29)+"{br}");
+                        mPrinter.setPageXY(iLinieCotaTva, iCurrTop); // cota tva
+                        mPrinter.printTaggedText("{reset}{left}" +
+                                Siruri.str(nCotaTva,2,0)
+                                +"{br}");
+
                         mPrinter.setPageXY(iLinieUM, iCurrTop);
-                        mPrinter.printTaggedText("{reset}{left}" +" bc" +"{br}");
+                        mPrinter.printTaggedText("{reset}{left}" +"bc" +"{br}");
                         mPrinter.setPageXY(iLinieCant, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" +
                                 Siruri.str(crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME+"_"+ ColectieAgentHelper.Table_Pozitii.COL_CANTITATE)),7,2)
@@ -1790,12 +1808,36 @@ public class PrintActivity extends FragmentActivity {
                     }
                     // descriere subsol ( 8 randuri)
                     crs.moveToFirst();
+                    double nCota1 =-1;
+                    double nCota2 = -1;
+                    double nValFara1 =0, nValFara2=0, nValTva1=0,nValTva2=0,nValRed1=0,nTvaRed1=0,nValRed2=0,nTvaRed2=0;
                     if (lSubsol) {
                         while (!crs.isAfterLast()) {
+                            nCotaTva=crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_COTA_TVA));
+                            if (nCota1==-1 || nCota2==-1) // prima initializare
+                            {
+                                nCota1=nCotaTva;
+                            } else {
+                                if (nCota2==-1 || nCota1!=nCotaTva) nCota2=nCotaTva ;
+                            }
+                            if (nCota1==nCotaTva) {
+                                nValFara1 = nValFara1 + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_VAL_FARA));
+                                nValTva1 = nValTva1 + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_VAL_TVA));
+                                nValRed1 = nValRed1 + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_VAL_RED));
+                                nTvaRed1 = nTvaRed1 + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_TVA_RED));
+
+                            } else {
+                                nValFara2 = nValFara2 + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_VAL_FARA));
+                                nValTva2= nValTva2 + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_VAL_TVA));
+                                nValRed2 = nValRed2 + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_VAL_RED));
+                                nTvaRed2 = nTvaRed2 + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_TVA_RED));
+
+                            }
                             nValFara = nValFara + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_VAL_FARA));
                             nValTva = nValTva + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_VAL_TVA));
                             nValRed = nValRed + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_VAL_RED));
                             nTvaRed = nTvaRed + crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_TVA_RED));
+
                             crs.moveToNext();
                         }
                         crs.moveToFirst();
@@ -1818,11 +1860,11 @@ public class PrintActivity extends FragmentActivity {
                         mPrinter.setPageXY(iLinieFara, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" +
                                 Siruri.str(crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Antet.TABLE_NAME + "_" + ColectieAgentHelper.Table_Antet.COL_VAL_FARA))
-                                        , 9, Biz.ConstCalcul.ZEC_VAL_FARA) + "{br}");
+                                        , 8, Biz.ConstCalcul.ZEC_VAL_FARA) + "{br}");
                         mPrinter.setPageXY(iLinieTva, iCurrTop);
                         mPrinter.printTaggedText("{reset}{left}" +
                                 Siruri.str(crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Antet.TABLE_NAME + "_" + ColectieAgentHelper.Table_Antet.COL_VAL_TVA))
-                                        , 8, Biz.ConstCalcul.ZEC_VAL_TVA) + "{br}");
+                                        , 7, Biz.ConstCalcul.ZEC_VAL_TVA) + "{br}");
                         mPrinter.drawPageRectangle(iLiniePU, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
                         mPrinter.drawPageRectangle(iLinieFara, 0, 1, iHeightPageRegion, Printer.FILL_BLACK);
                         mPrinter.drawPageRectangle(iLinieTva, 0, 1, iCurrTop + iRowHeight, Printer.FILL_BLACK);
@@ -2916,9 +2958,8 @@ public class PrintActivity extends FragmentActivity {
                         iCurrTop = iCurrTop + iRowHeight - 3;
                         iCurrLeft = iCurrLeftAbsolut;
                         mPrinter.setPageXY(iCurrLeft, iCurrTop);
-                        mPrinter.printTaggedText("{reset}{left}{b}{i}Cota TVA: {/i}" +
-                                Siruri.str(Biz.round(crs.getDouble(crs.getColumnIndexOrThrow(ColectieAgentHelper.Table_Pozitii.TABLE_NAME + "_" + ColectieAgentHelper.Table_Pozitii.COL_COTA_TVA)), 0), 4, 0)
-                                + "{br}");
+//                        mPrinter.printTaggedText("{reset}{left}{b}{i}Cota TVA: 9 , 19 {/i}"
+//                                + "{br}");
 
                         // caseta furnizor
 
