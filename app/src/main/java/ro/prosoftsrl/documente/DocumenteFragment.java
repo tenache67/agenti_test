@@ -897,9 +897,18 @@ public class DocumenteFragment extends BazaFragmentDocumente implements Fragment
 		case R.id.spnFrgDocTipDoc:
 			sTipDoc=parent.getItemAtPosition(position).toString();
 			nNumarDoc=Biz.getNumarCrtDoc(context, sTipDoc);
+
+			if (sTipDoc.equals("FACTURA") || sTipDoc.equals("AVIZ CLIENT")) {
+				((Button) this.getView().findViewById(R.id.btnFrgDocSalveaza)).setEnabled(false);
+			} else {
+				((Button) this.getView().findViewById(R.id.btnFrgDocSalveaza)).setEnabled(true);
+			}
+
+
 			if (sTipDoc.equals("FACTURA")) {
 				nNumarChitanta = nNumarDoc;
 			}
+
 			// pentru avizele facute manual se pune nr 1
 			if ((Biz.getIdTipDoc(sTipDoc)==Biz.TipDoc.ID_TIPDOC_AVIZDESC || 
 				Biz.getIdTipDoc(sTipDoc)==Biz.TipDoc.ID_TIPDOC_AVIZINC) && actiune.equals("a") )
@@ -938,7 +947,6 @@ public class DocumenteFragment extends BazaFragmentDocumente implements Fragment
 
 			}
 
-			
 			break;
 		case R.id.spnFrgDocCotaTva:
 			nTipTva=position;			

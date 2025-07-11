@@ -313,17 +313,23 @@ public class MainActivity extends  FragmentActivity  {
 				Log.d("STERG","maxdata"+maxData);
 				if (maxData!=null && !maxData.equals("")) {
 					// se compara data maxima din tabela cu data din sistem
-					if (Siruri.getNrAnLunaZi(Siruri.cTod(maxData))<=Siruri.getNrAnLunaZi(crt)) {
-						crt.add(Calendar.DAY_OF_YEAR, -nZile);
-						String sdata=Siruri.dtos(crt,"-");
-						Log.d("STERG","limita"+sdata);
-						db.beginTransaction();
-						db.delete(Table_Antet.TABLE_NAME,"substr(data,1,10)<'"+sdata+"'" ,null);
-						db.delete(Table_Pozitii.TABLE_NAME," id_antet not in (select _id from antet)" ,null);
-						db.setTransactionSuccessful();
-						db.endTransaction();
+					int nDataAnt =Siruri.getNrAnLunaZi(Siruri.cTod(maxData));
+					int nDataCrt=Siruri.getNrAnLunaZi(crt);
+					if (nDataCrt>=nDataAnt) {
+						if (nDataCrt - nDataAnt <= nZile) {
+							crt.add(Calendar.DAY_OF_YEAR, -nZile);
+							String sdata = Siruri.dtos(crt, "-");
+							Log.d("STERG", "limita" + sdata);
+							db.beginTransaction();
+							db.delete(Table_Antet.TABLE_NAME, "substr(data,1,10)<'" + sdata + "'", null);
+							db.delete(Table_Pozitii.TABLE_NAME, " id_antet not in (select _id from antet)", null);
+							db.setTransactionSuccessful();
+							db.endTransaction();
+						} else {
+							Toast.makeText(this, "Ultimul document este din " + maxData + " Verifica data in aparat", Toast.LENGTH_LONG).show();
+						}
 					} else {
-						Toast.makeText(this, "Ultimul document este din "+maxData+" Verifica data in aparat", Toast.LENGTH_LONG).show();
+						Toast.makeText(this, "Ultimul document este din " + maxData + " Verifica data in aparat", Toast.LENGTH_LONG).show();
 					}
 				}
 			}
